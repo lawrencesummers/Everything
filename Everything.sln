@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDemo", "SecurityDem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadUIDemo", "ThreadUIDemo\ThreadUIDemo.csproj", "{36710FBA-9C85-40BC-AF11-1C539CAE57FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLearn", "JsonLearn\JsonLearn.csproj", "{B6392210-1582-4582-9C41-2AD30265E02E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,16 @@ Global
 		{36710FBA-9C85-40BC-AF11-1C539CAE57FF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{36710FBA-9C85-40BC-AF11-1C539CAE57FF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{36710FBA-9C85-40BC-AF11-1C539CAE57FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B6392210-1582-4582-9C41-2AD30265E02E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
