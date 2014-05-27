@@ -25,10 +25,12 @@ namespace SecurityDemo
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Function> Functions { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<RoleFunction> RoleFunctions { get; set; }
         public DbSet<SysDictionary> SysDictionaries { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
     }
 }

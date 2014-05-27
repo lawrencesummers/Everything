@@ -6,45 +6,41 @@
     <edmx:StorageModels>
       <Schema Namespace="EverythingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="EverythingModelStoreContainer">
+          <EntitySet Name="Department" EntityType="EverythingModel.Store.Department" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Function" EntityType="EverythingModel.Store.Function" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Role" EntityType="EverythingModel.Store.Role" store:Type="Tables" store:Schema="dbo" store:Name="Role">
-            <DefiningQuery>SELECT 
-      [Role].[ID] AS [ID], 
-      [Role].[RoleID] AS [RoleID], 
-      [Role].[RoleName] AS [RoleName]
-      FROM [dbo].[Role] AS [Role]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Role" EntityType="EverythingModel.Store.Role" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="RoleFunction" EntityType="EverythingModel.Store.RoleFunction" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SysDictionary" EntityType="EverythingModel.Store.SysDictionary" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="User" EntityType="EverythingModel.Store.User" store:Type="Tables" store:Schema="dbo" store:Name="User">
-            <DefiningQuery>SELECT 
-      [User].[ID] AS [ID], 
-      [User].[UserID] AS [UserID], 
-      [User].[Name] AS [Name], 
-      [User].[Password] AS [Password]
-      FROM [dbo].[User] AS [User]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="User" EntityType="EverythingModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRole" EntityType="EverythingModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentDepartmentID" Type="int" />
+          <Property Name="LevelNO" Type="int" />
+        </EntityType>
         <EntityType Name="Function">
           <Key>
-            <PropertyRef Name="FunctionID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="FunctionID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="FunctionName" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="ParentFunctionID&#xD;&#xA;ParentFunctionID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="IsMenu" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FunctionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentFunctionID" Type="int" />
+          <Property Name="IsMenu" Type="int" />
           <Property Name="Remark" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <!--生成过程中发现错误:
-      警告 6002: 表/视图“Everything.dbo.Role”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
-      -->
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="RoleID" />
           </Key>
           <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="RoleID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RoleFunction">
@@ -52,72 +48,79 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="RoleID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="FunctionID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FunctionID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SysDictionary">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="DictionaryNO" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Value" Type="int" Nullable="false" />
-          <Property Name="Display" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="SysDictonaryID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Value" Type="int" />
+          <Property Name="Display" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <!--生成过程中发现错误:
-      警告 6002: 表/视图“Everything.dbo.User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
-      -->
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Password" />
           </Key>
           <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="UserID" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <!--生成过程中发现错误:
-      警告 6013: 表/视图“Everything.dbo.UserRole”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
-      
-      <EntityType Name="UserRole">
-        <Property Name="ID" Type="nvarchar" MaxLength="50" />
-        <Property Name="UserID" Type="nvarchar" MaxLength="50" />
-        <Property Name="RoleID" Type="nvarchar" MaxLength="50" />
-      </EntityType>-->
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EverythingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="EverythingContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="EverythingModel.Department" />
           <EntitySet Name="Functions" EntityType="EverythingModel.Function" />
           <EntitySet Name="Roles" EntityType="EverythingModel.Role" />
           <EntitySet Name="RoleFunctions" EntityType="EverythingModel.RoleFunction" />
           <EntitySet Name="SysDictionaries" EntityType="EverythingModel.SysDictionary" />
           <EntitySet Name="Users" EntityType="EverythingModel.User" />
+          <EntitySet Name="UserRoles" EntityType="EverythingModel.UserRole" />
         </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ParentDepartmentID" Type="Int32" />
+          <Property Name="LevelNO" Type="Int32" />
+        </EntityType>
         <EntityType Name="Function">
           <Key>
-            <PropertyRef Name="FunctionID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="FunctionID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="FunctionName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="ParentFunctionID__ParentFunctionID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="IsMenu" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ParentFunctionID" Type="Int32" />
+          <Property Name="IsMenu" Type="Int32" />
           <Property Name="Remark" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="RoleID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RoleID" Type="Int32" />
           <Property Name="RoleName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="RoleFunction">
@@ -125,31 +128,37 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="FunctionID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RoleID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FunctionID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="SysDictionary">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="DictionaryNO" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Value" Type="Int32" Nullable="false" />
-          <Property Name="Display" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SysDictonaryID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Value" Type="Int32" />
+          <Property Name="Display" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Remark" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Password" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UserID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Remark" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UserID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RoleID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -157,37 +166,79 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EverythingModelStoreContainer" CdmEntityContainer="EverythingContext">
-          <EntitySetMapping Name="Functions"><EntityTypeMapping TypeName="EverythingModel.Function"><MappingFragment StoreEntitySet="Function">
-            <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
-            <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
-            <ScalarProperty Name="ParentFunctionID__ParentFunctionID" ColumnName="ParentFunctionID&#xD;&#xA;ParentFunctionID" />
-            <ScalarProperty Name="IsMenu" ColumnName="IsMenu" />
-            <ScalarProperty Name="Remark" ColumnName="Remark" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="EverythingModel.Role"><MappingFragment StoreEntitySet="Role">
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-            <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="RoleFunctions"><EntityTypeMapping TypeName="EverythingModel.RoleFunction"><MappingFragment StoreEntitySet="RoleFunction">
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-            <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="SysDictionaries"><EntityTypeMapping TypeName="EverythingModel.SysDictionary"><MappingFragment StoreEntitySet="SysDictionary">
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="DictionaryNO" ColumnName="DictionaryNO" />
-            <ScalarProperty Name="Name" ColumnName="Name" />
-            <ScalarProperty Name="Value" ColumnName="Value" />
-            <ScalarProperty Name="Display" ColumnName="Display" />
-            <ScalarProperty Name="Remark" ColumnName="Remark" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="EverythingModel.User"><MappingFragment StoreEntitySet="User">
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="UserID" ColumnName="UserID" />
-            <ScalarProperty Name="Name" ColumnName="Name" />
-            <ScalarProperty Name="Password" ColumnName="Password" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="EverythingModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentDepartmentID" ColumnName="ParentDepartmentID" />
+                <ScalarProperty Name="LevelNO" ColumnName="LevelNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Functions">
+            <EntityTypeMapping TypeName="EverythingModel.Function">
+              <MappingFragment StoreEntitySet="Function">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="ParentFunctionID" ColumnName="ParentFunctionID" />
+                <ScalarProperty Name="IsMenu" ColumnName="IsMenu" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="EverythingModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleFunctions">
+            <EntityTypeMapping TypeName="EverythingModel.RoleFunction">
+              <MappingFragment StoreEntitySet="RoleFunction">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysDictionaries">
+            <EntityTypeMapping TypeName="EverythingModel.SysDictionary">
+              <MappingFragment StoreEntitySet="SysDictionary">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SysDictonaryID" ColumnName="SysDictonaryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Display" ColumnName="Display" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EverythingModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="EverythingModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -210,11 +261,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="EverythingModel">
-        <EntityTypeShape EntityType="EverythingModel.Function" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9700325520833331" IsExpanded="true" />
-        <EntityTypeShape EntityType="EverythingModel.Role" Width="1.5" PointX="2.75" PointY="0.75" Height="1.5879931640624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="EverythingModel.RoleFunction" Width="1.5" PointX="0.75" PointY="3.75" Height="1.5879931640624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="EverythingModel.SysDictionary" Width="1.5" PointX="2.75" PointY="3.75" Height="2.1610522460937496" IsExpanded="true" />
-        <EntityTypeShape EntityType="EverythingModel.User" Width="1.5" PointX="4.75" PointY="0.75" Height="1.7790128580729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="EverythingModel.Department" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9700325520833331" IsExpanded="true" />
+        <EntityTypeShape EntityType="EverythingModel.Function" Width="1.5" PointX="2.75" PointY="0.75" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="EverythingModel.Role" Width="1.5" PointX="0.75" PointY="3.75" Height="1.5879931640624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="EverythingModel.RoleFunction" Width="1.5" PointX="2.75" PointY="3.75" Height="1.5879931640624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="EverythingModel.SysDictionary" Width="1.5" PointX="4.75" PointY="0.75" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="EverythingModel.User" Width="1.5" PointX="4.75" PointY="3.75" Height="1.9700325520833322" IsExpanded="true" />
+        <EntityTypeShape EntityType="EverythingModel.UserRole" Width="1.5" PointX="6.75" PointY="0.75" Height="1.5879931640624996" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -15,9 +15,9 @@ namespace SecurityDemo
     public partial class SysDictionary
     {
         public string ID { get; set; }
-        public string DictionaryNO { get; set; }
+        public Nullable<int> SysDictonaryID { get; set; }
         public string Name { get; set; }
-        public int Value { get; set; }
+        public Nullable<int> Value { get; set; }
         public string Display { get; set; }
         public string Remark { get; set; }
     }

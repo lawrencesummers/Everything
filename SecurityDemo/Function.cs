@@ -14,10 +14,11 @@ namespace SecurityDemo
     
     public partial class Function
     {
-        public string FunctionID { get; set; }
+        public string ID { get; set; }
+        public int FunctionID { get; set; }
         public string FunctionName { get; set; }
-        public string ParentFunctionID__ParentFunctionID { get; set; }
-        public string IsMenu { get; set; }
+        public Nullable<int> ParentFunctionID { get; set; }
+        public Nullable<int> IsMenu { get; set; }
         public string Remark { get; set; }
     }
 }

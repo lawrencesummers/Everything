@@ -15,7 +15,7 @@ namespace SecurityDemo
     public partial class Role
     {
         public string ID { get; set; }
-        public string RoleID { get; set; }
+        public Nullable<int> RoleID { get; set; }
         public string RoleName { get; set; }
     }
 }
