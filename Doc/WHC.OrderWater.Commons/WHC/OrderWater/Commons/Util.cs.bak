@@ -1,0 +1,163 @@
+﻿namespace WHC.OrderWater.Commons
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Text;
+    using System.Windows.Forms;
+
+    public sealed class Util
+    {
+        private static Random random_0 = new Random((int) DateTime.Now.Ticks);
+
+        private Util()
+        {
+        }
+
+        public static bool AreObjectsEqual(object o1, object o2)
+        {
+            int num;
+            Type type = o1.GetType();
+            Type type2 = o2.GetType();
+            PropertyInfo[] properties = type.GetProperties();
+            PropertyInfo[] infoArray2 = type2.GetProperties();
+            for (num = 0; num < properties.Length; num++)
+            {
+                try
+                {
+                    PropertyInfo info = properties[num];
+                    PropertyInfo info2 = infoArray2[num];
+                    if (!(info.GetValue(o1, null).Equals(null) || info2.GetValue(o2, null).Equals(null)) && !info.GetValue(o1, null).Equals(info2.GetValue(o2, null)))
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            FieldInfo[] fields = type.GetFields();
+            FieldInfo[] infoArray4 = type2.GetFields();
+            for (num = 0; num < fields.Length; num++)
+            {
+                try
+                {
+                    FieldInfo info3 = fields[num];
+                    FieldInfo info4 = infoArray4[num];
+                    if (!(info3.GetValue(o1).Equals(null) || info4.GetValue(o2).Equals(null)) && !info3.GetValue(o1).Equals(info4.GetValue(o2)))
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return true;
+        }
+
+        public static string GetAcronym(string chinese)
+        {
+            int length = chinese.Length;
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < length; i++)
+            {
+                char ch = chinese[i];
+                builder.Append(smethod_0(ch.ToString()));
+            }
+            return builder.ToString();
+        }
+
+        public static bool IsDateTime(object o)
+        {
+            return (o is DateTime);
+        }
+
+        public static bool IsNumeric(object o)
+        {
+            return ((((((o is short) || (o is int)) || ((o is long) || (o is decimal))) || (((o is double) || (o is byte)) || ((o is sbyte) || (o is float)))) || ((o is ushort) || (o is uint))) || (o is ulong));
+        }
+
+        public static string Join(IList<string> list)
+        {
+            return Join<string>(list, ",");
+        }
+
+        public static string Join<T>(IList<T> list)
+        {
+            return Join<T>(list, ",");
+        }
+
+        public static string Join<T>(IList<T> list, string c)
+        {
+            if ((list != null) && (list.Count > 0))
+            {
+                StringBuilder builder = new StringBuilder();
+                foreach (T local in list)
+                {
+                    builder.Append(c);
+                    builder.Append(local.ToString());
+                }
+                if (!string.IsNullOrEmpty(c))
+                {
+                    return builder.ToString().Substring(c.Length);
+                }
+                return builder.ToString();
+            }
+            return string.Empty;
+        }
+
+        public static string Join(IList<string> list, string c)
+        {
+            return Join<string>(list, c);
+        }
+
+        public static bool RandomAction(int rate)
+        {
+            return (random_0.Next(100) < rate);
+        }
+
+        private static string smethod_0(string string_0)
+        {
+            byte[] bytes = Encoding.GetEncoding("GB2312").GetBytes(string_0);
+            if (bytes.Length <= 1)
+            {
+                return string_0;
+            }
+            int num2 = bytes[0];
+            int num3 = bytes[1];
+            int num4 = (num2 << 8) + num3;
+            int[] numArray = new int[] { 
+                0xb0a1, 0xb0c5, 0xb2c1, 0xb4ee, 0xb6ea, 0xb7a2, 0xb8c1, 0xb9fe, 0xbbf7, 0xbbf7, 0xbfa6, 0xc0ac, 0xc2e8, 0xc4c3, 0xc5b6, 0xc5be, 
+                0xc6da, 0xc8bb, 0xc8f6, 0xcbfa, 0xcdda, 0xcdda, 0xcdda, 0xcef4, 0xd1b9, 0xd4d1
+             };
+            for (int i = 0; i < 0x1a; i++)
+            {
+                int num5 = 0xd7fa;
+                if (i != 0x19)
+                {
+                    num5 = numArray[i + 1];
+                }
+                if ((numArray[i] <= num4) && (num4 < num5))
+                {
+                    return Encoding.GetEncoding("GB2312").GetString(new byte[] { (byte) (0x41 + i) });
+                }
+            }
+            return string.Empty;
+        }
+
+        public static string WinFormName
+        {
+            get
+            {
+                string executablePath = Application.ExecutablePath;
+                int num = executablePath.LastIndexOf(@"\");
+                int num2 = executablePath.ToLower().LastIndexOf(".exe");
+                return executablePath.Substring(num + 1, (num2 - num) - 1);
+            }
+        }
+    }
+}
+

@@ -1,0 +1,287 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>e1566687-9123-4677-83f9-15d9445742b6</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>WHC.OrderWater.Commons</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="log4net" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Configuration.Install" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="Class0.cs" />
+    <Compile Include="WHC\OrderWater\Commons\StringConstants.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\WorkItem.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\WorkItemStatus.cs" />
+    <Compile Include="WHC\OrderWater\Commons\LogHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\IconReaderHelper.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Class2.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DGVCellDrawingEventArgs.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CellOwnerDrawEventHandler.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Extensions.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DGVPrinter.cs" />
+    <Compile Include="AdornerWindow.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ImageFormatHandler.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ByteImageConvertor.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\Timer.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SerialPortUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DataReceivedEventArgs.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DataReceivedEventHandler.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SerialPortDatabits.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SerialPortBaudRates.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ProxyHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\TestEntity.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ProxySettingEntity.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DragAndDropListView.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CaptureHandleDelegateHandler.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MyScreenCapture.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Camera.cs" />
+    <Compile Include="Class4.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ValidateUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Serializer.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DateTimeHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CSocket.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CCalendar.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\ExcelHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FileUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SearchCondition.cs" />
+    <Compile Include="WHC\OrderWater\Commons\StringUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\UnCodebase.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\DisposableObject.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\QueueServer!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\INIFileUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FrmPosPrintPreview.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FileDialogHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\TreeViewDragDrop.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DragCursorType.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DragCompleteEventHandler.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DragItemEventHandler.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DragCompleteEventArgs.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DragItemEventArgs.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ChildWinManagement.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\PopupMessageHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\PrintDGV.cs" />
+    <Compile Include="WHC\OrderWater\Commons\POSPrinter.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SafeStatusStrip.cs" />
+    <Compile Include="WHC\OrderWater\Commons\NetworkUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\InternetConnectionStatesType.cs" />
+    <Compile Include="WHC\OrderWater\Commons\KeyboardHook.cs" />
+    <Compile Include="WHC\OrderWater\Commons\HardwareInfoHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CultureInfoUtil.cs" />
+    <Compile Include="Enum0.cs" />
+    <Compile Include="Control0.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CookieManger.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\ICloneable!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\CList!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\SyncList!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\CollectionHelper!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\VistaButton.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RegistryHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\QQEncryptUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MyFileSystemWatcher.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FullscreenHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\EncodeHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CRegex.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CommandArgs.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CommandLine.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CheckCode.cs" />
+    <Compile Include="WHC\OrderWater\Commons\XmlConvertor.cs" />
+    <Compile Include="Class10.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RSASecurityHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\NotifyIconHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ExtensionAttachUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DirectoryUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ScreenCapture.cs" />
+    <Compile Include="WHC\OrderWater\Commons\AppConfig.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\CDictionary!2.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\SyncDictionary!2.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\OrderedDictionary!2.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SmartDataReader.cs" />
+    <Compile Include="WHC\OrderWater\Commons\PagerHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DatabaseType.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\DisposeState.cs" />
+    <Compile Include="WHC\OrderWater\Commons\PrintOptions.cs" />
+    <Compile Include="WHC\OrderWater\Commons\HttpWebRequestHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\GZipUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\GZipFileInfo.cs" />
+    <Compile Include="WHC\OrderWater\Commons\GZipResult.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FTPHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FormAnimator.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FileAssociationsHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CoolPrintPreviewDialog.cs" />
+    <Compile Include="Class15.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CallCtrlWithThreadSafety.cs" />
+    <Compile Include="WHC\OrderWater\Commons\StreamUtils.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\AbortableThreadPool.cs" />
+    <Compile Include="WHC\OrderWater\Commons\IdentifyEncoding.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DataTableHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\FileManage.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\SyncOrderedDictionary!2.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ADHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Entry.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MailFormat.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MailPriority.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MailAttachments.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MailMessage.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SmtpServerHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SmtpClient.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SmtpMail.cs" />
+    <Compile Include="WHC\OrderWater\Commons\XmlHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\WebPreview.cs" />
+    <Compile Include="Class16.cs" />
+    <Compile Include="Class17.cs" />
+    <Compile Include="Class18.cs" />
+    <Compile Include="Class22.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Util.cs" />
+    <Compile Include="WHC\OrderWater\Commons\GClass0.cs" />
+    <Compile Include="WHC\OrderWater\Commons\PinYinUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CSVHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\CookieHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\BytesTools.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DistanceHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\JetAccessUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SortHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RandomChinese.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SortableListView.cs" />
+    <Compile Include="WHC\OrderWater\Commons\IDCardHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MD5Util.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CrcUtils.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\ValidateImgPage.cs" />
+    <Compile Include="WHC\OrderWater\Commons\LogTextHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\OrderedDictionaryEnumerator!2.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SearchInfo.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SqlOperator.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RTFUtility.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RMBUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ReflectionUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RegisterHotKeyHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\IsolatedStorageHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ImeHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ImagePrintHelper.cs" />
+    <Compile Include="Class25.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ImageHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\GDI.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FreezeWindowsUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RtfColor.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ExRichTextBox.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Base64Util.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ChineseCalendar.cs" />
+    <Compile Include="WHC\OrderWater\Commons\WinServiceHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\WindowsExitHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\UnicodeHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\ThreadPoolHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MultipadPrintDocument.cs" />
+    <Compile Include="WHC\OrderWater\Commons\FingerprintHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ExRichTextBoxPrintHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DosHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\DatabaseInfo.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CText.cs" />
+    <Compile Include="WHC\OrderWater\Commons\AudioHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\AudioPlayMode.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ArgumentValidation.cs" />
+    <Compile Include="WHC\OrderWater\Commons\StartupHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\TreeViewDrager.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ProcessDragNodeEventHandler.cs" />
+    <Compile Include="Class27.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SpecialDirectories.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Reflect!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\NativeMethods.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SoundPlayerHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\EnumHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ConvertHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\UrlHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\JavascriptHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\FileServerManage.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Singleton!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\OleDbHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Collections\Fifo!1.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\DelegateHelper.cs" />
+    <Compile Include="Class28.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SafeToolStripLabel.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MouseHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CheckBoxListUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\ValidateImgHelper.cs" />
+    <Compile Include="Class29.cs" />
+    <Compile Include="WHC\OrderWater\Commons\WebPageCapture.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SysTray.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Win32Window.cs" />
+    <Compile Include="Rect.cs" />
+    <Compile Include="WindowPlacement.cs" />
+    <Compile Include="WHC\OrderWater\Commons\KeyboardHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\HttpHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\SqlScriptHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ArgsParser.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Option.cs" />
+    <Compile Include="WHC\OrderWater\Commons\UIConstants.cs" />
+    <Compile Include="WHC\OrderWater\Commons\TimerHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\TimerState.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Threading\ThreadHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\WindowMessage.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ResourceHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MyColor.cs" />
+    <Compile Include="WHC\OrderWater\Commons\RGB.cs" />
+    <Compile Include="WHC\OrderWater\Commons\HSB.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CMYK.cs" />
+    <Compile Include="Class30.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MyColors.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MouseHook.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Hooks.cs" />
+    <Compile Include="WHC\OrderWater\Commons\MessageUtil.cs" />
+    <Compile Include="WHC\OrderWater\Commons\ExcelHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\CString.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Web\GridViewHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\PrintFormHelper.cs" />
+    <Compile Include="WHC\OrderWater\Commons\Cache.cs" />
+    <Compile Include="WHC\OrderWater\Commons\EmailHelper.cs" />
+    <Compile Include="_Module_{6B4CAF56-DD04-4842-A181-9229A55D4D13}.cs" />
+    <Compile Include="Class31.cs" />
+    <EmbeddedResource Include="WHC.OrderWater.Commons.Others.CCalendarData.xml" />
+    <EmbeddedResource Include="WHC.OrderWater.Commons.DragAndDropListView.resources" />
+    <EmbeddedResource Include="WHC.OrderWater.Commons.PrintOptions.resources" />
+    <EmbeddedResource Include="WHC.OrderWater.Commons.CoolPrintPreviewDialog.resources" />
+    <EmbeddedResource Include="WHC.OrderWater.Commons.FrmPosPrintPreview.resources" />
+    <EmbeddedResource Include="WHC.OrderWater.Commons.VistaButton.resources" />
+    <EmbeddedResource Include="WHC.OrderWater.Commons.g.resources" />
+    <EmbeddedResource Include="aR3nbf8dQp2feLmk31.SplashForm.resources" />
+    <EmbeddedResource Include="aR3nbf8dQp2feLmk31.lSfgApatkdxsVcGcrktoFd.resources" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+﻿// Assembly RDIFramework.Utilities, Version 1.0.0.0
+
+[assembly: System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute.DebuggingModes.None)]
+[assembly: System.Reflection.AssemblyCopyright("Copyright \x00a9 EricHu 2010-2013")]
+[assembly: System.Reflection.AssemblyProduct("RDIFramework.Utilities")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.0.0")]
+[assembly: System.Reflection.AssemblyTrademark("")]
+[assembly: System.Reflection.AssemblyConfiguration("")]
+[assembly: System.Runtime.CompilerServices.Extension]
+[assembly: System.Reflection.AssemblyDescription(".NET开发常用辅助公共类库")]
+[assembly: System.Runtime.CompilerServices.CompilationRelaxations(8)]
+[assembly: System.Runtime.InteropServices.Guid("16fc4b02-6747-44d9-893d-adc7ff8e9410")]
+[assembly: System.Reflection.AssemblyTitle("RDIFramework.Utilities")]
+[assembly: System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)]
+[assembly: System.Runtime.InteropServices.ComVisible(true)]
+[assembly: System.Reflection.AssemblyDelaySign(false)]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.0", FrameworkDisplayName=".NET Framework 4")]
+[assembly: System.Reflection.AssemblyCompany("QQ：406590790 Bolg:http://blog.csdn.net/chinahuyong")]
+[assembly: System.Reflection.AssemblyKeyName("")]
+

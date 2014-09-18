@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>f50efb45-c6be-40a5-816a-02bcf82c9442</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>RDIFramework.Utilities</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="MySql.Data" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.SQLite" />
+    <Reference Include="IBM.Data.DB2" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.Extensions" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="Class0.cs" />
+    <Compile Include="RDIFramework\Utilities\StatusCode.cs" />
+    <Compile Include="RDIFramework\Utilities\ClsImeHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\Message.cs" />
+    <Compile Include="RDIFramework\Utilities\IniFileSectionCollection.cs" />
+    <Compile Include="RDIFramework\Utilities\IniFileHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\BaseDbProvider.cs" />
+    <Compile Include="RDIFramework\Utilities\IDbProvider.cs" />
+    <Compile Include="RDIFramework\Utilities\OleDbProvider.cs" />
+    <Compile Include="RDIFramework\Utilities\DbOperation.cs" />
+    <Compile Include="RDIFramework\Utilities\DbOperationType.cs" />
+    <Compile Include="RDIFramework\Utilities\ConfigurationCategory.cs" />
+    <Compile Include="RDIFramework\Utilities\ImageHandler.cs" />
+    <Compile Include="RDIFramework\Utilities\PinYinConverter.cs" />
+    <Compile Include="RDIFramework\Utilities\StringHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\DialogHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\GClass0.cs" />
+    <Compile Include="RDIFramework\Utilities\SqlHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\RunQueuedWorkerCompletedEventHandler.cs" />
+    <Compile Include="RDIFramework\Utilities\QueuedWorkerDoWorkEventHandler.cs" />
+    <Compile Include="RDIFramework\Utilities\QueuedWorkerCompletedEventArgs.cs" />
+    <Compile Include="RDIFramework\Utilities\QueuedWorkerDoWorkEventArgs.cs" />
+    <Compile Include="RDIFramework\Utilities\SerializedType.cs" />
+    <Compile Include="RDIFramework\Utilities\SerializeHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\LunarCalendarHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\newCalendarException.cs" />
+    <Compile Include="RDIFramework\Utilities\RMBHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\MessageFunction.cs" />
+    <Compile Include="RDIFramework\Utilities\MathHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\DefaultRole.cs" />
+    <Compile Include="RDIFramework\Utilities\DateTimeHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\Constellation.cs" />
+    <Compile Include="RDIFramework\Utilities\AnimalSign.cs" />
+    <Compile Include="RDIFramework\Utilities\EarthlyBranch.cs" />
+    <Compile Include="RDIFramework\Utilities\HeavenlyStem.cs" />
+    <Compile Include="RDIFramework\Utilities\SolarTerms.cs" />
+    <Compile Include="RDIFramework\Utilities\DayOfWeekCn.cs" />
+    <Compile Include="RDIFramework\Utilities\BusinessLogic.cs" />
+    <Compile Include="RDIFramework\Utilities\AuditStatus.cs" />
+    <Compile Include="RDIFramework\Utilities\Resources.cs" />
+    <Compile Include="RDIFramework\Utilities\Items.cs" />
+    <Compile Include="RDIFramework\Utilities\Item.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="RDIFramework\Utilities\SqLiteProvider.cs" />
+    <Compile Include="Class2.cs" />
+    <Compile Include="RDIFramework\Utilities\EmailHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\RegexValidatorHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\Pattern.cs" />
+    <Compile Include="RDIFramework\Utilities\IEmailSender.cs" />
+    <Compile Include="RDIFramework\Utilities\IRichMessageEmailSender.cs" />
+    <Compile Include="RDIFramework\Utilities\MockSender.cs" />
+    <Compile Include="RDIFramework\Utilities\LogHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\DB2Provider.cs" />
+    <Compile Include="RDIFramework\Utilities\IConfiguration.cs" />
+    <Compile Include="RDIFramework\Utilities\RegexPatternHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\MessageAttachment.cs" />
+    <Compile Include="RDIFramework\Utilities\IniFileSectionItem.cs" />
+    <Compile Include="RDIFramework\Utilities\IniFileSection.cs" />
+    <Compile Include="RDIFramework\Utilities\MachineInfoHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\SortLogic.cs" />
+    <Compile Include="RDIFramework\Utilities\PermissionScope.cs" />
+    <Compile Include="RDIFramework\Utilities\CurrentDbType.cs" />
+    <Compile Include="RDIFramework\Utilities\MessageAttachmentList.cs" />
+    <Compile Include="RDIFramework\Utilities\IniFileSectionItemCollection.cs" />
+    <Compile Include="RDIFramework\Utilities\FileStruct.cs" />
+    <Compile Include="RDIFramework\Utilities\FileListStyle.cs" />
+    <Compile Include="RDIFramework\Utilities\FTPUtil.cs" />
+    <Compile Include="RDIFramework\Utilities\MessageCategory.cs" />
+    <Compile Include="RDIFramework\Utilities\RandomHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\JsonHelper1.cs" />
+    <Compile Include="RDIFramework\Utilities\HTMLReportEngine.cs" />
+    <Compile Include="RDIFramework\Utilities\Section.cs" />
+    <Compile Include="RDIFramework\Utilities\Field.cs" />
+    <Compile Include="RDIFramework\Utilities\ALIGN.cs" />
+    <Compile Include="Class4.cs" />
+    <Compile Include="RDIFramework\Utilities\SmtpSender.cs" />
+    <Compile Include="RDIFramework\Utilities\GmailSender.cs" />
+    <Compile Include="RDIFramework\Utilities\AttachmentEncoding.cs" />
+    <Compile Include="RDIFramework\Utilities\ValidateUtil.cs" />
+    <Compile Include="RDIFramework\Utilities\OnGetPostReady.cs" />
+    <Compile Include="RDIFramework\Utilities\OnGetResponseReady.cs" />
+    <Compile Include="RDIFramework\Utilities\HttpWebHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\EnumDescription.cs" />
+    <Compile Include="RDIFramework\Utilities\UserInfo.cs" />
+    <Compile Include="RDIFramework\Utilities\SystemInfo.cs" />
+    <Compile Include="RDIFramework\Utilities\ConnectStrings.cs" />
+    <Compile Include="RDIFramework\Utilities\ConnectString.cs" />
+    <Compile Include="RDIFramework\Utilities\SqlBuilder.cs" />
+    <Compile Include="RDIFramework\Utilities\HttpHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\HttpItem.cs" />
+    <Compile Include="RDIFramework\Utilities\OrganizeCategory.cs" />
+    <Compile Include="RDIFramework\Utilities\RegistryHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\DosHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\ImageHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\ZoomType.cs" />
+    <Compile Include="RDIFramework\Utilities\StringPosition.cs" />
+    <Compile Include="RDIFramework\Utilities\ImagePosition.cs" />
+    <Compile Include="RDIFramework\Utilities\FTPHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\SimpleTimerProvider!1.cs" />
+    <Compile Include="RDIFramework\Utilities\SecretHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\MessageStateCode.cs" />
+    <Compile Include="RDIFramework\Utilities\DbHelperFactory.cs" />
+    <Compile Include="RDIFramework\Utilities\UserConfigHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\BaseConfiguration.cs" />
+    <Compile Include="RDIFramework\Utilities\OperationCode.cs" />
+    <Compile Include="RDIFramework\Utilities\TableConfigHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\ConfigurationHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\InvokeServiceHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\ReflectHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\CookieHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\XMLHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\VerifyCodeImage.cs" />
+    <Compile Include="RDIFramework\Utilities\FileHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\MySqlProvider.cs" />
+    <Compile Include="RDIFramework\Utilities\HiPerfTimerHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\Format.cs" />
+    <Compile Include="RDIFramework\Utilities\EnumExtensions.cs" />
+    <Compile Include="RDIFramework\Utilities\ExportCSVHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\ResourceManager.cs" />
+    <Compile Include="RDIFramework\Utilities\MessagePriority.cs" />
+    <Compile Include="RDIFramework\Utilities\IniFile.cs" />
+    <Compile Include="RDIFramework\Utilities\ResourceManagerWrapper.cs" />
+    <Compile Include="RDIFramework\Utilities\DbHelper.cs" />
+    <Compile Include="RDIFramework\Utilities\QueuedBackgroundWorker.cs" />
+    <Compile Include="Class5.cs" />
+    <Compile Include="Class6!1.cs" />
+    <Compile Include="Class7!2.cs" />
+    <Compile Include="RDIFramework\Utilities\ProcessingMode.cs" />
+    <Compile Include="RDIFramework\Utilities\JsonHelper.cs" />
+    <Compile Include="_Module_{F7E505EC-0916-4CD3-BA15-F361D9195194}.cs" />
+    <EmbeddedResource Include="aR3nbf8dQp2feLmk31.rFohpatkdxsVcxLfJKhM7.resources" />
+    <EmbeddedResource Include="aR3nbf8dQp2feLmk31.lSfgApatkdxsVcGcrktoFd.resources" />
+  </ItemGroup>
+</Project>
