@@ -1,0 +1,32 @@
+﻿@model string
+@{
+    var id = new Random().Next(100);
+}
+
+@Html.TextBoxFor(a => a, new { placeholder = "附件", @class = "form-control" })
+
+<input  type="button" id="uploadbutton@(id)" name="uploadbutton@(id)" value="选择上传文件"  />
+
+<script>
+    $("#uploadbutton@(id)").click(function () {
+        var editor@(id) = KindEditor.uploadbutton({
+            button: $('#uploadbutton@(id)'),
+            fieldName: 'imgFile',
+            url: '/Content/kindeditor/asp.net/upload_json.ashx?dir=file',
+            afterUpload: function (data) {
+                if (data.error === 0) {
+                    var url = data.url;
+                    $('#@Html.NameFor(a => a)').val(url);
+                } else {
+                    alert(data.message);
+                }
+            },
+            afterError: function (str) {
+                alert('自定义错误信息: ' + str);
+            }
+        });
+        editor@(id).fileBox.change(function (e) {
+            editor@(id).submit();
+        });
+    });
+</script>

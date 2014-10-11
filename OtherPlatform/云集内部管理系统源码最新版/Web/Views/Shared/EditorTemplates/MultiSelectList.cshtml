@@ -1,0 +1,8 @@
+﻿@model MultiSelectList
+
+<select id="@Html.NameForModel()" name="@Html.NameForModel()" class="show-tick" data-show-subtext="true" data-live-search="true" data-size="auto" multiple="">
+    @foreach (var item in Model)
+    {
+        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+    }
+</select>

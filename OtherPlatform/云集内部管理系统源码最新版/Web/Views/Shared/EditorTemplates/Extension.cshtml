@@ -1,0 +1,38 @@
+﻿@model string
+@Html.HiddenFor(a => a)
+
+<script>
+    $(function () {
+        $("form").submit(function () {
+            var @Html.NameFor(a => a)_values = "";
+            $(".@Html.NameFor(a => a)_value").each(function () {
+                @Html.NameFor(a => a)_values = @Html.NameFor(a => a)_values + $(this).val() + ",";
+            });
+
+            $("#@Html.NameFor(a => a)").val(@Html.NameFor(a => a)_values);
+        });
+    });
+    function @Html.NameFor(a => a)addrow() {
+        $("#@Html.NameFor(a => a)_add").after("<div  class=\"form-inline\"><input type='text'  class='@Html.NameFor(a => a)_value text-right input-small form-control' placeholder='字段名'  /><input  type='text' class='@Html.NameFor(a => a)_value form-control'  placeholder='值'   /><button type='button' class='btn' onclick='$(this).parent().remove();'>移除</button></div>");
+    }
+</script>
+<div class="pull-right"  id="@Html.NameFor(a => a)_add">
+    <button type="button" class="btn" onclick="@Html.NameFor(a => a)addrow()">添加</button>
+</div>
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    for (var i = 0; i < Model.Split(',').Count() - 1; i++)
+    {
+        <div class="form-inline">
+            <input type="text" class="@Html.NameFor(a => a)_value text-right input-small form-control" placeholder="字段名" value="@Model.Split(',')[i]" /><input type="text" class="@Html.NameFor(a => a)_value form-control" placeholder="值" value="@Model.Split(',')[++i]" />
+            <button type="button" class="btn" onclick=" $(this).parent().remove();">移除</button>
+        </div>
+    }
+}
+else
+{
+    <script>
+        @Html.NameFor(a => a)addrow();
+    </script>
+}

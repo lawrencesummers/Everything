@@ -1,0 +1,8 @@
+﻿@model Models.SysModels.SysUser
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Details", "Colleague",new {Model.Id})" title="用户名：@Html.DisplayFor(a=>a.UserName) 部门：@foreach (var item in Model.SysDepartmentSysUsers.Select(a => a.SysDepartment.DepartmentName))
+    {@item}">
+    @Html.DisplayFor(a => a.DisplayName)
+</a>
+
+
+

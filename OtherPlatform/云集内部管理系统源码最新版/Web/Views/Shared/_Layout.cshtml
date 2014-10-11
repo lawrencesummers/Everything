@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/js")
+    @Styles.Render("~/content/css")
+    @Html.Partial("_html5shiv")
+    @RenderSection("head", required: false)
+</head>
+
+
+@{
+
+
+
+    var skins = new string[]
+        {
+
+             "skin-blur-violate",
+             "skin-blur-lights",
+             "skin-blur-city",
+             "skin-blur-greenish",
+    "skin-blur-night",
+    "skin-blur-sunny",
+    "skin-blur-blue",
+   "skin-blur-chrome","skin-blur-ocean",
+    "skin-blur-sunset",
+    "skin-blur-yellow",
+    "skin-blur-kiwi"
+        };
+
+
+    var skin = skins[new Random().Next(skins.Length)];
+
+}
+
+
+
+<body id="@skin">
+    @RenderBody()
+</body>
+</html>

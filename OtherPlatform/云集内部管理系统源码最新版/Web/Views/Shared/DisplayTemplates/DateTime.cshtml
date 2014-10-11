@@ -1,0 +1,7 @@
+﻿@using System.Diagnostics
+@model DateTime?
+
+
+
+
+@(!string.IsNullOrEmpty(ViewData.ModelMetadata.DisplayFormatString) ? string.Format(ViewData.ModelMetadata.DisplayFormatString, Model) : string.Format("{0:yyyy-MM-dd}", Model))

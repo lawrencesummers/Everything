@@ -1,0 +1,10 @@
+﻿
+    @using (Ajax.BeginForm(null, new { pageIndex = 1,ViewBag.date, ordering = Request["ordering"],finish=Request["finish"] }, new AjaxOptions() { UpdateTargetId = "Main" }))
+    {
+        <div class="input-group" style="margin: 4px 0;">
+            @Html.TextBox("keyword", null, new { @class = "form-control ", placeholder = "关键词" })
+            <span class="input-group-btn">
+                <button type="submit" class="btn"> <i class="fa fa-search"></i> @lang.Search</button>
+            </span>
+        </div>
+    }

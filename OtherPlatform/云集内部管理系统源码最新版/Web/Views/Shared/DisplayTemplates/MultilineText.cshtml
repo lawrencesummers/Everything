@@ -1,0 +1,7 @@
+﻿@model string
+@if (!string.IsNullOrEmpty(Model))
+{
+    <span class="wrap">
+        @Html.Raw(Model.Replace("\x0d", "<br>"))
+    </span>
+}

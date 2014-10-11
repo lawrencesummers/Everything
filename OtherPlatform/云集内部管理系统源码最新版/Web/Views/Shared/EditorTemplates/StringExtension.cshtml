@@ -1,0 +1,5 @@
+﻿@model string
+
+@*字符串变成 字段值 显示方式保存 js处理所有的值 格式参考json 保存到一个字段内*@
+
+@Html.TextBoxFor(a => a, ViewData.ModelMetadata.AdditionalValues)

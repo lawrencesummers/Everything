@@ -1,0 +1,31 @@
+﻿@model string
+
+<script src="~/Scripts/dhtmlxgantt/dhtmlxgantt.js"></script>
+<link href="~/Content/dhtmlxgantt/dhtmlxgantt.css" rel="stylesheet" />
+<script src="~/Scripts/dhtmlxgantt/locale/locale_cn.js"></script>
+<div id="gantt_here" style=' height:500px;'></div>
+<script type="text/javascript">
+
+    var demo_tasks = @Html.Raw(string.IsNullOrEmpty(Model)? "{ \"data\": [], \"links\": [] }":Model  ) ;
+
+    gantt.config.columns = [
+        { name: "text", label: "任务名称", tree: true },
+        { name: "add", label: "+"}
+    ];
+
+    gantt.config.scale_unit = "year";
+
+    gantt.config.subscales = [
+        { unit: "day", step: 1, date: "%j日" }
+    ];
+
+    gantt.init("gantt_here");
+
+    gantt.parse(demo_tasks);
+
+    $("form").submit(function () {
+        $("#@Html.NameForModel()").val(JSON.stringify(gantt.serialize()));
+    });
+</script>
+
+@Html.HiddenFor(a=>a)

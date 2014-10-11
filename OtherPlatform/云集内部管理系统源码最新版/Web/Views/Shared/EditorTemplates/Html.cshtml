@@ -1,0 +1,11 @@
+﻿@model string
+
+@Html.TextAreaFor(a => a, new { rows = 16, style = "width:99%" })
+
+<script>
+    $(function () {
+        var editor = KindEditor.create('textarea[name="@Html.NameFor(a => a)"]', {
+            uploadJson: '/Content/kindeditor/asp.net/upload_json.ashx'
+        });
+    });
+</script>

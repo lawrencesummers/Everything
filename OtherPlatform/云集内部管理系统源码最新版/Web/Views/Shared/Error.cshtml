@@ -1,0 +1,11 @@
+﻿@model HandleErrorInfo
+
+
+@if (Model != null)
+{
+    <div>@Model.Exception.Message</div>  
+}
+else
+{
+    <div>系统出现错误，请联系管理员。</div>
+}

@@ -1,0 +1,75 @@
+﻿@model string
+@Html.HiddenFor(a => a)
+
+<script>
+    $(function () {
+        $("form").submit(function () {
+            var @Html.NameFor(a => a)_values = "";
+            $(".@Html.NameFor(a => a)_value").each(function () {
+                @Html.NameFor(a => a)_values = @Html.NameFor(a => a)_values + $(this).val() + ",";
+            });
+
+            $("#@Html.NameFor(a => a)").val(@Html.NameFor(a => a)_values);
+        });
+    });
+    function @Html.NameFor(a => a)addrow() {
+        $("#@Html.NameFor(a => a)_add").after("<div><input type='text'  class='@Html.NameFor(a => a)_value input-small' placeholder='联系人'  /> <input type='text'  class='@Html.NameFor(a => a)_value input-small' placeholder='职务'  /> <input type='text'  class='@Html.NameFor(a => a)_value input-small' placeholder='手机'  /> <input type='text'  class='@Html.NameFor(a => a)_value input-small' placeholder='电话'  /> <input type='text'  class='@Html.NameFor(a => a)_value input-small' placeholder='邮箱'  /> <button type='button' class='btn' onclick='$(this).parent().remove();'>移除</button></div>");
+    }
+</script>
+<div class="pull-right" id="@Html.NameFor(a => a)_add">
+    <button type="button" class="btn" onclick="@Html.NameFor(a => a)addrow()">添加</button>
+</div>
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    for (var i = 0; i < Model.Split(',').Count() - 1; i++)
+    {
+        <div>
+            <input type="text" class="@Html.NameFor(a => a)_value input-small" placeholder="联系人" value="@Model.Split(',')[i]" />
+            <input type="text" class="@Html.NameFor(a => a)_value input-small" placeholder="职务" value="@{
+        try
+        {
+                                                                                                               @Model.Split(',')[++i]
+        }
+        catch
+        {
+        }
+                                                                                                       }" />
+         
+            <input type="text" class="@Html.NameFor(a => a)_value input-small" placeholder="手机" value="@{
+        try
+        {
+                                                                                                               @Model.Split(',')[++i]
+        }
+        catch
+        {
+        }
+                                                                                                       }" />
+            <input type="text" class="@Html.NameFor(a => a)_value input-small" placeholder="电话" value="@{
+        try
+        {
+                                                                                                               @Model.Split(',')[++i]
+        }
+        catch
+        {
+        }
+                                                                                                       }" />
+            <input type="text" class="@Html.NameFor(a => a)_value input-small" placeholder="邮箱" value="@{
+        try
+        {
+                                                                                                               @Model.Split(',')[++i]
+        }
+        catch
+        {
+        }
+                                                                                                       }" />
+            <button type="button" class="btn" onclick=" $(this).parent().remove();">移除</button>
+        </div>
+    }
+}
+else
+{
+    <script>
+        @Html.NameFor(a => a)addrow();
+    </script>
+}

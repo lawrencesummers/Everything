@@ -1,0 +1,8 @@
+﻿@model SelectList
+<select id="@Html.NameForModel()" name="@Html.NameForModel()" class="show-tick" data-show-subtext="true" data-live-search="true" data-size="auto">
+    <option value=""> </option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+    }
+</select>

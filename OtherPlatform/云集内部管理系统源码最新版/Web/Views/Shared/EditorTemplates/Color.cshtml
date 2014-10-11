@@ -1,0 +1,80 @@
+﻿<input id="@Html.NameFor(a => a)" name="@Html.NameFor(a => a)" type="text" value="@Model" class = "form-control" placeholder = "#ffffff"  />
+
+
+<div id='@Html.NameFor(a => a)select' name='@Html.NameFor(a => a)select' class='colorselect'>
+    <div style='background-color: #FAEBD7'>古董白</div>
+    <div style='background-color: #F0FFFF'>天蓝色</div>
+    <div style='background-color: #F5F5F5'>白烟</div>
+    <div style='background-color: #FFFFCD'>白杏仁</div>
+    <div style='background-color: #FCE6C9'>蛋壳色</div>
+    <div style='background-color: #FFFAF0'>花白</div>
+    <div style='background-color: #DCDCDC'>高级灰</div>
+    <div style='background-color: #F8F8FF'>高级白</div>
+    <div style='background-color: #F0FFF0'>蜜露橙</div>
+    <div style='background-color: #FAFFF0'>象牙白</div>
+    <div style='background-color: #FFFACD'>浅色系12</div>
+    <div style='background-color: #F0F8FF'>浅色系13</div>
+    <div style='background-color: #FAF0E6'>亚麻色</div>
+    <div style='background-color: #FDF5E6'>老肉色</div>
+    <div style='background-color: #FFF5EE'>海贝壳色</div>
+    <div style='background-color: #F5DEB3'>淡黄色</div>
+    <div style='background-color: #F0E68C'>黄褐色</div>
+    <div style='background-color: #CEF3FF'>浅蓝</div>
+    <div style='background-color: #D6F1C9'>浅绿</div>
+    <div style='background-color: #CFDFEF'>浅湖蓝</div>
+    <div style='background-color: #FFFFE1'>浅黄</div>
+    <div style='background-color: #FFF5EE'>浅色系14</div>
+    <div style='background-color: #E6E6FA'>浅色系15</div>
+    <div style='background-color: #FFE6FF'>浅粉</div>
+    <div style='background-color: #FFDDDD'>浅红</div>
+    <div style='background-color: #FFF0D0'>肉色</div>
+    <div style='background-color: #E6E6FF'>浅紫</div>
+    <div style='background-color: #BBD7FF'>浅深蓝</div>
+    <div style='background-color: #FFFFD9'>浅深黄</div>
+    <div style='background-color: #C1EAEA'>浅墨绿</div>
+    <div style='background-color: #F0FFC4'>浅草绿</div>
+    <div style='background-color: #FFD0D0'>浅深蓝</div>
+    <div style='background-color: #FFFACD'>浅色系</div>
+    <div style='background-color: #F0FFF0'>浅色系16</div>
+    <div style='background-color: #FFF0F5'>浅色系17</div>
+    <div style='background-color: #ADD8E6'>蓝色系1</div>
+    <div style='background-color: #B0E0E6'>蓝色系2</div>
+    <div style='background-color: #AFEEEE'>蓝色系3</div>
+    <div style='background-color: #F0E68C'>黄色系2</div>
+    <div style='background-color: #D8BFD8'>紫色系2</div>
+    <div style='background-color: #F5F5DC'>米黄色1</div>
+    <div style='background-color: #F5DEB3'>米黄色2</div>
+    <div style='background-color: #FFFFF0'>浅色系11</div>
+    <div style='background-color: #F5FFFA'>浅色系18</div>
+    <div style='background-color: #FFE4E1'>浅色系19</div>
+    <div style='background-color: #FDF5E6'>浅色系1</div>
+    <div style='background-color: #FAF036'>浅色系2</div>
+    <div style='background-color: #FAEBD7'>浅色系3</div>
+    <div style='background-color: #FFEFD5'>浅色系4</div>
+    <div style='background-color: #FFEBCD'>浅色系5</div>
+    <div style='background-color: #FFE4C4'>浅色系6</div>
+    <div style='background-color: #FFDAB9'>浅色系7</div>
+    <div style='background-color: #FFDEAD'>浅色系8</div>
+    <div style='background-color: #FFE4B5'>浅色系9</div>
+    <div style='background-color: #FFF8DC'>浅色系10</div>
+    <div style='background-color: #F0FFFF'>浅色系20</div>
+    <div style='background-color: #FFFAFA'>浅色系21</div>
+</div>
+
+
+
+<script>
+    $(function () {
+        $('#@Html.NameFor(a => a)').focus(function () {
+            $('#@Html.NameFor(a => a)select').slideToggle(200);
+        });
+
+        $('#@Html.NameFor(a => a)').blur(function () {
+            $('#@Html.NameFor(a => a)select').slideToggle(200);
+        });
+
+        $('#@Html.NameFor(a => a)select>div').mousedown(function () {
+            $('#@Html.NameFor(a => a)').val($(this).css("background-color"));
+        });
+    });
+</script>

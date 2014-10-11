@@ -1,0 +1,21 @@
+﻿@model string
+
+<script src="~/Scripts/dhtmlxgantt/dhtmlxgantt.js"></script>
+<link href="~/Content/dhtmlxgantt/dhtmlxgantt.css" rel="stylesheet" />
+<script src="~/Scripts/dhtmlxgantt/locale/locale_cn.js"></script>
+<div id="gantt_here" style=' height:500px;'></div>
+<script type="text/javascript">
+
+    var demo_tasks = @Html.Raw(string.IsNullOrEmpty(Model)? "{ \"data\": [], \"links\": [] }":Model  ) ;
+
+    gantt.config.columns = [
+        { name: "text", label: "任务名称", tree: true }
+    ];
+    
+    gantt.config.readonly = true;
+
+    gantt.init("gantt_here");
+
+    gantt.parse(demo_tasks);
+
+</script>

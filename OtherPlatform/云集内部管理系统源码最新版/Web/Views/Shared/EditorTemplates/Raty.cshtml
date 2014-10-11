@@ -1,0 +1,21 @@
+﻿@model int
+
+@{
+    var rand = new Random().Next(1000);
+}
+
+<span class="@Html.NameFor(a => a)-edit-@rand"></span>
+@Html.HiddenFor(a => a, new { @class = Html.NameFor(a => a) + "-input-" + rand })
+
+<script>
+    $(function () {
+        $('.@Html.NameFor(a => a)-edit-@rand').raty({
+            score: @Model ,
+            target: '.@(Html.NameFor(a => a) + "-input-" + rand)',
+            targetType: 'number',
+            starOff: 'Content/star-off.png',
+            starOn : 'Content/star-on.png',
+            targetKeep: true
+        });
+    });
+</script>

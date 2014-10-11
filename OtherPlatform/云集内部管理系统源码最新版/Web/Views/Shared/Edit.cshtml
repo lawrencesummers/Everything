@@ -1,0 +1,62 @@
+﻿@using LanguagePack
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+{
+    <div>
+        <blockquote class="col-lg-2 ">
+            <h3>
+                @if (ViewContext.RouteData.Values["Id"] == null)
+                {
+                    <span>@lang.Create</span>
+                }
+                else
+                {
+                    <span>@lang.Edit</span>
+                }
+            </h3>
+        </blockquote>
+        <div class="col-xs-3  pull-right text-right">
+            @Html.Partial("Button_Back_List")
+            <button class="btn" type="submit"><i class="fa fa-check"></i> @lang.Save</button>
+        </div>
+
+    
+    </div>
+    <div class="clearfix"></div>
+    <div>
+        <div class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <div>
+                @Html.Partial("_validationSummary")
+            </div>
+            @foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForEdit && !pm.ModelType.IsAbstract && !ViewData.TemplateInfo.Visited(pm)).OrderBy(a => a.Order))
+            {
+                if (prop.HideSurroundingHtml)
+                {
+                    @Html.Hidden(prop.PropertyName)
+                }
+                else
+                {
+                    <div class="form-group row">
+                        
+                        <label class="col-md-2 control-label" for="@prop.PropertyName">@(prop.IsRequired ? "*" : "") @prop.DisplayName</label>
+
+
+                        <div class="col-md-8">
+                            @Html.Editor(prop.PropertyName)
+                            @prop.Description
+                          
+                        </div>
+                        <div class="col-md-2 ">
+                            <label class="control-label">
+                                @Html.ValidationMessage(prop.PropertyName)
+                            </label>
+                         
+                        </div>
+                    </div>
+                }
+            }
+            @Html.Partial("Button_Submit")
+        </div>
+
+    </div>
+}
