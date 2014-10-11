@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{97A2D3BC-C3C7-443C-92F9-5C89A3166082}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Services</RootNamespace>
+    <AssemblyName>Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.AccessControl, Version=2.2.0.0, Culture=neutral, PublicKeyToken=b4b8eb9a7afc8328, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.AccessControl.2.2.0.0\lib\Google.GData.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Calendar">
+      <HintPath>..\packages\Google.GData.Calendar.2.2.0.0\lib\Google.GData.Calendar.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client">
+      <HintPath>..\packages\Google.GData.Client.2.2.0.0\lib\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions">
+      <HintPath>..\packages\Google.GData.Extensions.2.2.0.0\lib\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationDb.cs" />
+    <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\IDatabaseFactory.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SysServices\GoogleService.cs" />
+    <Compile Include="SysServices\SysSignalROnlineService.cs" />
+    <Compile Include="SysServices\SysSignalRService.cs" />
+    <Compile Include="SysServices\SysMailService.cs" />
+    <Compile Include="SysServices\SysApplicationDb.cs" />
+    <Compile Include="SysServices\SysAreaService.cs" />
+    <Compile Include="SysServices\SysControllerService.cs" />
+    <Compile Include="SysServices\SysEnterpriseService.cs" />
+    <Compile Include="SysServices\SysUserResetPasswordService.cs" />
+    <Compile Include="SysServices\SysUserService.cs" />
+    <Compile Include="SysServices\SysActionService.cs" />
+    <Compile Include="SysServices\SysDepartmentService.cs" />
+    <Compile Include="SysServices\SysRoleService.cs" />
+    <Compile Include="SysServices\SysHelpService.cs" />
+    <Compile Include="SysServices\SysUserLogService.cs" />
+    <Compile Include="SysServices\SysLogService.cs" />
+    <Compile Include="SysServices\SysControllerSysActionService.cs" />
+    <Compile Include="SysServices\SysRoleSysControllerSysActionService.cs" />
+    <Compile Include="SysServices\SysDepartmentSysUserService.cs" />
+    <Compile Include="SysServices\SysRoleSysUserService.cs" />
+    <Compile Include="SysServices\SysFileService.cs" />
+    <Compile Include="UserServices\BusinessChanceService.cs" />
+    <Compile Include="UserServices\BusinessChanceBusinessService.cs" />
+    <Compile Include="UserServices\BusinessCommunicationService.cs" />
+    <Compile Include="UserServices\CustomerService.cs" />
+    <Compile Include="UserServices\ActivityService.cs" />
+    <Compile Include="UserServices\KnowledgeReplyService.cs" />
+    <Compile Include="UserServices\FlowService.cs" />
+    <Compile Include="UserServices\ActivityUserService.cs" />
+    <Compile Include="UserServices\ProjectFileService.cs" />
+    <Compile Include="UserServices\ProjectInfoService.cs" />
+    <Compile Include="UserServices\ProjectUserService.cs" />
+    <Compile Include="UserServices\ProjectTaskService.cs" />
+    <Compile Include="UserServices\KnowledgeService.cs" />
+    <Compile Include="UserServices\ProjectTaskReplyService.cs" />
+    <Compile Include="UserServices\PlanService.cs" />
+    <Compile Include="UserServices\MessageService.cs" />
+    <Compile Include="UserServices\ProjectInfoReplyService.cs" />
+    <Compile Include="UserServices\ContactService.cs" />
+    <Compile Include="UserServices\TagService.cs" />
+    <Compile Include="UserServices\ProjectInfoStateService.cs" />
+    <Compile Include="UserServices\BusinessStateService.cs" />
+    <Compile Include="UserServices\CustomerTypeService.cs" />
+    <Compile Include="UserServices\CustomerLevelService.cs" />
+    <Compile Include="UserServices\ProjectFinancialService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{55DEC9F4-CAC0-4408-B6DD-E0EF47FDCB18}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IServices\IServices.csproj">
+      <Project>{71568A82-D403-47F5-8928-AC80AA5EA642}</Project>
+      <Name>IServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{8b64af1d-0f93-40f7-921b-59b2dd8228ab}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
