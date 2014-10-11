@@ -1,0 +1,75 @@
+﻿@using System.Configuration
+@model Web.Areas.Register.Controllers.IndexController.InitializeModel
+@{
+    ViewBag.Title = ConfigurationManager.AppSettings["SystemName"] + "系统初始化";
+}
+
+<div class="col-lg-6 col-lg-offset-3">
+    <div class="masthead" style=" margin-top:30px;">
+        <ul class="nav nav-pills pull-right">
+            <li>
+                @Html.ActionLink("首页", "Index", "Index", new { area = "" }, null)
+            </li>
+        </ul>
+        <h3 class="muted">@ConfigurationManager.AppSettings["SystemName"]</h3>
+    </div>
+    <hr>
+    <div style="margin-top: 40px;">
+        <h1 class=" text-center">注册</h1>
+        <div style="margin:30px auto; width:600px;">
+            @using (Html.BeginForm("Index", "Index", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="control-group">
+                    @Html.Partial("_validationSummary")
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(a => a.EnterpriseName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.EnterpriseName)
+                        @Html.ValidationMessageFor(a => a.EnterpriseName)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(a => a.EnterpriseShortName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.EnterpriseShortName)
+                        @Html.ValidationMessageFor(a => a.EnterpriseShortName)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(a => a.UserName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.UserName)
+                        @Html.ValidationMessageFor(a => a.UserName)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(a => a.Password, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.Password)
+                        @Html.ValidationMessageFor(a => a.Password)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(a => a.ConfirmPassword, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.ConfirmPassword)
+                        @Html.ValidationMessageFor(a => a.ConfirmPassword)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(a => a.Email, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.Email)
+                        @Html.ValidationMessageFor(a => a.Email)
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn "> <i class="fa fa-hand-o-right"></i>  @lang.Register </button>
+                </div>
+            }
+        </div>
+    </div>
+    <hr>
+</div> <!-- /container -->
