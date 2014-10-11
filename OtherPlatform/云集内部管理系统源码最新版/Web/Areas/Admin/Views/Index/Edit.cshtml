@@ -1,0 +1,13 @@
+﻿@model Models.SysModels.ChangePassword
+
+<fieldset>
+    <legend>@lang.UserCenter</legend>
+    @Html.ValidationSummary()
+    @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+    {
+        @Html.EditorForModel()
+        <div class="text-center">
+            <input class="btn btn-primary" type="submit" value="保存" />
+        </div>
+    }
+</fieldset>

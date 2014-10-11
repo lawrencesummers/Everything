@@ -1,0 +1,78 @@
+﻿@using System.Reflection
+@using Web.Helper
+@model System.Collections.IEnumerable
+@using BootstrapSupport
+
+
+<div>
+    @if (Model.VisibleProperties().Any(a => a.Name == "Id"))
+    {
+        @Html.Partial("Button_Create", new { })
+    }
+
+    @Html.Partial("Button_Export", new { report = true, ordering = Request["ordering"], keyword = Request["keyword"] })
+
+
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+</div>
+
+<div>
+    <table class="table table-bordered table-striped table-hover ">
+        <thead>
+            <tr>
+                @foreach (PropertyInfo title in Model.VisibleProperties())
+                {
+                    if (title.Name == Model.GetType().GetGenericArguments()[0].IdentifierPropertyName())
+                    {
+                        <th>@lang.Edit</th>
+                    }
+                    else
+                    {
+                        <th>
+                            @if (Request["ordering"] == title.Name)
+                            {
+                                @Ajax.ActionLink(title.GetLabel().ToSeparatedWords() + " ↓", null, new { keyword = Request["keyword"], ordering = title.Name + " desc" }, new AjaxOptions { UpdateTargetId = "Main" })
+                            }
+                            else if (Request["ordering"] == title.Name + " desc")
+                            {
+                                @Ajax.ActionLink(title.GetLabel().ToSeparatedWords() + " ↑", null, new { keyword = Request["keyword"], ordering = title.Name }, new AjaxOptions { UpdateTargetId = "Main" })
+                            }
+                            else
+                            {
+                                @Ajax.ActionLink(title.GetLabel().ToSeparatedWords() + "", null, new { keyword = Request["keyword"], ordering = title.Name }, new AjaxOptions { UpdateTargetId = "Main" })
+                            }
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                ViewData["DataList"] = item;
+                <tr>
+                    @foreach (PropertyInfo title in Model.VisibleProperties())
+                    {
+                        if (title.Name == item.IdentifierPropertyName())
+                        {
+                            <td>
+                                @Html.Partial("Ajax_Edit_Verify", (Guid)item.GetId())
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.Display("DataList." + title.Name)
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.Raw(Ajax.MikePager((int)Model.GetType().GetProperty("PageIndex").GetValue(Model, null), (int)Model.GetType().GetProperty("PageSize").GetValue(Model, null), (int)Model.GetType().GetProperty("TotalCount").GetValue(Model, null)))
+</div>

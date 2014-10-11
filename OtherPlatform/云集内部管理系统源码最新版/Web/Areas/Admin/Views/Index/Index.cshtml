@@ -1,0 +1,136 @@
+﻿@using System.Configuration
+@using Models.SysModels
+@model IEnumerable<SysController>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ConfigurationManager.AppSettings["SystemName"] + " 管理中心";
+}
+
+@section head{
+
+
+    <script>
+
+        $.ajaxSetup({ cache: false });
+
+        $(document).ajaxStart(function () {
+            $("#page-loading").show();
+        });
+        $(document).ajaxStop(function () {
+            $("form").submit(function () {
+                $(":submit", this).attr("disabled", "disabled");
+            });
+            $(":submit").attr("disabled", false);
+            $('.ratydisplay').raty({
+                score: function () {
+                    return $(this).attr('data-score');
+                },
+                readOnly: true,
+                starOff: 'Content/star-off.png',
+                starOn: 'Content/star-on.png'
+            });
+
+            $('.datetime').datetimepicker({
+                todayHighlight: true,
+                autoclose: true,
+                minuteStep: 10,
+                language: "zh-CN",
+                todayBtn: true
+            });
+            $('select').selectpicker();
+            $("#page-loading").hide();
+        });
+        $(document).ajaxError(function (event, request) {
+            if (request.responseText == "") {
+
+                Messenger({ 'parentLocations': ['#mainscreen'] }).post({
+                    message: '您的网络无法访问到服务器，请稍后再试！',
+                    showCloseButton: true
+                });
+            } else {
+
+                Messenger({ 'parentLocations': ['#mainscreen'] }).post({
+                    message: request.responseText,
+                    showCloseButton: true
+                });
+            }
+        });
+
+    </script>
+}
+
+<header class="media" id="header">
+    <a id="menu-toggle" href="#"></a>
+    <a class="logo pull-left">@ConfigurationManager.AppSettings["SystemName"]</a>
+
+    <div class="media-body">
+        <div class="media" id="top-menu">
+            <div class="pull-right">
+                <ul class="list-inline text-right" style="margin: 15px;">
+                    <li><img id="page-loading" src="~/Content/Loading/0504313.gif" style="display: none; margin: 0px 20px 0 0;" /></li>
+                    <li><i class="fa fa-user"></i>&nbsp;@Ajax.ActionLink((string)ViewBag.UserName, "Edit", "Index", new AjaxOptions { UpdateTargetId = "Main" })</li>
+
+                    <li><i class="fa fa-desktop"></i>&nbsp;@Ajax.ActionLink(lang.Desktop, "Index", "Desktop", new AjaxOptions() { UpdateTargetId = "Main" })</li>
+
+
+                    <li><i class="fa fa-question-circle"></i>&nbsp;@Ajax.ActionLink(lang.Help, "Index", "help", new AjaxOptions() { UpdateTargetId = "Main" })</li>
+                    <li><i class="fa fa-sign-out"></i>&nbsp;@Html.ActionLink(lang.Exit, "LogOff", "Index", new { area = "Login" }, null)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="clearfix"></div>
+<section id="mainscreen" class="p-relative">
+    <aside id="sidebar">
+
+        <div class="panel-group" id="accordion">
+            @foreach (var item in Model.Where(a => a.SystemId.Length == 3))
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle active" data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" style="font-size:130%; padding:5px 30px;">
+                                @Html.DisplayFor(a => item.Ico)&nbsp;@item.ControllerDisplayName
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse@(item.Id)" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <ul style="list-style: none">
+
+                                @foreach (var item1 in Model.Where(a => a.SystemId.Length > 3 && a.SystemId.StartsWith(item.SystemId)))
+                                {
+                                    <li>
+                                        @if (item1.TargetBlank)
+                                        {
+                                            <a href="@Url.Action(item1.ActionName, item1.ControllerName, new { id = item1.Parameter })" style="padding: 5px 0; display: block" target="_blank">@Html.DisplayFor(a => item1.Ico)&nbsp;@Html.DisplayFor(a => item1.ControllerDisplayName)</a>
+                                        }
+                                        else
+                                        {
+                                            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" style="padding: 5px 0;display: block" href="@Url.Action(item1.ActionName, item1.ControllerName, new { id = item1.Parameter })">@Html.DisplayFor(a => item1.Ico)&nbsp;@Html.DisplayFor(a => item1.ControllerDisplayName)</a>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+
+    </aside><!-- Content -->
+    <section class="container" id="content">
+        <div id="Main" class=" block-area">
+            <script>
+                $("#Main").load("@Url.Action("Index", "Desktop")");
+            </script>
+        </div>
+        <div id="message-container">
+
+        </div>
+    </section>
+</section>

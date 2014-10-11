@@ -1,0 +1,7 @@
+﻿@using System.Configuration
+<h2 style="text-align: center;">
+    日志有效期为： @ConfigurationManager.AppSettings["LogValidity"] 天 您可以在系统设置中修改系统参数
+</h2>
+<div style="text-align: center">
+    <a href="@Url.Action("Details", new { width = "2000", height = "1236"})" target="_blank"><img src="@Url.Action("Details")" /></a>
+</div>
