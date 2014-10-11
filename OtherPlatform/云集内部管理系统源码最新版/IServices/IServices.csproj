@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{71568A82-D403-47F5-8928-AC80AA5EA642}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IServices</RootNamespace>
+    <AssemblyName>IServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="ISysServices\IGoogleService.cs" />
+    <Compile Include="ISysServices\ISysActionService.cs" />
+    <Compile Include="ISysServices\ISysEnterpriseService.cs" />
+    <Compile Include="IUserServices\IActivityService.cs" />
+    <Compile Include="ISysServices\ISysSignalROnlineService.cs" />
+    <Compile Include="ISysServices\ISysSignalRService.cs" />
+    <Compile Include="ISysServices\ISysLogService.cs" />
+    <Compile Include="ISysServices\ISysMailService.cs" />
+    <Compile Include="ISysServices\ISysRoleSysUserService.cs" />
+    <Compile Include="ISysServices\ISysUserService.cs" />
+    <Compile Include="ISysServices\ISysUploadFileService.cs" />
+    <Compile Include="ISysServices\IUserInfo.cs" />
+    <Compile Include="IUserServices\IBusinessChanceService.cs" />
+    <Compile Include="IUserServices\IActivityUserService.cs" />
+    <Compile Include="IUserServices\IProjectFileService.cs" />
+    <Compile Include="IUserServices\ICustomerCommunicationService.cs" />
+    <Compile Include="IUserServices\ICustomerBusinessChanceService.cs" />
+    <Compile Include="IUserServices\ICustomerService.cs" />
+    <Compile Include="IUserServices\IKnowledgeReplyService.cs" />
+    <Compile Include="IUserServices\IFlowService.cs" />
+    <Compile Include="IUserServices\IProjectInfoService.cs" />
+    <Compile Include="IUserServices\IProjectUserService.cs" />
+    <Compile Include="IUserServices\IProjectTaskService.cs" />
+    <Compile Include="IUserServices\IKnowledgeService.cs" />
+    <Compile Include="IUserServices\IProjectTaskReplyService.cs" />
+    <Compile Include="IUserServices\IPlanService.cs" />
+    <Compile Include="IUserServices\IMessageService.cs" />
+    <Compile Include="IUserServices\IProjectInfoReplyService.cs" />
+    <Compile Include="IUserServices\IContactService.cs" />
+    <Compile Include="IUserServices\ITagService.cs" />
+    <Compile Include="IUserServices\IProjectInfoStateService.cs" />
+    <Compile Include="IUserServices\IBusinessStateService.cs" />
+    <Compile Include="IUserServices\ICustomerTypeService.cs" />
+    <Compile Include="IUserServices\ICustomerLevelService.cs" />
+    <Compile Include="IUserServices\IProjectFinancialService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ISysServices\ISysAreaService.cs" />
+    <Compile Include="ISysServices\ISysControllerService.cs" />
+    <Compile Include="ISysServices\ISysControllerSysActionService.cs" />
+    <Compile Include="ISysServices\ISysDepartmentService.cs" />
+    <Compile Include="ISysServices\ISysDepartmentSysUserService.cs" />
+    <Compile Include="ISysServices\ISysHelpService.cs" />
+    <Compile Include="ISysServices\ISysRoleService.cs" />
+    <Compile Include="ISysServices\ISysRoleSysControllerSysActionService.cs" />
+    <Compile Include="ISysServices\ISysUserLogService.cs" />
+    <Compile Include="ISysServices\ISysUserResetPasswordService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{8b64af1d-0f93-40f7-921b-59b2dd8228ab}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
