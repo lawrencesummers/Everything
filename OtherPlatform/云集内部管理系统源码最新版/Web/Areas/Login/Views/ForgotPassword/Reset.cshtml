@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "重设密码";
+}
+<div style="margin: 100px auto; width: 300px;">
+    @if (ViewBag.invalid)
+    {
+        @Html.ValidationSummary()
+    }
+    else
+    {
+        using (Html.BeginForm())
+        {
+        <div>
+            @Html.AntiForgeryToken()
+            @Html.Label("", "新密码")
+            @Html.TextBox("password")
+        </div>
+        <div>
+            @Html.Label("", "重复新密码")
+            @Html.TextBox("repassword")
+        </div>
+        <div>
+            <input type="submit" value="提交" />
+        </div>
+        <div>@Html.ValidationSummary()</div>
+        }
+    }
+    @Html.ActionLink("返回首页", "Index", "Index", new { area = "" }, null)
+</div>

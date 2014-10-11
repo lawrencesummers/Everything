@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "找回密码";
+}
+
+@section head{
+    <script type="text/javascript">
+        $(function () {
+            $("#UserName").focus();
+            $("input:submit, button").button();
+        });
+    </script>
+}
+<div style="margin: 100px auto; width: 300px;">
+    @using (Html.BeginForm())
+    { 
+        <div>
+            @Html.AntiForgeryToken()
+            @Html.Label("", "用 户 名")
+            @Html.TextBox("UserName")
+        </div>
+        <div>
+            @Html.Label("", "邮箱地址")
+            @Html.TextBox("email")
+        </div>
+        <div>
+            <input type="submit" value="提交" />
+        </div>
+        
+        <div>@Html.ValidationSummary()</div>
+    }
+</div>

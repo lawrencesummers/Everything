@@ -1,0 +1,66 @@
+﻿@using System.Configuration
+@using Models.SysModels
+@model Web.Areas.Login.Models.LoginModel
+@{
+
+    SysEnterprise enterprise = ViewBag.Enterprise;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ConfigurationManager.AppSettings["SystemName"] + "-" + @enterprise.EnterpriseName;
+}
+
+@section head{
+    <script>
+        $(function() {
+            $('#UserName').focus();
+        });
+    </script>
+}
+<section id="login">
+    <header  style="padding: 70px 0 0px 0;">
+        
+        <div style="font-size: 30px;" class="text-center m-b-20">
+            <img src="~/Content/logo-w.png" />
+
+            <span style="margin-left: 20px;">@ConfigurationManager.AppSettings["SystemName"] — @enterprise.EnterpriseName</span>
+        </div>
+       
+    
+        @*<h3 class="text-center m-t-20">
+
+           商务智能先驱者 提高服务水品 提高客户满意度 宁宇您的客户资源 是您永久的财富
+
+                    </h3>*@
+    </header>
+
+    <div class="clearfix"></div>
+    <div class="row m-t-20">
+        <div class="col-sm-4 col-sm-offset-4">
+            <!-- Login -->
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = " tile  active", id = "box-login", style = "padding:20px; " }))
+            {
+
+                @Html.Hidden("EnterpriseId", enterprise.Id);
+
+                @Html.TextBoxFor(a => a.UserName, new { @class = "login-control m-b-10", placeholder = "用户名" })
+
+                @Html.PasswordFor(a => a.Password, new { @class = "login-control  m-b-10", placeholder = "密码" })
+         
+                <div class=" m-b-10">
+                    @Html.EditorFor(a => a.Remember, new { }) @Html.LabelFor(a => a.Remember, new { })   @Html.ActionLink("忘记密码了？", "Index", "ForgotPassword")
+                </div>
+                <div class=" m-b-10">
+                    <button type="submit" class="btn btn-block btn-sm m-r-5">登陆</button>
+                </div>
+                <div>
+                    @Html.Partial("_alerts")
+                    @Html.Partial("_validationSummary")
+                </div>
+            }
+        </div>
+    </div>
+    <div class="text-center">
+        @ConfigurationManager.AppSettings["copyright"]
+    </div>
+</section>
+
