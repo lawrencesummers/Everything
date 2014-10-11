@@ -1,0 +1,1472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{74F7ED0F-6166-4732-AFE7-00DED3C56706}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web</RootNamespace>
+    <AssemblyName>Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AntiXssLibrary, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AntiXSS.4.3.0\lib\net40\AntiXssLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.Mvc5.3.3.1\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.SignalR">
+      <HintPath>..\packages\Autofac.SignalR.3.0.1\lib\net40\Autofac.Integration.SignalR.dll</HintPath>
+    </Reference>
+    <Reference Include="DoddleReport">
+      <HintPath>..\packages\DoddleReport.Web.1.4\lib\net40\DoddleReport.dll</HintPath>
+    </Reference>
+    <Reference Include="DoddleReport.Web">
+      <HintPath>..\packages\DoddleReport.Web.1.4\lib\net40\DoddleReport.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.AccessControl">
+      <HintPath>..\packages\Google.GData.AccessControl.2.2.0.0\lib\Google.GData.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Calendar">
+      <HintPath>..\packages\Google.GData.Calendar.2.2.0.0\lib\Google.GData.Calendar.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client">
+      <HintPath>..\packages\Google.GData.Client.2.2.0.0\lib\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions">
+      <HintPath>..\packages\Google.GData.Extensions.2.2.0.0\lib\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlSanitizationLibrary, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJSON, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Content\kindeditor\asp.net\bin\LitJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.1.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Owin.1.2.1\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelMetadataExtensions">
+      <HintPath>..\packages\ModelMetadataExtensionsWithBugfix.0.1.2\lib\net40\ModelMetadataExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.0\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.0\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BootstrapBundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\ModelMetadataProvider.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DesktopController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysActionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysAreaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysControllerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysEnterpriseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysHelpController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysLogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysMailController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysRoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysStatisticController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysUserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysUserLogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WebConfigAppSettingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ActivityUserController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ActivityController.cs" />
+    <Compile Include="Areas\Platform\Controllers\WorkReportController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectFileController.cs" />
+    <Compile Include="Areas\Register\Controllers\SuccesController.cs" />
+    <Compile Include="Areas\Platform\Controllers\CustomerCommunicationController.cs" />
+    <Compile Include="Areas\Platform\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectInfoCountController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ChatController.cs" />
+    <Compile Include="Areas\Register\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Register\InitializeAreaRegistration.cs" />
+    <Compile Include="Areas\Login\Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Areas\Login\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
+    <Compile Include="Areas\Login\Models\LoginModel.cs" />
+    <Compile Include="Areas\Platform\Controllers\AllWorkController.cs" />
+    <Compile Include="Areas\Platform\Controllers\CustomerCountController.cs" />
+    <Compile Include="Areas\Platform\Controllers\BusinessChanceController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Platform\Controllers\DesktopController.cs" />
+    <Compile Include="Areas\Platform\Controllers\FansController.cs" />
+    <Compile Include="Areas\Platform\Controllers\FlowController.cs" />
+    <Compile Include="Areas\Platform\Controllers\FollowController.cs" />
+    <Compile Include="Areas\Platform\Controllers\HelpController.cs" />
+    <Compile Include="Areas\Platform\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ColleagueController.cs" />
+    <Compile Include="Areas\Platform\Controllers\KnowledgeController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MyCreateWorkController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MyFileController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MyFollowWorkController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MyParticipateWorkController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MyPlanController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MyProjectTaskController.cs" />
+    <Compile Include="Areas\Platform\Controllers\PlanReportController.cs" />
+    <Compile Include="Areas\Platform\Controllers\KnowledgeReplyController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectInfoReportController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectTaskReplyController.cs" />
+    <Compile Include="Areas\Platform\Controllers\SysDepartmentController.cs" />
+    <Compile Include="Areas\Platform\Controllers\SysUserController.cs" />
+    <Compile Include="Areas\Platform\Controllers\SysRoleController.cs" />
+    <Compile Include="Areas\Platform\Controllers\SysUserLogController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MyCalendarController.cs" />
+    <Compile Include="Areas\Platform\Controllers\MessageController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectInfoReplyController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectTaskReportController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectInfoStateController.cs" />
+    <Compile Include="Areas\Platform\Controllers\BusinessStateController.cs" />
+    <Compile Include="Areas\Platform\Controllers\CustomerTypeController.cs" />
+    <Compile Include="Areas\Platform\Controllers\CustomerLevelController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectFinancialController.cs" />
+    <Compile Include="Areas\Platform\Controllers\ProjectFinancialReportController.cs" />
+    <Compile Include="Areas\Platform\PlatformAreaRegistration.cs" />
+    <Compile Include="Areas\WebApi\Controllers\AllWorkController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\AndroidBaseController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\AppVersionController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ChatController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ColleagueController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ContactController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\CustomerCountController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\KnowledgeController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\KnowledgeReplyController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\LoginController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\MyCreateWorkController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\MyFollowWorkController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\MyParticipateWorkController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\MyPlanController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\MyProjectTaskController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ProjectFinancialController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ProjectFinancialReportController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ProjectInfoCountController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ProjectInfoReplyController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\ProjectTaskReplyController.cs" />
+    <Compile Include="Areas\WebApi\Controllers\SysMenuController.cs" />
+    <Compile Include="Areas\WebApi\WebApiAreaRegistration.cs" />
+    <Compile Include="Areas\Weixin\Controllers\CheckSignatureController.cs" />
+    <Compile Include="Areas\Weixin\WeixinAreaRegistration.cs" />
+    <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
+    <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
+    <Compile Include="Controllers\CachingListController.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CultureInfoAttribute.cs" />
+    <Compile Include="Helper\LogExceptionFilterAttribute.cs" />
+    <Compile Include="Helper\MikePagerAjaxExtensions.cs" />
+    <Compile Include="Helper\MikePagerHtmlExtensions.cs" />
+    <Compile Include="Helper\OnTimedEvent.cs" />
+    <Compile Include="Helper\UserAuthorizeFilterAttribute.cs" />
+    <Compile Include="Helper\UserInfo.cs" />
+    <Compile Include="Helper\UserRole.cs" />
+    <Compile Include="SignalR\ChatConnection.cs" />
+    <Compile Include="SignalR\MessengerHub.cs" />
+    <Compile Include="SignalR\ServerDateTime.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Elmah.Errors\ReadMe.txt" />
+    <Content Include="Content\body.css" />
+    <Content Include="Content\body\blue.jpg" />
+    <Content Include="Content\body\chrome.jpg" />
+    <Content Include="Content\body\city.jpg" />
+    <Content Include="Content\body\cloth.png" />
+    <Content Include="Content\body\greenish.jpg" />
+    <Content Include="Content\body\kiwi.jpg" />
+    <Content Include="Content\body\lights.jpg" />
+    <Content Include="Content\body\night.jpg" />
+    <Content Include="Content\body\ocean.jpg" />
+    <Content Include="Content\body\skin-blue.jpg" />
+    <Content Include="Content\body\skin-chrome.jpg" />
+    <Content Include="Content\body\skin-city.jpg" />
+    <Content Include="Content\body\skin-cloth.jpg" />
+    <Content Include="Content\body\skin-greenish.jpg" />
+    <Content Include="Content\body\skin-kiwi.jpg" />
+    <Content Include="Content\body\skin-lights.jpg" />
+    <Content Include="Content\body\skin-night.jpg" />
+    <Content Include="Content\body\skin-ocean.jpg" />
+    <Content Include="Content\body\skin-sunny.jpg" />
+    <Content Include="Content\body\skin-sunset.jpg" />
+    <Content Include="Content\body\skin-tectile.jpg" />
+    <Content Include="Content\body\skin-violate.jpg" />
+    <Content Include="Content\body\skin-yellow.jpg" />
+    <Content Include="Content\body\sunny.jpg" />
+    <Content Include="Content\body\sunset.jpg" />
+    <Content Include="Content\body\tectile.png" />
+    <Content Include="Content\body\violate.jpg" />
+    <Content Include="Content\body\yellow.jpg" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Buttons\css\buttons.css" />
+    <Content Include="Content\Buttons\css\font-awesome-ie7.min.css" />
+    <Content Include="Content\Buttons\css\font-awesome.css" />
+    <Content Include="Content\Buttons\font\fontawesome-webfont.svg" />
+    <Content Include="Content\Buttons\js\buttons.js" />
+    <Content Include="Content\cancel-off.png" />
+    <Content Include="Content\cancel-on.png" />
+    <Content Include="Content\default.png" />
+    <Content Include="Content\default_man_middle.jpg" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_broadway.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_meadow.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_skyblue.css" />
+    <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler.css" />
+    <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler_classic.css" />
+    <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler_flat.css" />
+    <Content Include="Content\dhtmlxscheduler\dhtmlxscheduler_glossy.css" />
+    <Content Include="Content\dhtmlxscheduler\imgs\buttons.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs\but_repeat.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs\calendar.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs\clock_big.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs\clock_small.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs\collapse_expand_icon.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs\controls.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs\databg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs\databg_now.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs\export_ical.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs\export_pdf.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs\icon.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs\images.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs\loading.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs\resize_dots.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\arrow_left.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\arrow_right.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\but_repeat.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\calendar.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\clock_big.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\clock_small.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\close_icon.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\collapse_expand_icon.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\controls.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\databg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\databg_now.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\export_ical.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\export_pdf.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\resize_dots.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_dhx_terrace\resizing.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\arrow_left.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\arrow_right.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\but_repeat.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\calendar.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\clock.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\clock_big.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\clock_small.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\close_icon.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\collapse_expand_icon.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\controls.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\databg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\databg_now.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\export_ical.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\export_pdf.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\resize_dots.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_flat\resizing.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\blue_tab.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\blue_tab_wide.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\buttons.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\but_repeat.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\calendar.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\clock_big.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\clock_small.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\collapse_expand_icon.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\controlls5.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\databg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\databg_now.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\event-bg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\export_ical.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\export_pdf.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\icon.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\left-separator.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\left-time-bg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\lightbox.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\loading.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\move.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\multi-days-bg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\second-top-days-bg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\top-days-bg.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\top-separator.gif" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\white_tab.png" />
+    <Content Include="Content\dhtmlxscheduler\imgs_glossy\white_tab_wide.png" />
+    <Content Include="Content\Emoticon\1-13051H05J1-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J1.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J2.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J3-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J3.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J4-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J4.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J5.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J6.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J7-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J7.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J8-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J8.gif" />
+    <Content Include="Content\Emoticon\1-13051H05J9.gif" />
+    <Content Include="Content\Emoticon\1-13051H05K0-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H05K0.gif" />
+    <Content Include="Content\Emoticon\1-13051H05K1.gif" />
+    <Content Include="Content\Emoticon\1-13051H05K2.gif" />
+    <Content Include="Content\Emoticon\1-13051H11608.gif" />
+    <Content Include="Content\Emoticon\1-13051H11609-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H11609.gif" />
+    <Content Include="Content\Emoticon\1-13051H11610.gif" />
+    <Content Include="Content\Emoticon\1-13051H11611.gif" />
+    <Content Include="Content\Emoticon\1-13051H11612.gif" />
+    <Content Include="Content\Emoticon\1-13051H11613.gif" />
+    <Content Include="Content\Emoticon\1-13051H11614.gif" />
+    <Content Include="Content\Emoticon\1-13051H11615.gif" />
+    <Content Include="Content\Emoticon\1-13051H11616-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H11616.gif" />
+    <Content Include="Content\Emoticon\1-13051H11617.gif" />
+    <Content Include="Content\Emoticon\1-13051H11618.gif" />
+    <Content Include="Content\Emoticon\1-13051H11620.gif" />
+    <Content Include="Content\Emoticon\1-13051H11621.gif" />
+    <Content Include="Content\Emoticon\1-13051H11622.gif" />
+    <Content Include="Content\Emoticon\1-13051H11624-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H11624.gif" />
+    <Content Include="Content\Emoticon\1-13051H11626-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H11626.gif" />
+    <Content Include="Content\Emoticon\1-13051H11628.gif" />
+    <Content Include="Content\Emoticon\1-13051H11629-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H11629.gif" />
+    <Content Include="Content\Emoticon\1-13051H11631.gif" />
+    <Content Include="Content\Emoticon\1-13051H11632.gif" />
+    <Content Include="Content\Emoticon\1-13051H11633-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H11633.gif" />
+    <Content Include="Content\Emoticon\1-13051H11634.gif" />
+    <Content Include="Content\Emoticon\1-13051H11635.gif" />
+    <Content Include="Content\Emoticon\1-13051H11637.gif" />
+    <Content Include="Content\Emoticon\1-13051H11638.gif" />
+    <Content Include="Content\Emoticon\1-13051H11639.gif" />
+    <Content Include="Content\Emoticon\1-13051H11640.gif" />
+    <Content Include="Content\Emoticon\1-13051H11641.gif" />
+    <Content Include="Content\Emoticon\1-13051H12T7-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12T7.gif" />
+    <Content Include="Content\Emoticon\1-13051H12T8.gif" />
+    <Content Include="Content\Emoticon\1-13051H12T9-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12T9.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U0-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U0.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U1.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U2-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U2.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U3-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U3.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U4.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U5-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U5.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U6-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U6.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U7.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U8-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U8.gif" />
+    <Content Include="Content\Emoticon\1-13051H12U9.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z0.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z1.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z2-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z2.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z3.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z4-50.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z4.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z5.gif" />
+    <Content Include="Content\Emoticon\1-13051H12Z6.gif" />
+    <Content Include="Content\Emoticon\1-13102F21352.gif" />
+    <Content Include="Content\Emoticon\1-13102F21356.gif" />
+    <Content Include="Content\Emoticon\1-13102F21359.gif" />
+    <Content Include="Content\Emoticon\1-13102F21401.gif" />
+    <Content Include="Content\Emoticon\1-13102F21403.gif" />
+    <Content Include="Content\Emoticon\1-13102F21404.gif" />
+    <Content Include="Content\Emoticon\1-13102F21406.gif" />
+    <Content Include="Content\Emoticon\1-13102F21410.gif" />
+    <Content Include="Content\Emoticon\1-13102F21413.gif" />
+    <Content Include="Content\Emoticon\1-13102F21415.gif" />
+    <Content Include="Content\Emoticon\1-13102F21417.gif" />
+    <Content Include="Content\Emoticon\1-13102F21420.gif" />
+    <Content Include="Content\Emoticon\1-13102F21422.gif" />
+    <Content Include="Content\Emoticon\1-13102F21424.gif" />
+    <Content Include="Content\Emoticon\1-13102F21427.gif" />
+    <Content Include="Content\Emoticon\1-13102F21430.gif" />
+    <Content Include="Content\Emoticon\1-13102F21432.gif" />
+    <Content Include="Content\Emoticon\1-13102F21434.gif" />
+    <Content Include="Content\Emoticon\1-13102F21439.gif" />
+    <Content Include="Content\Emoticon\1-13102F21441.gif" />
+    <Content Include="Content\Emoticon\1-13102F21443.gif" />
+    <Content Include="Content\Emoticon\1-13102F21445.gif" />
+    <Content Include="Content\Emoticon\1-13102F21449.gif" />
+    <Content Include="Content\Emoticon\1-13102F21452.gif" />
+    <Content Include="Content\Emoticon\1-13102F21455.gif" />
+    <Content Include="Content\Emoticon\1-13102F21456.gif" />
+    <Content Include="Content\Emoticon\1-13102F21458.gif" />
+    <Content Include="Content\Emoticon\jiandan %281%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2810%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2811%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2812%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2813%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2814%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2815%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2816%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2817%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2818%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2819%29.png" />
+    <Content Include="Content\Emoticon\jiandan %282%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2820%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2821%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2822%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2823%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2824%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2825%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2826%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2827%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2828%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2829%29.png" />
+    <Content Include="Content\Emoticon\jiandan %283%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2830%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2831%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2832%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2833%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2834%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2835%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2836%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2837%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2838%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2839%29.png" />
+    <Content Include="Content\Emoticon\jiandan %284%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2840%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2841%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2842%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2843%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2844%29.png" />
+    <Content Include="Content\Emoticon\jiandan %2845%29.png" />
+    <Content Include="Content\Emoticon\jiandan %285%29.png" />
+    <Content Include="Content\Emoticon\jiandan %286%29.png" />
+    <Content Include="Content\Emoticon\jiandan %287%29.png" />
+    <Content Include="Content\Emoticon\jiandan %288%29.png" />
+    <Content Include="Content\Emoticon\jiandan %289%29.png" />
+    <Content Include="Content\Emoticon\tushiji %281%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %281%29.jpg" />
+    <Content Include="Content\Emoticon\tushiji %2810%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2811%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2812%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2813%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2814%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2815%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2816%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2817%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2818%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2819%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %282%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2820%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2821%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2822%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2823%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2824%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2825%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2826%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2827%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2828%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2829%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %283%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2830%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2831%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2832%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2833%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2834%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2835%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2836%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2837%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2838%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2839%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %284%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2840%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2841%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2842%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %2843%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %285%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %286%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %287%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %288%29.gif" />
+    <Content Include="Content\Emoticon\tushiji %289%29.gif" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\footer.jpg" />
+    <Content Include="Content\icon\calendar.png" />
+    <Content Include="Content\icon\chart.png" />
+    <Content Include="Content\icon\folder.png" />
+    <Content Include="Content\icon\form.png" />
+    <Content Include="Content\icon\home.png" />
+    <Content Include="Content\icon\menu.png" />
+    <Content Include="Content\icon\pages.png" />
+    <Content Include="Content\icon\photos.png" />
+    <Content Include="Content\icon\table.png" />
+    <Content Include="Content\icon\typography.png" />
+    <Content Include="Content\icon\ui.png" />
+    <Content Include="Content\icon\widgets.png" />
+    <Content Include="Content\kindeditor\asp.net\bin\LitJSON.dll" />
+    <Content Include="Content\kindeditor\kindeditor-all-min.js" />
+    <Content Include="Content\kindeditor\kindeditor-all.js" />
+    <Content Include="Content\kindeditor\kindeditor-min.js" />
+    <Content Include="Content\kindeditor\kindeditor.js" />
+    <Content Include="Content\kindeditor\lang\ar.js" />
+    <Content Include="Content\kindeditor\lang\en.js" />
+    <Content Include="Content\kindeditor\lang\ko.js" />
+    <Content Include="Content\kindeditor\lang\zh_CN.js" />
+    <Content Include="Content\kindeditor\lang\zh_TW.js" />
+    <Content Include="Content\kindeditor\license.txt" />
+    <Content Include="Content\kindeditor\plugins\anchor\anchor.js" />
+    <Content Include="Content\kindeditor\plugins\autoheight\autoheight.js" />
+    <Content Include="Content\kindeditor\plugins\baidumap\baidumap.js" />
+    <Content Include="Content\kindeditor\plugins\baidumap\index.html" />
+    <Content Include="Content\kindeditor\plugins\baidumap\map.html" />
+    <Content Include="Content\kindeditor\plugins\clearhtml\clearhtml.js" />
+    <Content Include="Content\kindeditor\plugins\code\code.js" />
+    <Content Include="Content\kindeditor\plugins\code\prettify.css" />
+    <Content Include="Content\kindeditor\plugins\code\prettify.js" />
+    <Content Include="Content\kindeditor\plugins\emoticons\emoticons.js" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\0.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\1.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\10.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\100.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\101.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\102.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\103.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\104.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\105.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\106.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\107.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\108.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\109.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\11.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\110.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\111.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\112.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\113.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\114.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\115.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\116.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\117.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\118.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\119.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\12.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\120.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\121.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\122.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\123.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\124.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\125.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\126.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\127.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\128.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\129.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\13.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\130.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\131.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\132.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\133.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\134.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\14.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\15.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\16.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\17.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\18.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\19.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\2.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\20.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\21.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\22.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\23.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\24.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\25.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\26.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\27.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\28.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\29.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\3.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\30.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\31.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\32.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\33.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\34.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\35.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\36.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\37.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\38.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\39.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\4.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\40.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\41.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\42.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\43.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\44.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\45.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\46.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\47.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\48.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\49.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\5.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\50.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\51.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\52.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\53.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\54.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\55.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\56.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\57.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\58.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\59.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\6.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\60.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\61.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\62.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\63.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\64.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\65.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\66.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\67.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\68.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\69.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\7.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\70.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\71.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\72.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\73.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\74.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\75.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\76.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\77.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\78.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\79.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\8.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\80.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\81.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\82.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\83.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\84.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\85.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\86.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\87.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\88.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\89.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\9.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\90.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\91.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\92.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\93.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\94.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\95.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\96.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\97.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\98.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\99.gif" />
+    <Content Include="Content\kindeditor\plugins\emoticons\images\static.gif" />
+    <Content Include="Content\kindeditor\plugins\filemanager\filemanager.js" />
+    <Content Include="Content\kindeditor\plugins\filemanager\images\file-16.gif" />
+    <Content Include="Content\kindeditor\plugins\filemanager\images\file-64.gif" />
+    <Content Include="Content\kindeditor\plugins\filemanager\images\folder-16.gif" />
+    <Content Include="Content\kindeditor\plugins\filemanager\images\folder-64.gif" />
+    <Content Include="Content\kindeditor\plugins\filemanager\images\go-up.gif" />
+    <Content Include="Content\kindeditor\plugins\flash\flash.js" />
+    <Content Include="Content\kindeditor\plugins\image\image.js" />
+    <Content Include="Content\kindeditor\plugins\image\images\align_left.gif" />
+    <Content Include="Content\kindeditor\plugins\image\images\align_right.gif" />
+    <Content Include="Content\kindeditor\plugins\image\images\align_top.gif" />
+    <Content Include="Content\kindeditor\plugins\image\images\refresh.png" />
+    <Content Include="Content\kindeditor\plugins\insertfile\insertfile.js" />
+    <Content Include="Content\kindeditor\plugins\lineheight\lineheight.js" />
+    <Content Include="Content\kindeditor\plugins\link\link.js" />
+    <Content Include="Content\kindeditor\plugins\map\map.html" />
+    <Content Include="Content\kindeditor\plugins\map\map.js" />
+    <Content Include="Content\kindeditor\plugins\media\media.js" />
+    <Content Include="Content\kindeditor\plugins\multiimage\images\image.png" />
+    <Content Include="Content\kindeditor\plugins\multiimage\images\select-files-en.png" />
+    <Content Include="Content\kindeditor\plugins\multiimage\images\select-files-zh_CN.png" />
+    <Content Include="Content\kindeditor\plugins\multiimage\images\swfupload.swf" />
+    <Content Include="Content\kindeditor\plugins\multiimage\multiimage.js" />
+    <Content Include="Content\kindeditor\plugins\pagebreak\pagebreak.js" />
+    <Content Include="Content\kindeditor\plugins\plainpaste\plainpaste.js" />
+    <Content Include="Content\kindeditor\plugins\preview\preview.js" />
+    <Content Include="Content\kindeditor\plugins\quickformat\quickformat.js" />
+    <Content Include="Content\kindeditor\plugins\table\table.js" />
+    <Content Include="Content\kindeditor\plugins\template\html\1.html" />
+    <Content Include="Content\kindeditor\plugins\template\html\2.html" />
+    <Content Include="Content\kindeditor\plugins\template\html\3.html" />
+    <Content Include="Content\kindeditor\plugins\template\template.js" />
+    <Content Include="Content\kindeditor\plugins\wordpaste\wordpaste.js" />
+    <Content Include="Content\kindeditor\themes\common\anchor.gif" />
+    <Content Include="Content\kindeditor\themes\common\blank.gif" />
+    <Content Include="Content\kindeditor\themes\common\flash.gif" />
+    <Content Include="Content\kindeditor\themes\common\loading.gif" />
+    <Content Include="Content\kindeditor\themes\common\media.gif" />
+    <Content Include="Content\kindeditor\themes\common\rm.gif" />
+    <Content Include="Content\kindeditor\themes\default\background.png" />
+    <Content Include="Content\kindeditor\themes\default\default.css" />
+    <Content Include="Content\kindeditor\themes\default\default.png" />
+    <Content Include="Content\kindeditor\themes\qq\editor.gif" />
+    <Content Include="Content\kindeditor\themes\qq\qq.css" />
+    <Content Include="Content\kindeditor\themes\simple\simple.css" />
+    <Content Include="Content\Loading\05043117.gif" />
+    <Content Include="Content\Loading\05043118.gif" />
+    <Content Include="Content\Loading\05043119.gif" />
+    <Content Include="Content\Loading\0504312.gif" />
+    <Content Include="Content\Loading\05043120.gif" />
+    <Content Include="Content\Loading\05043121.gif" />
+    <Content Include="Content\Loading\05043122.gif" />
+    <Content Include="Content\Loading\05043123.gif" />
+    <Content Include="Content\Loading\05043124.gif" />
+    <Content Include="Content\Loading\05043125.gif" />
+    <Content Include="Content\Loading\05043126.gif" />
+    <Content Include="Content\Loading\05043127.gif" />
+    <Content Include="Content\Loading\05043128.gif" />
+    <Content Include="Content\Loading\05043129.gif" />
+    <Content Include="Content\Loading\0504313.gif" />
+    <Content Include="Content\Loading\05043130.gif" />
+    <Content Include="Content\Loading\05043131.gif" />
+    <Content Include="Content\Loading\05043132.gif" />
+    <Content Include="Content\Loading\05043133.gif" />
+    <Content Include="Content\Loading\05043134.gif" />
+    <Content Include="Content\Loading\05043135.gif" />
+    <Content Include="Content\Loading\05043136.gif" />
+    <Content Include="Content\Loading\05043137.gif" />
+    <Content Include="Content\Loading\05043138.gif" />
+    <Content Include="Content\Loading\05043139.gif" />
+    <Content Include="Content\Loading\0504314.gif" />
+    <Content Include="Content\Loading\05043140.gif" />
+    <Content Include="Content\Loading\05043141.gif" />
+    <Content Include="Content\Loading\05043142.gif" />
+    <Content Include="Content\Loading\05043143.gif" />
+    <Content Include="Content\Loading\05043144.gif" />
+    <Content Include="Content\Loading\05043145.gif" />
+    <Content Include="Content\Loading\05043146.gif" />
+    <Content Include="Content\Loading\05043147.gif" />
+    <Content Include="Content\Loading\05043148.gif" />
+    <Content Include="Content\Loading\05043149.gif" />
+    <Content Include="Content\Loading\0504315.gif" />
+    <Content Include="Content\Loading\05043150.gif" />
+    <Content Include="Content\Loading\05043151.gif" />
+    <Content Include="Content\Loading\05043152.gif" />
+    <Content Include="Content\Loading\05043153.gif" />
+    <Content Include="Content\Loading\05043154.gif" />
+    <Content Include="Content\Loading\05043155.gif" />
+    <Content Include="Content\Loading\05043156.gif" />
+    <Content Include="Content\Loading\05043157.gif" />
+    <Content Include="Content\Loading\05043158.gif" />
+    <Content Include="Content\Loading\05043159.gif" />
+    <Content Include="Content\Loading\0504316.gif" />
+    <Content Include="Content\Loading\05043160.gif" />
+    <Content Include="Content\Loading\05043161.gif" />
+    <Content Include="Content\Loading\05043162.gif" />
+    <Content Include="Content\Loading\05043163.gif" />
+    <Content Include="Content\Loading\0504317.gif" />
+    <Content Include="Content\Loading\0504318.gif" />
+    <Content Include="Content\Loading\0504319.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %281%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %282%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %283%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %284%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %285%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %286%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %287%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0 %288%29.gif" />
+    <Content Include="Content\Loading\cnwebshow.com-0.gif" />
+    <Content Include="Content\login.jpg" />
+    <Content Include="Content\logo-w.png" />
+    <Content Include="Content\logo.jpg" />
+    <Content Include="Content\messenger\messenger-spinner.css" />
+    <Content Include="Content\messenger\messenger-theme-air.css" />
+    <Content Include="Content\messenger\messenger-theme-block.css" />
+    <Content Include="Content\messenger\messenger-theme-flat.css" />
+    <Content Include="Content\messenger\messenger-theme-future.css" />
+    <Content Include="Content\messenger\messenger-theme-ice.css" />
+    <Content Include="Content\messenger\messenger.css" />
+    <Content Include="Content\OnlineMessage.png" />
+    <Content Include="Content\select-bg.png" />
+    <Content Include="Content\SelectStyleBnt.gif" />
+    <Content Include="Content\star-half.png" />
+    <Content Include="Content\star-off.png" />
+    <Content Include="Content\star-on.png" />
+    <Content Include="Content\StartButton.png" />
+    <Content Include="Content\StartMenu\1.png" />
+    <Content Include="Content\StartMenu\2.png" />
+    <Content Include="Content\StartMenu\3.png" />
+    <Content Include="Content\StartMenu\4.png" />
+    <Content Include="Content\StartMenu\5.png" />
+    <Content Include="Content\StartMenu\6.png" />
+    <Content Include="Content\StartMenu\7.png" />
+    <Content Include="Content\StartMenu\8.png" />
+    <Content Include="Content\StartMenu\9.png" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\top.png" />
+    <Content Include="Content\topb.jpg" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Areas\Platform\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Login\Views\Web.config" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dhtmlxgantt\dhtmlxgantt.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_quick_info.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_tooltip.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ar.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_be.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ca.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_cn.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_cs.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_da.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_de.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_el.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_es.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fi.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fr.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_he.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_hu.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_id.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_it.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_jp.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_nb.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_nl.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_no.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_pl.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_pt.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ro.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ru.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_si.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_sk.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_sv.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_tr.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ua.js" />
+    <Content Include="Scripts\dhtmlxscheduler\dhtmlxscheduler.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_active_links.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_agenda_view.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_all_timed.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_collision.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_container_autoresize.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_cookie.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_editors.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_expand.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_grid_view.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_html_templates.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_key_nav.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_layer.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_limit.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_map_view.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_minical.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_monthheight.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_multisection.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_multiselect.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_multisource.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_mvc.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_offline.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_outerdrag.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_pdf.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_quick_info.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_readonly.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_recurring.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_serialize.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_timeline.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_tooltip.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_treetimeline.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_units.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_url.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_week_agenda.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_wp.js" />
+    <Content Include="Scripts\dhtmlxscheduler\ext\dhtmlxscheduler_year_view.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_ar.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_be.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_ca.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_cn.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_cs.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_da.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_de.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_el.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_en.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_es.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_fi.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_fr.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_he.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_hu.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_id.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_it.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_jp.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_nb.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_nl.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_no.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_pl.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_pt.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_ro.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_ru.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_si.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_sk.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_sv.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_tr.js" />
+    <Content Include="Scripts\dhtmlxscheduler\locale\locale_ua.js" />
+    <Content Include="Scripts\functions.js" />
+    <Content Include="Scripts\grayscale.js" />
+    <Content Include="Areas\Platform\Views\Desktop\Index - 复制.cshtml" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Platform\Views\Activity\Index.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-1.2.1.js" />
+    <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Areas\Platform\Views\Chat\Details.cshtml" />
+    <Content Include="Areas\WebApi\Views\Web.config" />
+    <Content Include="Areas\Platform\Views\ProjectInfoCount\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyPlan\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\KnowledgeReply\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\CustomerCommunication\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Customer\Edit.cshtml" />
+    <Content Include="Areas\Platform\Views\Index\Index.cshtml" />
+    <Content Include="Areas\Weixin\Views\web.config" />
+    <Content Include="Areas\Register\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Register\Views\Succes\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectFile\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectFile\Create.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\Platform\Views\WorkReport\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\WorkReport\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Index\Index - 复制.cshtml" />
+    <None Include="Properties\PublishProfiles\本地.pubxml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.0.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\messenger\messenger-theme-flat.js" />
+    <Content Include="Scripts\messenger\messenger-theme-future.js" />
+    <Content Include="Scripts\messenger\messenger.js" />
+    <Content Include="Scripts\messenger\messenger.min.js" />
+    <Content Include="Scripts\modernizr-2.7.2.js" />
+    <Content Include="Scripts\sco.collapse.js" />
+    <Content Include="Views\Shared\Edit.cshtml" />
+    <Content Include="Areas\Login\Views\Index\Index.cshtml" />
+    <Content Include="Views\Shared\Button_Back_List.cshtml" />
+    <Content Include="Views\Shared\Button_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Index\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Index\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ServerInfo\Index.cshtml" />
+    <Content Include="Views\Shared\Ajax_Edit_Verify.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SysRole\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysStatistic\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\WebConfigAppSetting\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\WebConfigAppSetting\Index.cshtml" />
+    <Content Include="PathIndex\readme.txt" />
+    <Content Include="robots.txt" />
+    <Content Include="Areas\Admin\Views\Desktop\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Desktop\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Help\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyCreateWork\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyCreateWork\Edit.cshtml" />
+    <Content Include="Areas\Platform\Views\MyCreateWork\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\MyCalendar\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyFile\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Colleague\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Knowledge\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyParticipateWork\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyFollowWork\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\AllWork\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Fans\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyProjectTask\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyProjectTask\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\Shared\ProjectTaskItem.cshtml" />
+    <Content Include="Areas\Platform\Views\Shared\ProjectInfoItem.cshtml" />
+    <Content Include="Areas\Platform\Views\AllWork\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\MyFollowWork\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\MyProjectTask\Edit.cshtml" />
+    <Content Include="Areas\Platform\Views\Knowledge\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectInfoReport\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectInfoReport\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\Desktop\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\MyParticipateWork\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\MyPlan\Index.cshtml" />
+    <Content Include="Content\kindeditor\asp.net\upload_json.ashx" />
+    <Content Include="Areas\Platform\Views\Message\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\Message\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectInfoReply\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectTaskReply\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyPlan\Create_Input.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Platform\Views\PlanReport\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\PlanReport\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\Shared\PlanItem.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectTaskReport\Details.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectTaskReport\Index.cshtml" />
+    <Content Include="Content\Buttons\.DS_Store" />
+    <Content Include="Content\Buttons\css\.DS_Store" />
+    <Content Include="Content\Buttons\font\fontawesome-webfont.eot" />
+    <Content Include="Content\Buttons\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\Buttons\font\fontawesome-webfont.woff" />
+    <Content Include="Content\Buttons\font\FontAwesome.otf" />
+    <Content Include="Content\Buttons\js\.DS_Store" />
+    <Content Include="Areas\Platform\Views\Contact\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\MyPlan\Edit.cshtml" />
+    <Content Include="Areas\Platform\Views\ProjectTaskReply\Create.cshtml" />
+    <Content Include="Areas\Platform\Views\Flow\Index.cshtml" />
+    <Content Include="Areas\Platform\Views\CustomerCount\Index.cshtml" />
+    <Content Include="Areas\Register\Views\Web.config" />
+    <Content Include="Areas\Register\Views\Index\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\远程服务器.pubxml" />
+    <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Areas\Login\Views\ForgotPassword\Index.cshtml" />
+    <Content Include="Areas\Login\Views\ForgotPassword\Reset.cshtml" />
+    <Content Include="Areas\Platform\Views\Index\Edit.cshtml" />
+    <Content Include="Scripts\jquery.raty.js" />
+    <Content Include="Scripts\jquery.raty.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.bg.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.ca.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.cs.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.da.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.de.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.el.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.es.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.fi.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.fr.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.he.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.hr.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.hu.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.id.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.is.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.it.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.ja.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.kr.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.lt.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.lv.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.ms.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.nb.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.nl.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.pl.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.pt-BR.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.pt.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.ro.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.rs-latin.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.rs.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.ru.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.sk.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.sl.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.sv.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.sw.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.th.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.tr.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.ua.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.uk.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.zh-TW.js" />
+    <Content Include="Upload\Readme.txt" />
+    <Content Include="Views\Shared\EditorTemplates\SelectList.cshtml" />
+    <Content Include="Areas\Platform\Views\SysRole\Edit.cshtml" />
+    <Content Include="Areas\Platform\Views\Shared\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="WebAppSettings.config" />
+    <Content Include="Views\Shared\EditorTemplates\MultiSelectList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DropDownList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Html.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Html.cshtml" />
+    <Content Include="Views\Shared\_html5shiv.cshtml" />
+    <Content Include="Views\Shared\Details.cshtml" />
+    <Content Include="Views\Shared\_validationSummary.cshtml" />
+    <Content Include="Views\Shared\_alerts.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Color.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\File.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\File.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Raty.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Raty.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Ico.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Ico.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\StringExtension.cshtml" />
+    <Content Include="Views\Shared\SysUserDisplay.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\HiddenInput.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Extension.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Extension.cshtml" />
+    <Content Include="Areas\Platform\Views\Chat\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ContactsExtension.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Gantt.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Gantt.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
+    <Content Include="Views\Shared\Search_Input.cshtml" />
+    <Content Include="Views\Shared\Button_Submit.cshtml" />
+    <Content Include="Views\Shared\Button_Export.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Login\Views\Shared\" />
+    <Folder Include="Areas\Register\Models\" />
+    <Folder Include="Areas\Register\Views\Shared\" />
+    <Folder Include="Areas\WebApi\Models\" />
+    <Folder Include="Areas\WebApi\Views\Shared\" />
+    <Folder Include="Areas\Weixin\Models\" />
+    <Folder Include="Areas\Weixin\Views\checkSignature\" />
+    <Folder Include="Areas\Weixin\Views\Shared\" />
+    <Folder Include="Content\kindeditor\attached\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{55dec9f4-cac0-4408-b6dd-e0ef47fdcb18}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IServices\IServices.csproj">
+      <Project>{71568A82-D403-47F5-8928-AC80AA5EA642}</Project>
+      <Name>IServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguagePack\LanguagePack.csproj">
+      <Project>{75235e4b-393a-4e39-8de9-e6fdc2b2d55d}</Project>
+      <Name>LanguagePack</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{8b64af1d-0f93-40f7-921b-59b2dd8228ab}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{97a2d3bc-c3c7-443c-92f9-5c89a3166082}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>46647</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:46648/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:46648/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://192.168.1.144</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
