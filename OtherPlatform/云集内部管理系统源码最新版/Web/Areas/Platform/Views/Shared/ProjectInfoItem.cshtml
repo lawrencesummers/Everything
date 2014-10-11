@@ -1,0 +1,35 @@
+﻿@model Models.UserModels.ProjectInfo
+<h4>
+    @if (!Model.Public)
+    {
+        <i class="fa fa-lock"></i>
+    }
+
+    @Html.DisplayFor(a => a.ProjectInfoState.ProjectInfoStateName)
+
+    @Ajax.ActionLink(Model.ProjectName, "Details", new { id = Model.Id, pageIndex = Request["pageIndex"] }, new AjaxOptions { UpdateTargetId = "Main" })
+
+    @(!Model.Finish ? "" : "(" + lang.Finish + ")")
+</h4>
+<div>@Html.DisplayFor(modelItem => Model.ProjectObjective)</div>
+<div class="muted">
+    <span>@Html.DisplayFor(modelItem => Model.Raty)</span>
+    <span>
+        @Html.DisplayFor(modelItem => Model.StarTime)
+    @if (Model.EndTime.HasValue)
+    {
+        <span>~</span>
+        @Html.DisplayFor(modelItem => Model.EndTime)
+    }
+</span>
+
+@if (!Model.Finish && Model.EndTime.HasValue)
+{
+    <span>剩余<span class="text-info lead">@(new TimeSpan(Model.EndTime.Value.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))</span>天</span>
+}
+    <span>计划 <span class="text-info">@Model.Plans.Count(a => !a.Deleted)</span></span>
+    <span>任务 <span class="text-info">@Model.ProjectTasks.Count(a => !a.Deleted)</span></span>
+    <span>回复 <span class="text-info">@Model.ProjectInfoReplys.Count(a => !a.Deleted)</span></span>
+    <span>成员 <span class="text-info">@Model.ProjectUsers.Count(a => !a.Deleted)</span></span>
+    <span>文档 <span class="text-info">@Model.ProjectFiles.Count(a => !a.Deleted)</span></span>
+</div>

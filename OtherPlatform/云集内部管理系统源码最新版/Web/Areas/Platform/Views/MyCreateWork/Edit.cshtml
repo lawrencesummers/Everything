@@ -1,0 +1,172 @@
+﻿@using Models.SysModels
+@model Models.UserModels.ProjectInfo
+
+<div>
+
+
+
+    @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+    {
+        <div>
+            <span class="pull-right">
+                @Ajax.ActionLink(lang.Back, "Index", null, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+                <input class="btn btn-primary" type="submit" value="@lang.Save" />
+            </span>
+            <blockquote>
+                <h3>@lang.ProjectInfo</h3>
+            </blockquote>
+ 
+        </div>
+
+        <div class="form-horizontal">
+            <div class="control-group">
+                @Html.Partial("_alerts")
+                @Html.Partial("_validationSummary")
+                @if (Model.LastProjectInfoId.HasValue)
+                {
+                    @Html.HiddenFor(a => a.LastProjectInfoId)
+                }
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.CustomerId, new { @class = "control-label" })
+                <div class="controls">
+                    <select id="@Html.NameFor(a=>a.CustomerId)" name="@Html.NameFor(a=>a.CustomerId)" class="selectpicker show-tick" data-show-subtext="true" data-live-search="true" data-size="auto">
+                        <option value=""> </option>
+                        @foreach (SelectListItem item in ViewBag.CustomerId)
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.CustomerId, null, new { @class = "help-inline" })
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.ProjectName, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.ProjectName, new { @class = "input-xxlarge" })
+                    @Html.ValidationMessageFor(model => model.ProjectName, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.Raty, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Raty, new { @class = "input-xxlarge" })
+                    @Html.ValidationMessageFor(model => model.Raty, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.ProjectInfoStateId, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.DropDownListFor(model => model.ProjectInfoStateId, null)
+                    @Html.ValidationMessageFor(model => model.ProjectInfoStateId, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.ProjectObjective, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.ProjectObjective, new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(model => model.ProjectObjective, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.Tag, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Tag, new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(model => model.Tag, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.Public, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Public, new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(model => model.Public, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.Finish, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Finish, new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(model => model.Finish, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.StarTime, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.StarTime, new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(model => model.StarTime, null, new { @class = "help-inline" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.EndTime, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.EndTime, new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(model => model.EndTime, null, new { @class = "help-inline" })
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.LeaderUserId, new { @class = "control-label" })
+                <div class="controls">
+                    <select id="LeaderUserId" name="LeaderUserId" class="selectpicker show-tick" data-live-search="true" data-size="auto" multiple data-selected-text-format="count>3" title="用户">
+                        @foreach (SysDepartment item in ViewBag.SysDepartment)
+                        {
+                            <optgroup label="@item.DepartmentName">
+                                @foreach (var item1 in item.SysDepartmentSysUsers.Select(a => a.SysUser).Where(a => !a.Deleted && a.Enabled))
+                                {
+                                    <option value="@item1.Id" title="@item1.DisplayName" data-subtext="@item1.UserName" @(Model.ProjectUsers.Any(a => a.SysUserId == item1.Id && a.Leader) || (ViewBag.UserId == item1.Id) || (Model.LeaderUserId.Any(a => a == item1.Id)) ? "selected" : "")>@item1.DisplayName</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.ProjectUsersId, new { @class = "control-label" })
+                <div class="controls">
+                    @foreach (SysDepartment item in ViewBag.SysDepartment)
+                    {
+                        <div style="padding-left:@((item.SystemId.Length - 3) * 5)px;">
+                            <div style="margin: 5px 0 0 0;">
+                                <strong>@item.DepartmentName : </strong><a href="javascript:;" class="checkedall">全选</a> <a href="javascript:;" class="uncheckedall">取消</a>
+                            </div>
+                            <div style="margin-left: 30px;">
+                                @foreach (var item1 in item.SysDepartmentSysUsers.Select(a => a.SysUser).Where(a => !a.Deleted && a.Enabled && a.Id != ViewBag.UserId).OrderBy(a => a.DisplayName))
+                                {
+                                    <label class="checkbox-inline" style="width: 70px;">
+                                        <input id="@item1.Id" name="@Html.NameFor(model => model.ProjectUsersId)" type="checkbox" value="@item1.Id" @(Model.ProjectUsers.Any(b => b.SysUserId == item1.Id) ? "checked" : "") />
+                                        @item1.DisplayName
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div>
+                @Html.Partial("Button_Submit")
+            </div>
+        </div>
+    }
+
+    <script>
+        $(function () {
+            $(".checkedall").click(function () {
+                $($(this).parent().parent().find(":checkbox")).attr("checked", 'checked');
+            });
+            $(".uncheckedall").click(function () {
+                $($(this).parent().parent().find(":checkbox")).removeAttr("checked");
+            });
+        })
+    </script>
+</div>

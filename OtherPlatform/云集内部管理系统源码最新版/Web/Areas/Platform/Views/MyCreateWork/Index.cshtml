@@ -1,0 +1,56 @@
+﻿@using Common
+@using Models.UserModels
+@using Web.Helper
+@model PagedList<ProjectInfo>
+
+<div>
+    <blockquote class="col-lg-2 ">
+        <h3>我负责的项目 @Ajax.ActionLink("+", "Create", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn" })</h3>
+    </blockquote>
+    
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+    <div class="col-lg-5 pull-right">
+        <ul class="nav nav-pills">
+            <li class="@(Request["finish"] == null ? "active" : "")">
+                @Ajax.ActionLink("全部 " + (int)ViewBag.CountAll, "Index", new { keyword = Request["keyword"] }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+            <li class="@(Request["finish"] == "False" ? "active" : "")">
+                @Ajax.ActionLink("未完成 " + (int)ViewBag.unfinish, "Index", new { keyword = Request["keyword"], finish = false }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+            <li class="@(Request["finish"] == "True" ? "active" : "")">
+                @Ajax.ActionLink("已完成 " + (int)ViewBag.finish, "Index", new { keyword = Request["keyword"], finish = true }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div>
+    @foreach (var item in Model)
+    {
+        <blockquote>
+            <span class="pull-right">
+                @Ajax.ActionLink(lang.Edit, "Edit", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn btn-small btn-info " })  <span>&nbsp;</span>  @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item.Id, table = "ProjectInfo" }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn" })
+            </span>
+
+            @Html.Partial("ProjectInfoItem", item)
+
+            @if ((ViewBag.ProjectInfo as IQueryable<ProjectInfo>).Any(a => a.LastProjectInfoId == item.Id))
+            {
+                <hr />
+                foreach (var item1 in (ViewBag.ProjectInfo as IQueryable<ProjectInfo>).Where(a => a.LastProjectInfoId == item.Id))
+                {
+                    <blockquote style="margin: 2px">
+                        <span class="pull-right">
+                            @Ajax.ActionLink(lang.Edit, "Edit", new { id = item1.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })  <span>&nbsp;</span>  @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item1.Id, table = "ProjectInfo" }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn" })
+                        </span>
+                        @Html.Partial("ProjectInfoItem", item1)
+                    </blockquote>
+                }
+            }
+        </blockquote>
+    }
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

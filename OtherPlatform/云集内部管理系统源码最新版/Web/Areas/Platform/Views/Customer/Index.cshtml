@@ -1,0 +1,64 @@
+﻿@using Common
+@using Web.Helper
+@model PagedList<Models.UserModels.Customer>
+
+<div>
+
+    <blockquote class="col-lg-2 ">
+        <h3>客户 @Ajax.ActionLink("+", "Create", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn" })</h3>
+    </blockquote>  
+    
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<div>
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>客户名称</th>
+                <th>客户类型</th>
+                <th>客户等级</th>
+                <th>地址</th>
+                <th>电话</th>
+                <th>联系人</th>
+                <th>项目</th>
+
+                <th>创建日期</th>
+                <th>负责人</th>
+                <th>编辑</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Ajax.ActionLink(item.CustomerName, "Details", new { item.Id }, new AjaxOptions { UpdateTargetId = "Main" })</td>
+                    <td>@Html.DisplayFor(a => item.CustomerType.CustomerTypeName)</td>
+                    <td>@Html.DisplayFor(a => item.CustomerLevel.CustomerLevelName)</td>
+                    <td>@Html.DisplayFor(a => item.Address)</td>
+                    <td>@Html.DisplayFor(a => item.Telephony)</td>
+                    <td>@Ajax.ActionLink(item.Contacts.Count(b => !b.Deleted).ToString(), "Index", "Contact", new { CustomerId = item.Id }, new AjaxOptions { UpdateTargetId = "Main" })</td>
+                    <td>@Ajax.ActionLink(item.ProjectInfos.Count(b => !b.Deleted).ToString(), "Index", "AllWork", new { CustomerId = item.Id }, new AjaxOptions { UpdateTargetId = "Main" })</td>
+
+
+
+                    <td>@Html.DisplayFor(a => item.CreatedDate)</td>
+                    <td>@Html.DisplayFor(a => item.Leader.DisplayName)</td>
+
+                    <td>
+                        @if (item.LeaderId == ViewBag.UserId || item.UserId == ViewBag.UserId)
+                        {
+                            @Ajax.ActionLink(lang.Edit, "Edit", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "" })
+                            <span>&nbsp;</span>
+                            @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "" })
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

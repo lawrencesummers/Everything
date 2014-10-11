@@ -1,0 +1,48 @@
+﻿@using System.Globalization
+
+@{
+    DateTime date = ViewBag.date;
+}
+
+<div>
+    <blockquote>
+        <p>@Ajax.ActionLink(lang.Calendar, "Index", "MyCalendar", new AjaxOptions { UpdateTargetId = "Main" })</p>
+    </blockquote>
+</div>
+<hr />
+<div>
+    <ul class="inline text-center ">
+        <li><a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#DesktopCalendar" href="@Url.Action("Details", new { date = date.AddMonths(-1) })"><i class="fa fa-chevron-left"></i></a></li>
+        <li><a style="white-space: nowrap;">@date.ToString("yyyy年MM月")</a></li>
+        <li><a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#DesktopCalendar" href="@Url.Action("Details", new { date = date.AddMonths(1) })"><i class="fa fa-chevron-right"></i></a>
+        </li>
+        <li>
+            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyPlan", new { date = DateTime.Today })"><i class="fa fa-home"></i> @lang.ToDay</a>
+        </li>
+    </ul>
+</div>
+
+<div class="text-center">
+    <ul class="nav nav-pills">
+        <li style="width: 14.28%;">日</li>
+        <li style="width: 14.28%;">一</li>
+        <li style="width: 14.28%;">二</li>
+        <li style="width: 14.28%;">三</li>
+        <li style="width: 14.28%;">四</li>
+        <li style="width: 14.28%;">五</li>
+        <li style="width: 14.28%;">六</li>
+        @for (var i = 1; i <= (int)DateTime.Parse(date.Year + "/" + date.Month + "/01").DayOfWeek; i++)
+        {
+            <li style="width: 14.28%;"><a href="javascript:;"></a></li>
+        }
+        @{
+            List<DateTime> PlatCalender = ViewBag.PlatCalender;
+        }
+        @for (var i = 1; i <= DateTime.DaysInMonth(date.Year, date.Month); i++)
+        {
+            <li class="@(DateTime.Today == DateTime.Parse(date.Year + "/" + date.Month + "/" + i) ? "active" : "")" style="width: 14.28%; ">
+                @Ajax.ActionLink(i + (PlatCalender.Any(a => a.Date == DateTime.Parse(date.Year + "-" + date.Month + "-" + i)) ? "." : ""), "Index", "MyPlan", new { date = date.Year + "-" + date.Month + "-" + i }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+        }
+    </ul>
+</div>

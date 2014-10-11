@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Models.SysModels.SysHelp>
+
+<div>
+   
+    <blockquote class="col-lg-2 ">
+        <h3>帮助中心</h3>
+    </blockquote>
+    
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+ 
+</div>
+<div class="clearfix"></div>
+<div>
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <blockquote>
+
+
+                <p>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </p>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </div>
+
+
+            </blockquote>
+        }
+    }
+
+</div>

@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Models.UserModels.ProjectInfo>
+
+<div style="margin: auto; text-align: center; width: 500px;">
+
+
+    未完成 @Model.Count(a => !a.Finish) 已完成 @Model.Count(a => a.Finish)
+    <img src="@Url.Action("Details")" />
+</div>

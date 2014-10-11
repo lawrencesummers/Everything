@@ -1,0 +1,216 @@
+﻿@using Models.UserModels
+@model IEnumerable<ProjectTask>
+
+@{
+    IQueryable<ProjectInfo> projectInfo = ViewBag.ProjectInfo;
+    IQueryable<Plan> plan = ViewBag.Plan;
+    Guid userId = ViewBag.UserId;
+}
+
+
+<div class="row-fluid">
+
+    <div class="span9">
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab0" data-toggle="tab">我的计划 @(plan.Count())</a> </li>
+                <li><a href="#tab1" data-toggle="tab">我收到的任务 @Model.Count(a => a.SysUserId.Equals(userId))</a> </li>
+                <li><a href="#tab2" data-toggle="tab">我发布的任务 @Model.Count(a => a.UserId.Equals(userId))</a></li>
+                <li><a href="#tab3" data-toggle="tab">我参与的项目 @(projectInfo.Count(a => a.ProjectUsers.Any(b => !b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == null))</a></li>
+                <li>
+                    <a href="#tab5" data-toggle="tab">我关注的项目 @(projectInfo.Count(a => a.Public && a.ProjectUsers.Any(b => b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == null))</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab0">
+                    @foreach (Plan item in ViewBag.Plan)
+                    {
+                        <blockquote style="">
+                            @Html.Partial("PlanItem", item)
+                        </blockquote>
+                    }
+                </div>
+                <div class="tab-pane" id="tab1">
+                    @foreach (var item in Model.Where(a => a.SysUserId.Equals(userId)))
+                    {
+                        <blockquote style="background-color:@(item.ProjectInfo == null ? "" : item.ProjectInfo.Color) ;">
+                            <span class="pull-right"></span>
+
+                            @Html.Partial("ProjectTaskItem", item)
+                        </blockquote>
+                    }
+
+                </div>
+                <div class="tab-pane" id="tab2">
+                    @foreach (var item in Model.Where(a => a.UserId.Equals(userId)))
+                    {
+                        <blockquote style="background-color:@(item.ProjectInfo == null ? "" : item.ProjectInfo.Color) ;">
+                            <span class="pull-right"></span>
+                            @Html.Partial("ProjectTaskItem", item)
+                        </blockquote>
+                    }
+                </div>
+                <div class="tab-pane" id="tab3">
+                    @foreach (var item in projectInfo.Where(a => a.ProjectUsers.Any(b => !b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == null))
+                    {
+                        <blockquote style="background-color:@item.Color;">
+                            <h4>
+                                @Html.DisplayFor(a => item.ProjectInfoState.ProjectInfoStateName)
+
+                                @Ajax.ActionLink(item.ProjectName, "Details", "MyParticipateWork", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" })
+                            </h4>
+                            <div>@Html.DisplayFor(modelItem => item.ProjectObjective)</div>
+                            <div class="muted">
+                                @Html.DisplayFor(modelItem => item.Raty)
+                                @Html.DisplayFor(modelItem => item.StarTime)
+                                @if (!item.Finish && item.EndTime.HasValue)
+                                {
+                                    <span>~</span>
+                                    @Html.DisplayFor(modelItem => item.EndTime)
+
+                                    <span>
+                                        剩余<span class="text-info lead">
+                                            @(new TimeSpan(item.EndTime.Value.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))
+                                        </span>
+                                        天
+                                    </span>
+                                }
+                                <span>任务</span>  <span class="text-info">@item.ProjectTasks.Count(a => !a.Deleted)</span>
+                                <span>成员</span> <span class="text-info">@item.ProjectUsers.Count</span>
+                            </div>
+
+                            @if (projectInfo.Any(a => a.ProjectUsers.Any(b => !b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == item.Id))
+                            {
+                                <hr />
+                                foreach (var item1 in projectInfo.Where(a => a.ProjectUsers.Any(b => !b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == item.Id))
+                                {
+                                    <blockquote style="margin: 2px" style="background-color:@item1.Color;">
+                                        <h4>
+                                            @Html.DisplayFor(a => item1.ProjectInfoState.ProjectInfoStateName)
+
+                                            @Ajax.ActionLink(item1.ProjectName, "Details", "MyParticipateWork", new { id = item1.Id }, new AjaxOptions { UpdateTargetId = "Main" })
+                                        </h4>
+                                        <div>@Html.DisplayFor(modelItem => item1.ProjectObjective)</div>
+                                        <div class="muted">
+                                            @Html.DisplayFor(modelItem => item1.Raty)
+                                            @Html.DisplayFor(modelItem => item1.StarTime)
+                                            @if (!item1.Finish && item1.EndTime.HasValue)
+                                            {
+                                                <span>~</span>
+                                                @Html.DisplayFor(modelItem => item1.EndTime)
+
+                                                <span>
+                                                    剩余<span class="text-info lead">
+                                                        @(new TimeSpan(item1.EndTime.Value.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))
+                                                    </span>
+                                                    天
+                                                </span>
+                                            }
+                                            <span>任务</span>  <span class="text-info">@item1.ProjectTasks.Count(a => !a.Deleted)</span>
+                                            <span>成员</span> <span class="text-info">@item1.ProjectUsers.Count</span>
+                                        </div>
+                                    </blockquote>
+                                }
+                            }
+
+                        </blockquote>
+                    }
+                </div>
+
+                <div class="tab-pane" id="tab5">
+                    @foreach (var item in projectInfo.Where(a => a.Public && a.ProjectUsers.Any(b => b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == null))
+                    {
+                        <blockquote style="background-color:@(item.Color);">
+                            <h4>
+                                @Html.DisplayFor(a => item.ProjectInfoState.ProjectInfoStateName)
+
+                                @Ajax.ActionLink(item.ProjectName, "Details", "MyFollowWork", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" })
+                            </h4>
+                            <div>@Html.DisplayFor(modelItem => item.ProjectObjective)</div>
+                            <div class="muted">
+                                @Html.DisplayFor(modelItem => item.StarTime)
+                                @if (!item.Finish && item.EndTime.HasValue)
+                                {
+                                    <span>~</span>
+                                    @Html.DisplayFor(modelItem => item.EndTime)
+                                    <span>
+                                        剩余<span class="text-info lead">
+                                            @(new TimeSpan(item.EndTime.Value.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))
+                                        </span>
+                                        天
+                                    </span>
+                                }
+                                <span>任务</span>  <span class="text-info">@item.ProjectTasks.Count(a => !a.Deleted)</span>
+                                <span>成员</span> <span class="text-info">@item.ProjectUsers.Count</span>
+                            </div>
+
+                            @if (projectInfo.Any(a => a.Public && a.ProjectUsers.Any(b => b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == item.Id))
+                            {
+                                <hr />
+                                foreach (var item1 in projectInfo.Where(a => a.Public && a.ProjectUsers.Any(b => b.Follow && b.SysUserId == userId) && a.LastProjectInfoId == item.Id))
+                                {
+                                    <blockquote style="margin: 2px;background-color:@(item1.Color);">
+                                        <h4>
+                                            @Html.DisplayFor(a => item1.ProjectInfoState.ProjectInfoStateName)
+
+                                            @Ajax.ActionLink(item1.ProjectName, "Details", "MyFollowWork", new { id = item1.Id }, new AjaxOptions { UpdateTargetId = "Main" })
+                                        </h4>
+                                        <div>@Html.DisplayFor(modelItem => item1.ProjectObjective)</div>
+                                        <div class="muted">
+                                            @Html.DisplayFor(modelItem => item1.Raty)
+                                            @Html.DisplayFor(modelItem => item1.StarTime)
+                                            @if (!item1.Finish && item1.EndTime.HasValue)
+                                            {
+                                                <span>~</span>
+                                                @Html.DisplayFor(modelItem => item1.EndTime)
+
+                                                <span>
+                                                    剩余<span class="text-info lead">
+                                                        @(new TimeSpan(item1.EndTime.Value.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))
+                                                    </span>
+                                                    天
+                                                </span>
+                                            }
+                                            <span>任务</span>  <span class="text-info">@item1.ProjectTasks.Count(a => !a.Deleted)</span>
+                                            <span>成员</span> <span class="text-info">@item1.ProjectUsers.Count</span>
+                                        </div>
+                                    </blockquote>
+                                }
+                            }
+                        </blockquote>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span3">
+        <div style="background-color: #f7f7f7; border: 1px solid #f4f4f4; padding: 20px;" id="DesktopCalendar">
+            @Html.Action("Details")
+        </div>
+        <div style="background-color: #f7f7f7; border: 1px solid #f4f4f4; padding: 20px; margin: 20px 0 0 0;">
+
+            <div>
+                <blockquote>
+                    <p>@Ajax.ActionLink("消息", "Index", "Message", new AjaxOptions { UpdateTargetId = "Main" })</p>
+                </blockquote>
+            </div>
+            <hr />
+            <div>
+                @foreach (Message item in ViewBag.Message)
+                {
+                    <div class="wrap">
+                        @if (item.Read)
+                        {
+                            <i class="fa fa-envelope-o"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-envelope"></i>
+                        }
+                        @Ajax.ActionLink(item.MessageTitle, "Details", "Message", new { item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, null)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

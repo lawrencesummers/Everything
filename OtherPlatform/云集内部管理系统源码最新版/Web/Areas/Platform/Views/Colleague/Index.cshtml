@@ -1,0 +1,90 @@
+﻿@using Common
+@using Web.Helper
+@model IEnumerable<Models.SysModels.SysUser>
+
+<div>
+    <blockquote class="col-lg-2 ">
+        <h3>所有同事 （@Model.Count()）</h3>
+    </blockquote>
+    <div class=" col-xs-3  pull-right">
+        @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+        {
+            <div class="input-group">
+                @Html.TextBox("keyword", null, new { @class = "form-control ", placeholder = "关键词" })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn">@lang.Search</button>
+                </span>
+            </div>
+        }
+    </div>
+    <div class="col-lg-5 pull-right">
+        <ul class="nav nav-pills">
+            <li class="@(Request["Enabled"] == null ? "active" : "")">
+                @Ajax.ActionLink("全部", "Index", new { keyword = Request["keyword"] }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+            <li>&nbsp;</li>
+            <li class="@(Request["Enabled"] == "True" ? "active" : "")">
+                @Ajax.ActionLink("启用", "Index", new { keyword = Request["keyword"], Enabled = true }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+            <li class="@(Request["Enabled"] == "False" ? "active" : "")">
+                @Ajax.ActionLink("禁用", "Index", new { keyword = Request["keyword"], Enabled = false }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+        </ul>
+    </div>
+ 
+</div>
+<div class="clearfix"></div>
+<div>
+
+    @foreach (var item in Model)
+    {
+        <div class="media" style="height: 180px; width: 320px; float: left; margin: 0 10px 10px 0; padding: 20px; border: 1px solid #e4e4e4; ">
+
+            <a class="pull-left" href="javascript:;">
+                @if (!string.IsNullOrEmpty(item.Picture))
+                {
+                    <img src="@item.Picture" class="img-rounded" style="width: 50px; height: 50px;" />
+                }
+                else
+                {
+                    <img src="~/Content/default_man_middle.jpg" class="img-rounded" style="width: 50px; height: 50px;" />
+                }
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    @Ajax.ActionLink(item.DisplayName, "Details", new { item.Id }, new AjaxOptions() { UpdateTargetId = "Main" }) <small>(@Html.DisplayFor(a => item.UserName)) </small>
+                    @if (!item.Enabled)
+                    {
+                        <small>(已禁用)</small>
+                    }
+                </h4>
+
+                <!-- Nested media object -->
+                <div class="media">
+                    <h5>部门</h5>
+                    <div>
+                        <ul class="list-inline">
+                            @foreach (var dep in item.SysDepartmentSysUsers.Select(a => a.SysDepartment).Select(a => new { a.DepartmentName, a.SystemId }))
+                            {
+                                <li>
+                                    @Ajax.ActionLink(dep.DepartmentName, "Index", new { SysDepartmentId = dep.SystemId }, new AjaxOptions() { UpdateTargetId = "Main" })
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <h5>角色</h5>
+                    <div>
+                        <ul class="list-inline">
+                            @foreach (var role in item.SysRoleSysUsers.Select(a => a.SysRole).Select(a => new { a.RoleName, a.Id }))
+                            {
+                                <li>
+                                    @Ajax.ActionLink(role.RoleName, "Index", new { SysRoleId = role.Id }, new AjaxOptions() { UpdateTargetId = "Main" })
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

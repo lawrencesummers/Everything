@@ -1,0 +1,63 @@
+﻿@using Common
+@using Models.UserModels
+@using Web.Helper
+@model PagedList<CustomerCommunication>
+<div>
+    <blockquote class="col-lg-2 ">
+        <h3>沟通记录 @Ajax.ActionLink("+", "Create", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn" })</h3>
+    </blockquote>
+
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+  
+</div>
+<div class="clearfix"></div>
+<div>
+
+    @{
+        var index = Model.TotalCount - (Model.PageIndex - 1) * Model.PageSize;
+    }
+
+    @foreach (var item in Model)
+    {
+        <div>
+            <div style="float: left;width: 110px;text-align: right;padding: 10px;">
+                <div style="float: left">
+                    @item.CreatedDate.ToString("yyyy/MM/dd")
+                    <br />
+                    <h3>@item.CreatedDate.ToShortTimeString()</h3>
+                </div>
+             
+            </div>
+            <blockquote style="padding: 10px; margin-left: 110px;">
+                <span class="pull-right">
+                    <span>&nbsp;</span>
+                    @Ajax.ActionLink(lang.Edit, "Edit", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+                    <span>&nbsp;</span>
+                    @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn" })
+                </span>
+                <p>
+                    @Html.DisplayFor(a => item.CommunicateResult)
+
+                    @if (item.Customer != null)
+                    {
+                        @Ajax.ActionLink(item.Customer.CustomerName, "Index", new { keyword = item.Customer.CustomerName }, new AjaxOptions { UpdateTargetId = "Main" })
+                    }
+
+                    @Html.DisplayFor(a => item.Contact)
+
+                    @if (item.Amount > 0)
+                    {
+                        <span class="badge">@lang.Amount：@Html.DisplayFor(a => item.Amount)</span>
+                    }
+                </p>
+                <div>@Html.DisplayFor(a => item.CommunicationContent)</div>
+                <small>创建人：@Html.Partial("SysUserDisplay", item.SysUser)  </small>
+            </blockquote>
+        </div>
+        <div class="clearfix"></div>
+    }
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

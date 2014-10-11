@@ -1,0 +1,258 @@
+﻿@using System.Configuration
+@using Models.SysModels
+@model IEnumerable<SysController>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ConfigurationManager.AppSettings["SystemName"] + "-" + ViewBag.EnterpriseName;
+}
+@section head{
+    <style>
+        body { overflow: hidden; }
+    </style>
+    <script>
+
+        $.ajaxSetup({ cache: false });
+        $(document).ajaxStart(function() {
+            $("#page-loading").show();
+        });
+        $(document).ajaxStop(function() {
+            $("form").submit(function() {
+                $(":submit", this).attr("disabled", "disabled");
+            });
+            $(":submit").attr("disabled", false);
+            $('.ratydisplay').raty({
+                score: function() {
+                    return $(this).attr('data-score');
+                },
+                readOnly: true,
+                starOff: 'Content/star-off.png',
+                starOn: 'Content/star-on.png'
+            });
+
+            $('.datetime').datetimepicker({
+                todayHighlight: true,
+                autoclose: true,
+                minuteStep: 10,
+                language: "zh-CN",
+                todayBtn: true
+            });
+            $('select').selectpicker();
+            $("#page-loading").hide();
+        });
+        $(document).ajaxError(function(event, request) {
+            if (request.responseText == "") {
+                $.scojs_message('您的网络无法访问到服务器，请稍后再试！', $.scojs_message.TYPE_ERROR);
+            } else {
+                $.scojs_message(request.responseText, $.scojs_message.TYPE_ERROR);
+            }
+        });
+
+        $(function() {
+            $('#container').layout({
+                sliderTip: "显示/隐藏侧边栏", //在某个Pane隐藏后，当鼠标移到边框上显示的提示语。
+                togglerTip_open: "关闭", //pane打开时，当鼠标移动到边框上按钮上，显示的提示语
+                togglerTip_closed: "打开", //pane关闭时，当鼠标移动到边框上按钮上，显示的提示语
+                north__size: 61,
+                north__resizable: false,
+                west__resizable: false,
+                south__size: 97,
+                south__resizable: false
+            });
+
+            //刷新获取最新消息
+            Reload();
+            setInterval("Reload()", 60000);
+        });
+
+        function Reload() {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                url: "@Url.Action("Details", "Message")",
+                success: function(msg) {
+                    $("#messagecount").html(msg);
+                    if (msg > 0) {
+                        newMessageRemind.show();
+                    } else {
+                        newMessageRemind.clear();
+                    }
+                },
+                error: function (msg) {
+                    $.scojs_message(msg, $.scojs_message.TYPE_ERROR);
+                }
+            });
+        }
+
+        var newMessageRemind = {
+            _step: 0,
+            _title: document.title,
+            _timer: null,
+            //显示新消息提示
+            show: function(msg) {
+                var temps = newMessageRemind._title.replace("【　 　】", "").replace("【新消息】", "");
+                clearTimeout(newMessageRemind._timer);
+                newMessageRemind._timer = setTimeout(function() {
+                    newMessageRemind.show();
+                    //这里写Cookie操作
+                    newMessageRemind._step++;
+                    if (newMessageRemind._step == 3) {
+                        newMessageRemind._step = 1;
+                    };
+                    if (newMessageRemind._step == 1) {
+                        document.title = "【　　　】" + temps;
+                    };
+                    if (newMessageRemind._step == 2) {
+                        document.title = "【新消息】" + temps;
+                    };
+                }, 800);
+                return [newMessageRemind._timer, newMessageRemind._title];
+            },
+            //取消新消息提示
+            clear: function() {
+                clearTimeout(newMessageRemind._timer);
+                document.title = newMessageRemind._title;
+                //这里写Cookie操作
+            }
+        };
+    </script>
+}
+
+<div id="head" class=" navbar navbar-inverse navbar-fixed-top">
+    <div class="pull-left">
+        <img src="~/Content/logo.jpg" style="margin: 0 40px;" alt="@ConfigurationManager.AppSettings["SystemName"]" />
+        <span class="lead">
+            @ConfigurationManager.AppSettings["SystemName"]
+            -
+            @ViewBag.EnterpriseName
+        </span>
+    </div>
+    <div>
+        <ul class="inline text-right" style="margin: 10px;">
+            <li>
+                <img id="page-loading" src="~/Content/Loading/0504313.gif" style="display: none; margin: 0px 20px 0 0;" />
+            </li>
+            <li><i class="fa fa-user"></i>&nbsp;@Ajax.ActionLink((string)ViewBag.UserName, "Edit", "Index", new AjaxOptions { UpdateTargetId = "Main" })</li>
+            <li><i class="fa fa-envelope"></i>&nbsp;@Ajax.ActionLink(lang.Message, "Index", "Message", new AjaxOptions { UpdateTargetId = "Main" }) (<span id="messagecount">0</span>)</li>
+            @*<li><i class="fa fa-comments"></i>&nbsp;@Html.ActionLink("在线沟通", "Index", "Chat", new { }, new { target = "_blank;" })</li>*@
+            <li><i class="fa fa-desktop"></i>&nbsp;@Ajax.ActionLink(lang.Desktop, "Index", "Desktop", new AjaxOptions() { UpdateTargetId = "Main" })</li>
+            <li><i class="fa fa-plus"></i>&nbsp;<a data-trigger="modal" data-title="新任务" href="@Url.Action("Create", "MyProjectTask")">发布任务</a></li>
+            <li><i class="fa fa-question-circle"></i>&nbsp;@Ajax.ActionLink(lang.Help, "Index", "help", new AjaxOptions() { UpdateTargetId = "Main" })</li>
+            <li><i class="fa fa-sign-out"></i>&nbsp;@Html.ActionLink(lang.Exit, "LogOff", "Index", new { area = "Login" }, null)</li>
+        </ul>
+    </div>
+</div>
+
+<div id="container">
+    <div class="ui-layout-west" style="background-color: #f4f4f4; ">
+
+        <div id="navmenu">
+            @foreach (var item in Model.Where(a => a.SystemId.Length == 3))
+            {
+                if (!string.IsNullOrEmpty(item.ControllerName))
+                {
+                    <a data-trigger="collapse" data-parent="#navmenu" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" class="button button-block  button-rounded button-flat-primary button-large" href="@Url.Action(item.ActionName, item.ControllerName, new {id = item.Parameter})" style="margin-bottom: 5px;">@Html.DisplayFor(a => item.Ico)&nbsp;@item.ControllerDisplayName</a>
+                }
+                else
+                {
+                    <a data-trigger="collapse" data-parent="#navmenu" class="button button-block  button-rounded button-flat-primary button-large" href="javascript:;" style="margin-bottom: 5px;">@Html.DisplayFor(a => item.Ico)&nbsp;@item.ControllerDisplayName</a>
+                }
+
+                <div class="collapsible" style="display: none" style="margin: 2px 0;">
+                    @foreach (var item1 in Model.Where(a => a.SystemId.Length > 3 && a.SystemId.StartsWith(item.SystemId)))
+                    {
+                        if (item1.TargetBlank)
+                        {
+                            <a href="@Url.Action(item1.ActionName, item1.ControllerName, new { id = item1.Parameter })" target="_blank" class="button button-rounded button-flat button-block">@Html.DisplayFor(a => item1.Ico)&nbsp;@Html.DisplayFor(a => item1.ControllerDisplayName)</a>
+                        }
+                        else
+                        {
+                            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" class="button  button-rounded button-flat button-block" href="@Url.Action(item1.ActionName, item1.ControllerName, new { id = item1.Parameter })" style="margin-bottom:5px;">@Html.DisplayFor(a => item1.Ico)&nbsp;@Html.DisplayFor(a => item1.ControllerDisplayName)</a>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="ui-layout-center" id="Main">
+        @Html.Action("Index", "Desktop")
+    </div>
+</div>
+
+<div id="footer" class="navbar-fixed-bottom text-center">
+    <div id="startMenu" style="position: fixed; width: 99%; text-align: center; bottom: 115px; display: none" onclick="$('#startMenu').slideToggle(100);">
+        <span class="button-wrap">
+            <span>@Ajax.ActionLink(lang.CreatePlan, "Index", "MyPlan", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "button button-pill button-primary" })</span>
+        </span>
+        <span class="button-wrap">
+            <a data-trigger="modal" data-title="新任务" class="button button-pill button-primary" href="@Url.Action("Create", "MyProjectTask")">发布任务</a>
+        </span>
+        <span class="button-wrap">
+            <span>@Ajax.ActionLink(lang.CreateProject, "Create", "MyCreateWork", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "button button-pill button-primary" })</span>
+        </span>
+
+        <span class="button-wrap">
+            <span>@Ajax.ActionLink(lang.CreateKnowledge, "Edit", "Knowledge", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "button button-pill button-primary" })</span>
+        </span>
+    </div>
+    <div>
+        <ul class="inline" id="dock">
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "Desktop")">
+                    <img src="~/Content/StartMenu/1.png" />
+                </a>
+            </li>
+
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyPlan")">
+                    <img src="~/Content/StartMenu/2.png" />
+                </a>
+            </li>
+
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyProjectTask")">
+                    <img src="~/Content/StartMenu/7.png" />
+                </a>
+            </li>
+
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyCalendar")">
+                    <img src="~/Content/StartMenu/8.png" />
+                </a>
+            </li>
+
+            <li>
+                <a href="javascript:;" onclick="$('#startMenu').slideToggle(100);">
+                    <img src="~/Content/StartButton.png" alt="开始" style="margin-bottom: 30px; " />
+                </a>
+            </li>
+
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyParticipateWork")">
+                    <img src="~/Content/StartMenu/3.png" />
+                </a>
+            </li>
+
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "Customer")">
+                    <img src="~/Content/StartMenu/9.png" />
+                </a>
+            </li>
+
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "ProjectInfoReport")">
+                    <img src="~/Content/StartMenu/5.png" />
+                </a>
+            </li>
+
+            <li class="zoom">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "Message")">
+                    <img src="~/Content/StartMenu/6.png" />
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

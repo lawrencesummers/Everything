@@ -1,0 +1,17 @@
+﻿@model Models.UserModels.ProjectFile
+
+@using (Ajax.BeginForm("Create", "ProjectFile", new { projectInfoId = ViewBag.projectInfoId }, new AjaxOptions { UpdateTargetId = "ProjectFile" }, null))
+{
+    <div>
+
+        @Html.TextBoxFor(a => a.ProjectFileName, null, new { placeholder = "请输入文件标题", @class = "form-control" })
+
+
+        @Html.EditorFor(a => a.FileUrl)
+
+        <input type="submit" value="@lang.Save" class="btn" />
+
+    </div>
+
+
+} 

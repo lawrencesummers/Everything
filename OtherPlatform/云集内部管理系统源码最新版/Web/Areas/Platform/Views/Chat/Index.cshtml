@@ -1,0 +1,227 @@
+﻿@using System.Configuration
+@using Models.SysModels
+@model IEnumerable<SysSignalR>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ConfigurationManager.AppSettings["SystemName"] + " - 在线沟通";
+}
+
+@section head{
+
+    <script src="~/Scripts/grayscale.js"></script>
+    <style>
+        #discussion dd {
+            margin-bottom: 10px;
+            margin-right: 30px;
+        }
+    </style>
+
+    <script>
+        @*$(function () {
+            //window.onbeforeunload = function (event) {
+            //    return "确定退出吗？";
+            //};
+            $("html,body").animate({ scrollTop: $("#discussion").height() }, 0);
+            $('#message').focus();
+            // Reference the auto-generated proxy for the hub.
+            var chat = $.connection.chathub;
+
+            // Create a function that the hub can call back to display messages.
+            chat.client.addNewMessageToPage = function (userId, name, datetime, message) {
+                // Add the message to the page.
+
+                if (userId != '@ViewBag.UserId') {
+
+                    $('#discussion').append('<div style=\'color:#279EE2; clear:both\'>' + name + ' <small>' + datetime + '</small>：</div>');
+
+                    $('#discussion').append('<div class=\'alert pull-left  alert-success wrap\'>' + message + '</div>');
+                } else {
+                    $('#discussion').append('<div style=\'color:#279EE2;clear:both; \' class=\'text-right\'>' + name + ' <small>' + datetime + '</small>：</div>');
+
+                    $('#discussion').append('<div class=\'alert pull-right alert-info wrap\'>' + message + '</div>');
+                }
+
+                $("html,body").animate({ scrollTop: $("#discussion").height() });
+
+            };
+
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#message').keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        chat.server.send($('#UserId').val(), $('#message').val()).fail(function (e) {
+                            console.log(e.message);
+                        });
+                        // Clear text box and reset focus for next comment.
+                        $('#message').val('').focus();
+                    }
+                });
+                $('#EmoticonList img').click(function (e) {
+                    chat.server.send($('#UserId').val(), '[biaoqing]' + $(this).attr("src") + '[/biaoqing]');
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                });
+                chat.server.group();
+            });
+        });*@
+
+
+        $(function () {
+       
+
+            $('#message').val('').focus();
+
+            var connection = $.connection('/chat');
+
+            connection.received(function (data) {
+
+                var item = JSON.parse(data);
+
+                if (item.UserId != '@ViewBag.UserId') {
+                    $('#discussion').append('<div style=\'color:#279EE2; clear:both\'>' + item.UserName + '：</div>');
+
+                    $('#discussion').append('<div class=\'alert pull-left  alert-success wrap\'>' + item.Message + '</div>');
+                } else {
+                    $('#discussion').append('<div style=\'color:#279EE2;clear:both; \' class=\'text-right\'>' + item.UserName + '</small>：</div>');
+
+                    $('#discussion').append('<div class=\'alert pull-right alert-info wrap\'>' + item.Message + '</div>');
+                }
+
+                $("html,body").animate({ scrollTop: $("#discussion").height() });
+            });
+
+            connection.error(function (error) {
+                alert(error);
+            });
+
+            connection.start().done(function () {
+                $('#message').keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        var message = {
+                            'UserId': $('#UserId').val(),
+                            'Message': $('#message').val()
+                        };
+                        connection.send(JSON.stringify(message));
+                        // Clear text box and reset focus for next comment.
+                        $('#message').val('').focus();
+                    }
+                });
+                $('#EmoticonList img').click(function (e) {
+                    var message = {
+                        'UserId': $('#UserId').val(),
+                        'Message': '[biaoqing]' + $(this).attr("src") + '[/biaoqing]'
+                    };
+                    connection.send(JSON.stringify(message));
+
+                    $('#message').val('').focus();
+                });
+            }).fail(function () {
+                alert("启动失败");
+            });
+        });
+    </script>
+}
+<div id="Main" style="display: none;  position:fixed; background-color: white; top:100px; right: 100px; height: 70%;width: 70%; border: 1px solid #e4e4e4; z-index: 100000; overflow-x: auto">
+    @Html.Action("Details", new { Id = @ViewBag.EntId })
+</div>
+
+<div class="navbar navbar-fixed-top " id="head">
+    <span class="lead">
+        <img src="~/Content/logo.jpg" style="margin: 0 40px;" alt="@ConfigurationManager.AppSettings["SystemName"]" />
+        @ConfigurationManager.AppSettings["SystemName"]
+        -
+        <span style="color:yellow">在线沟通</span>
+        <img src="~/Content/OnlineMessage.png" style="vertical-align:baseline" />
+    </span>
+</div>
+
+<div class="row-fluid" style="margin-top: 65px; margin-bottom: 70px; ">
+    <div class="span2 visible-desktop">
+        <div class="sidenav" style="position: fixed; width: 15.6%; height: 10000px; background-color: #f8f8f8; padding: 10px; border-right: 1px solid #e4e4e4">
+            @foreach (SysDepartment item in ViewBag.SysDepartments)
+            {
+                <div style="margin: 0 0 5px 0; line-height: 22px; padding-left:@((item.SystemId.Length - 3) * 5)px;">
+                    <a href="javascript:;" data-trigger="collapse" data-parent=".sidenav">
+                        @Html.DisplayFor(a => item.Ico)
+                        &nbsp;
+                        <strong>@item.DepartmentName</strong>
+                        <i class="icon-angle-down"></i>
+                    </a>
+                    <div class="collapsible hide" style="padding-left:15px;">
+                        @foreach (var item1 in item.SysDepartmentSysUsers.Where(a => !a.SysUser.Deleted && a.SysUser.Enabled))
+                        {
+                            <div id="@item1.SysUser.Id" style="white-space: nowrap; ">
+                                <div style="float: left; width: 30px; text-align: center;">
+                                    @if (!string.IsNullOrEmpty(item1.SysUser.Picture))
+                                    {
+                                        <img src="@item1.SysUser.Picture" class="img-rounded" style="height: 20px;width: 20px;" />
+                                    }
+                                    else
+                                    {
+                                        <i class="icon-user"></i>
+                                    }
+                                </div>
+                                <a href="javascript:;" onclick="$('#UserId').val('@item1.SysUser.Id');">@item1.SysUser.DisplayName <small>@item1.SysUser.UserName</small></a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="span10" style="padding: 10px 40px;">
+        <div id="discussion">
+            @foreach (SysSignalR item in Model)
+            {
+                if (item.UserId != ViewBag.UserId)
+                {
+                    <div style='color:#279EE2; clear:both'>@Html.Raw("<a href=\"javascript:;\" onclick=\"$('#UserId').val('" + item.UserId + "');\">" + item.UserName + "</a>") 对 @Html.Raw(!string.IsNullOrEmpty(item.UserName1) ? "<a href=\"javascript:;\" onclick=\"$('#UserId').val('" + item.UserId1 + "');\">" + item.UserName1 + "</a>" : "<a href=\"javascript:;\" onclick=\"$('#UserId').val('');\">大家</a>") 说 <small> @item.CreatedDate</small>：</div>
+
+                    <div class='alert pull-left  alert-success wrap'>@Html.Raw(item.Message)</div>
+                }
+                else
+                {
+                    <div style='color:#279EE2;clear:both; ' class='text-right'>@Html.Raw("<a href=\"javascript:;\" onclick=\"$('#UserId').val('" + item.UserId + "');\">" + item.UserName + "</a>") 对 @Html.Raw(!string.IsNullOrEmpty(item.UserName1) ? "<a href=\"javascript:;\" onclick=\"$('#UserId').val('" + item.UserId1 + "');\">" + item.UserName1 + "</a>" : "<a href=\"javascript:;\" onclick=\"$('#UserId').val('');\">大家</a>") 说 <small> @item.CreatedDate</small>：</div>
+
+                    <div class='alert pull-right alert-info wrap'>@Html.Raw(item.Message)</div>
+                }
+
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid navbar-fixed-bottom" style="background-color: white; border-top: 3px solid #279EE2">
+    <div id='EmoticonList' style='overflow-y:auto; height: 200px; display: none' onclick="$('#EmoticonList').slideToggle(100);">
+        @foreach (var item in new DirectoryInfo(Server.MapPath("~/content/Emoticon")).GetFiles())
+        {
+            @Html.Raw("<img src='/content/Emoticon/" + item.Name + "' />")
+        }
+    </div>
+    <div style="border-top: 3px solid #E5E5E5; margin-top: 2px;">
+        <div class="span2 text-center" style="padding: 15px 0; ">
+            <a href="javascript:;" onclick="$('#Main').slideToggle(100);" class="btn">查看历史消息记录</a>
+        </div>
+        <div class="span10 input-append input-prepend " style="padding: 15px 300px 15px 0; ">
+            <select id="UserId" name="UserId">
+
+                <option value="">大家</option>
+                @foreach (SysDepartment item in ViewBag.SysDepartments)
+                {
+                    <optgroup label="@item.DepartmentName">
+                        @foreach (var item1 in item.SysDepartmentSysUsers.Where(a => !a.SysUser.Deleted && a.SysUser.Enabled))
+                        {
+                            <option value="@item1.SysUser.Id">@item1.SysUser.DisplayName <small>@item1.SysUser.UserName</small></option>
+                        }
+                    </optgroup>
+                }
+            </select>
+            <button id="Emoticon" type="button" class="btn" onclick="$('#EmoticonList').slideToggle(100);">
+                表情
+            </button>
+            <input type="text" id="message" class="input-block-level" style="" placeholder="请输入消息" />
+        </div>
+    </div>
+</div>

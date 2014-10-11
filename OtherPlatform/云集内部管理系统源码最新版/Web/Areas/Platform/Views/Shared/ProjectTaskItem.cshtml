@@ -1,0 +1,89 @@
+﻿@model Models.UserModels.ProjectTask
+
+<h4>
+    @if (Model.Finish)
+    {
+        <i class="fa fa-check-square-o"></i>
+    }
+    else
+    {
+        <i class="fa fa-square-o"></i>
+    }
+    @if (Model.ProjectInfo != null)
+    {
+        @Ajax.ActionLink(Model.ProjectInfo.ProjectName, "Details", "MyParticipateWork", new { id = Model.ProjectInfoId }, new AjaxOptions { UpdateTargetId = "Main" })
+        <span>-</span>
+    }
+
+    @Ajax.ActionLink(Model.ProjectTaskName, "Details", "MyProjectTask", new { id = Model.Id, displaytype = Request["displaytype"], finish = Request["finish"] }, new AjaxOptions { UpdateTargetId = "Main" })
+</h4>
+
+@if (!string.IsNullOrEmpty(Model.FileUrl))
+{
+    <div style="padding: 0 22px;">
+        <span class="fa fa-file"></span>&nbsp;@Html.DisplayFor(a => Model.FileUrl)
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ProjectTaskObjective))
+{
+    <div style="padding: 0 22px;">
+        @Html.DisplayFor(modelItem => Model.ProjectTaskObjective)
+    </div>
+}
+<small style="padding: 0 22px;" ><span>计划时间：@Html.DisplayFor(modelItem => Model.BeginTime)
+
+        <span>~</span>
+        @Html.DisplayFor(modelItem => Model.EndTime)
+
+    </span>
+    @if (Model.Accept.HasValue)
+    {
+        if (Model.Accept.Value)
+        {
+            <span>接受时间：@Html.DisplayFor(modelItem => Model.AcceptTime)</span>
+        }
+        else
+        {
+            <span>拒绝时间：@Html.DisplayFor(modelItem => Model.AcceptTime)</span>
+        }
+    }
+
+    @if (!Model.Finish)
+    {
+        <span>剩余</span>
+        <span class="@(Model.EndTime > DateTime.Now ? "text-info" : "text-error") ">
+            <strong>@(new TimeSpan(Model.EndTime.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))</strong>
+        </span>
+        <span>天</span>
+    }
+    else
+    {
+        <span>完成时间：@Html.DisplayFor(modelItem => Model.FinishTime)</span>
+    }
+
+
+    <span>发布人：@Html.Partial("SysUserDisplay", Model.SendUser) </span>
+
+    <span>负责人：@Html.Partial("SysUserDisplay", Model.SysUser) </span>
+
+    <span>回复：@Model.ProjectTaskReplys.Count(a => !a.Deleted)</span>
+</small>
+
+<div class="clearfix"></div>
+@foreach (var item1 in Model.ProjectTaskReplys.Where(a => !a.Deleted).OrderByDescending(a => a.CreatedDate))
+{
+    <blockquote>
+        <div style="padding: 4px;">@item1.ProjectTaskReplyObjective</div>
+        @if (!string.IsNullOrEmpty(item1.FileUrl))
+        {
+            <div style="padding: 4px;">
+                <span class="fa fa-file"></span>&nbsp;@Html.DisplayFor(a => item1.FileUrl)
+            </div>
+        }
+        <small>
+            @item1.CreatedDate
+            @Html.Partial("SysUserDisplay", item1.SysUser)
+        </small>
+    </blockquote>
+}

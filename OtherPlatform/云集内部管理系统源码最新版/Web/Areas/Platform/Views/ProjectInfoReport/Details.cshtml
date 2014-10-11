@@ -1,0 +1,55 @@
+﻿@model Models.UserModels.ProjectInfo
+
+<div>
+    <div class="pull-right">
+        @Ajax.ActionLink("返回", "Index", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn" })
+    </div>
+    <blockquote>
+        <h3>@Model.ProjectName</h3>
+    </blockquote>
+    <hr />
+</div>
+<div>
+
+    <script src="~/Scripts/dhtmlxgantt/dhtmlxgantt.js"></script>
+    <script src="~/Scripts/dhtmlxgantt/ext/dhtmlxgantt_tooltip.js"></script>
+    <link href="~/Content/dhtmlxgantt/dhtmlxgantt.css" rel="stylesheet" />
+    <script src="~/Scripts/dhtmlxgantt/locale/locale_cn.js"></script>
+    <div id="gantt_here" style=' height:500px;'></div>
+    <script type="text/javascript">
+
+        var demo_tasks = {
+            data: [
+
+                @foreach (var item in Model.ProjectTasks.Where(a => !a.Deleted).Select(a => new { ProjectTaskName="（任务）"+a.ProjectTaskName, a.BeginTime, a.EndTime, a.Finish }).Concat(Model.Plans.Where(b => !b.Deleted).Select(b => new { ProjectTaskName = "（计划）"+b.PlanTitle, BeginTime = b.StartDate, EndTime = b.EndDate, Finish = b.Finish })).OrderBy(a=>a.BeginTime).ThenBy(a=>a.EndTime))
+            {
+  @Html.Raw(" {  \"text\": \"" + HttpUtility.JavaScriptStringEncode(item.ProjectTaskName) + "\", \"start_date\": \"" +(int) item.BeginTime.ToOADate() + "\",\"duration\": \"" +  Math.Ceiling((item.EndTime - item.BeginTime).TotalDays) + "\",\"progress\": " + (item.Finish ? 1 : 0) + "},")
+            }
+            ],
+            links: []
+        };
+
+        gantt.config.columns = [
+            { name: "text", label: "任务名称", width: "*", tree: true },
+            { name: "start_date", label: "开始时间", align: "center", }
+        ];
+
+        gantt.config.fit_tasks = true;
+
+        gantt.config.readonly = true;
+
+        gantt.config.scale_unit = "month";
+        gantt.config.date_scale = "%F, %Y";
+
+        gantt.config.scale_height = 50;
+
+        gantt.config.subscales = [
+            { unit: "day", step: 1, width: "*", date: "%j日" }
+        ];
+
+        gantt.init("gantt_here");
+
+        gantt.parse(demo_tasks);
+
+    </script>
+</div>

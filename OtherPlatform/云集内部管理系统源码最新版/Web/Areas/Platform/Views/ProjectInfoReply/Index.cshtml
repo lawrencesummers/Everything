@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Models.UserModels.ProjectInfoReply>
+
+<blockquote>
+    @using (Ajax.BeginForm("Create", "ProjectInfoReply", new { ProjectInfoId = ViewBag.projectInfoId }, new AjaxOptions { UpdateTargetId = "ProjectInfoReply" }, null))
+    {
+        <div class="input-group" style=" margin-bottom: 10px;">
+            <input class="form-control" id="ProjectInfoReplyObjective" name="ProjectInfoReplyObjective" type="text" placeholder="请输入回复内容，限制1000字。">
+            <span class="input-group-btn">
+                <button class="btn" type="submit">@lang.Reply</button>
+            </span>
+        </div>
+    }
+</blockquote>
+@foreach (var item in Model)
+{
+    <blockquote>
+        <span class="pull-right">
+            @if (item.UserId == ViewBag.UserId)
+            {
+                @Ajax.ActionLink(lang.Delete, "Delete", null, new { item.Id, item.ProjectInfoId }, new AjaxOptions { UpdateTargetId = "ProjectInfoReply", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn" })
+            }
+
+        </span>
+        <div>@item.ProjectInfoReplyObjective</div>
+        <small>
+            @item.CreatedDate
+            @Html.Partial("SysUserDisplay", item.SysUser)
+        </small>
+    </blockquote>
+}

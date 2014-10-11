@@ -1,0 +1,31 @@
+﻿@using System.Configuration
+@using Common
+@using Web.Helper
+@model PagedList<Models.SysModels.SysSignalR>
+
+<div style="padding: 15px; position: fixed;  top: 100px" class="row-fluid text-center">
+    <div class="input-append">
+        @using (Ajax.BeginForm("Details", new AjaxOptions() { UpdateTargetId = "Main" }))
+        {
+            @Html.TextBox("keyword", null, new { @class = "input-xlarge", placeholder = "关键字" })
+            <input type="submit" value="搜索" class="btn" />
+            <button class="btn" type="button" onclick="$('#Main').slideToggle(100);">关闭</button>
+        }
+    </div>
+</div>
+
+<div style="padding:0 15px; ">
+    <dl>
+        @foreach (var item in Model)
+        {
+            <dt>@item.UserName 对 @(string.IsNullOrEmpty(item.UserName1) ? "大家" : item.UserName1)  说<small>@item.CreatedDate</small></dt>
+            <dd class='wrap'>
+                @Html.Raw(item.Message)
+            </dd>
+            <dt>
+                <hr />
+            </dt>
+        }
+    </dl>
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

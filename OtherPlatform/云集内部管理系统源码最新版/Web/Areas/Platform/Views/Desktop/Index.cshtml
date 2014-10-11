@@ -1,0 +1,180 @@
+﻿@using System.Data.Entity
+@using Models.UserModels
+@model IEnumerable<ProjectTask>
+
+@{
+    IQueryable<ProjectInfo> projectInfo = ViewBag.ProjectInfo;
+    IQueryable<Plan> plan = ViewBag.Plan;
+    Guid userId = ViewBag.UserId;
+}
+
+
+
+<div>
+    <div class="row">
+        <div class="col-md-3 col-xs-6">
+            <div class="tile quick-stats">
+                <div class="pull-left" id="stats-line-2"></div>
+                <div class="data">
+                    <h2 data-value="@projectInfo.Count(a => DbFunctions.DiffDays(a.CreatedDate, DateTime.Now) == 0)">0</h2>
+                    <small>
+                        @Ajax.ActionLink("今日新项目", "Index", "AllWork", new AjaxOptions() { UpdateTargetId = "Main" })
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="tile quick-stats media">
+                <div class="pull-left" id="stats-line-3"></div>
+                <div class="media-body">
+                    <h2 data-value="@projectInfo.Count()">0</h2>
+                    <small>
+                        @Ajax.ActionLink("运行中项目", "Index", "AllWork", new AjaxOptions() { UpdateTargetId = "Main" })
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="tile quick-stats media">
+                <div class="pull-left" id="stats-line-4"></div>
+                <div class="media-body">
+                    <h2 data-value="@Model.Count(a=>!a.Finish)">0</h2>
+                    <small>
+                        @Ajax.ActionLink("未完成任务", "Index", "MyProjectTask", new AjaxOptions() { UpdateTargetId = "Main" })
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="tile quick-stats media">
+                <div class="pull-left" id="stats-line"></div>
+                <div class="media-body">
+                    <h2 data-value="@ViewBag.CustomerCount">0</h2>
+                    <small>
+                        
+                        @Ajax.ActionLink("客户数量", "Index", "Customer", new AjaxOptions() { UpdateTargetId = "Main" })
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            /* --------------------------------------------------------
+    Animate numbers
+    -----------------------------------------------------------*/
+            $('.quick-stats').each(function () {
+                var target = $(this).find('h2');
+                var toAnimate = $(this).find('h2').attr('data-value');
+                // Animate the element's value from x to y:
+                $({ someValue: 0 }).animate({ someValue: toAnimate }, {
+                    duration: 1000,
+                    easing: 'swing', // can be anything
+                    step: function () { // called on every step
+                        // Update the element's text with rounded-up value:
+                        target.text(commaSeparateNumber(Math.round(this.someValue)));
+                    }
+                });
+
+                function commaSeparateNumber(val) {
+                    while (/(\d+)(\d{3})/.test(val.toString())) {
+                        val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                    }
+                    return val;
+                }
+            });
+        })
+    </script>
+</div>
+
+<!-- Main Widgets -->
+<div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="tile">
+                        <h2 class="tile-title">我的计划 @(plan.Count())</h2>
+                        <div class="listview narrow">
+                            @foreach (Plan item in ViewBag.Plan)
+                            {   <div class="media p-l-5">
+
+                                <div class="media-body">
+                                    <blockquote style="">
+                                        @Html.Partial("PlanItem", item)
+                                    </blockquote>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="tile">
+                        <h2 class="tile-title">我收到的任务 @Model.Count(a => a.SysUserId.Equals(userId))</h2>
+                        <div class="listview narrow">
+                            @foreach (var item in Model.Where(a => a.SysUserId.Equals(userId)))
+                            {
+                                <div class="media p-l-5">
+                                    <div class="media-body">
+                                        <blockquote>
+                                            <span class="pull-right"></span>
+
+                                            @Html.Partial("ProjectTaskItem", item)
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-md-6">
+                        <div class="tile">
+                            <h2 class="tile-title">我发布的任务 @Model.Count(a => a.UserId.Equals(userId))</h2>
+                            <div class="listview narrow">
+                                @foreach (var item in Model.Where(a => a.UserId.Equals(userId)))
+                                {   <div class="media p-l-5">
+
+                                    <div class="media-body">
+                                        <blockquote>
+                                            <span class="pull-right"></span>
+                                            @Html.Partial("ProjectTaskItem", item)
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="tile">
+                <h2 class="tile-title">常用</h2>
+                <div class="block-area ">
+                    <a class="shortcut tile" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyPlan")">
+                        <img src="~/Content/StartMenu/2.png" />
+                    </a>
+                    <a class="shortcut tile" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyProjectTask")">
+                        <img src="~/Content/StartMenu/7.png" />
+                    </a>
+                    <a class="shortcut tile" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyCalendar")">
+                        <img src="~/Content/StartMenu/8.png" />
+                    </a>
+                    <a class="shortcut tile" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "MyParticipateWork")">
+                        <img src="~/Content/StartMenu/3.png" />
+                    </a>
+                    <a class="shortcut tile" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "Customer")">
+                        <img src="~/Content/StartMenu/9.png" />
+                    </a>
+                    <a class="shortcut tile" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Index", "ProjectInfoReport")">
+                        <img src="~/Content/StartMenu/5.png" />
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

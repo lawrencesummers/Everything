@@ -1,0 +1,70 @@
+﻿@using Common
+@using Web.Helper
+@model PagedList<Models.UserModels.Contact>
+
+<div>
+
+    <blockquote class="col-lg-2 ">
+        <h3>联系人 @Ajax.ActionLink("+", "Create", new { CustomerId = Request["CustomerId"] }, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn btn-primary" })</h3>
+    </blockquote>
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+    <div class="col-lg-5 pull-right">
+        <ul class="nav nav-pills" style="margin-bottom: 0">
+            @foreach (string tag in ViewBag.Tag)
+            {
+                <li class="@(Request["keyword"] == tag ? "active" : "")">
+                    @Ajax.ActionLink(tag, "Index", new { keyword = tag }, new AjaxOptions { UpdateTargetId = "Main" })
+                </li>
+            }
+        </ul>
+    </div>
+ 
+ 
+</div>
+<div class="clearfix"></div>
+<div>
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>客户</th>
+                <th>姓名</th>
+                <th>职务</th>
+                <th>电话</th>
+                <th>手机</th>
+                <th>邮箱</th>
+                <th>编辑</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.Customer != null)
+                        {
+                            @Ajax.ActionLink(item.Customer.CustomerName, "Index", new { item.CustomerId }, new AjaxOptions { UpdateTargetId = "Main" })
+                        }
+
+                    </td>
+                    <td>@Ajax.ActionLink(item.ContactName, "Details", new { item.Id }, new AjaxOptions { UpdateTargetId = "Main" })</td>
+                    <td>@Html.DisplayFor(a => item.Position)</td>
+                    <td>@Html.DisplayFor(a => item.Telephony)</td>
+                    <td>@Html.DisplayFor(a => item.MobilePhone)</td>
+                    <td>@Html.DisplayFor(a => item.Email)</td>
+                    <td>
+                        @if (item.UserId == ViewBag.UserId)
+                        {
+                            @Ajax.ActionLink(lang.Edit, "Edit", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "" })
+                            <span>&nbsp;</span>
+                            @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "" })
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

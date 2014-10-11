@@ -1,0 +1,128 @@
+﻿@model Models.UserModels.ProjectTask
+<div>
+    <span class="pull-right">
+        @Ajax.ActionLink(lang.Back, "Index", new { finish = ViewBag.finish, displaytype = ViewBag.displaytype }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn btn-small" })
+        <span>&nbsp;</span>
+        @Ajax.ActionLink(lang.Refresh, "Details", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn btn-primary btn-small" })
+        @*任务发布人*@
+        @if (Model.UserId.Equals(ViewBag.UserId))
+        {
+            //如果项目未处理可以修改删除
+            if (!Model.Accept.HasValue)
+            {
+            <a class="btn btn-small btn-info" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Edit", new { id = Model.Id, displaytype = Request["displaytype"], finish = Request["finish"], pageIndex = Request["pageIndex"] })"><i class="fa fa-edit"></i>&nbsp;@lang.Edit</a>
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-danger" data-ajax="true" data-ajax-confirm="您确定要删除该记录吗？该操作不可恢复！" data-ajax-method="Delete" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Delete", new { id = Model.Id, type = "Delete", displaytype = Request["displaytype"], finish = Request["finish"], pageIndex = Request["pageIndex"] })"><i class="fa fa-times"></i>&nbsp;@lang.Delete</a>
+            }
+
+            //如果我不是任务负责人可以查看状态
+            if (!Model.SysUserId.Equals(ViewBag.UserId) && Model.Accept.HasValue)
+            {
+                if (Model.Accept.Value)
+                {
+                    if (Model.Finish)
+                    {
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-success"><i class="fa fa-check"></i>&nbsp;已完成</a>
+                    }
+                    else
+                    {
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-success"><i class="fa fa-check"></i>&nbsp;已接受</a>
+                    }
+                }
+                else
+                {
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-danger"><i class="fa fa-times"></i>&nbsp;已拒绝</a>
+                }
+            }
+
+        }
+                
+@*任务接收人*@
+        @if (Model.SysUserId.Equals(ViewBag.UserId))
+        {
+            if (Model.Accept.HasValue)
+            {
+                if (!Model.Accept.Value)
+                {
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-danger" data-ajax="true" data-ajax-confirm="您确定接受该任务吗？" data-ajax-method="Delete" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Delete", new { id = Model.Id, type = "Accept", finish = Request["finish"], Accept = true, displaytype = Request["displaytype"], pageIndex = Request["pageIndex"] })"><i class="fa fa-times"></i>&nbsp;已拒绝</a>
+                }
+                else
+                {
+                    if (Model.Finish)
+                    {
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-success" data-ajax="true" data-ajax-confirm="您确定重启该任务吗？" data-ajax-method="Delete" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Delete", new { id = Model.Id, type = "Finish", finish = false, displaytype = Request["displaytype"], pageIndex = Request["pageIndex"] })"><i class="fa fa-check"></i>&nbsp;已完成</a>
+                    }
+                    else
+                    {
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-success" data-ajax="true" data-ajax-confirm="您确定拒绝该任务吗？" data-ajax-method="Delete" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Delete", new { id = Model.Id, type = "Accept", finish = Request["finish"], Accept = false, displaytype = Request["displaytype"], pageIndex = Request["pageIndex"] })"><i class="fa fa-check"></i>&nbsp;已接受</a>
+
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-primary" data-ajax="true" data-ajax-confirm="您确定已完成该任务吗？" data-ajax-method="Delete" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Delete", new { id = Model.Id, type = "Finish", finish = true, displaytype = Request["displaytype"], pageIndex = Request["pageIndex"] })"><i class="fa fa-check"></i>&nbsp;完成</a>
+                    }
+                }
+            }
+            else
+            {
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-success" data-ajax="true" data-ajax-method="Delete" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Delete", new { id = Model.Id, type = "Accept", finish = Request["finish"], Accept = true, displaytype = Request["displaytype"], pageIndex = Request["pageIndex"] })"><i class="fa fa-check"></i>&nbsp;@lang.Accept</a>
+            <span>&nbsp;</span>
+            <a class="btn btn-small btn-danger" data-ajax="true" data-ajax-method="Delete" data-ajax-mode="replace" data-ajax-update="#Main" href="@Url.Action("Delete", new { id = Model.Id, type = "Accept", finish = Request["finish"], Accept = false, displaytype = Request["displaytype"], pageIndex = Request["pageIndex"] })"><i class="fa fa-times"></i>&nbsp;拒绝</a>
+            }
+        }
+    </span>
+    <blockquote>
+        <h3>
+            @if (Model.ProjectInfo != null)
+            {
+                @Ajax.ActionLink(Model.ProjectInfo.ProjectName, "Details", "MyParticipateWork", new { id = Model.ProjectInfoId }, new AjaxOptions { UpdateTargetId = "Main" })
+                <span>-</span>
+            }
+
+            @Model.ProjectTaskName
+        </h3>
+        @if (!string.IsNullOrEmpty(Model.FileUrl))
+        {
+            <div>
+                <span class="icon-file"></span>&nbsp;@Html.DisplayFor(a => a.FileUrl)
+            </div>
+        }
+    </blockquote>
+
+    <blockquote>
+        <p>@Html.DisplayFor(model => model.ProjectTaskObjective)</p>
+        <small><span>计划时间：</span>
+            <span>@Html.DisplayFor(modelItem => Model.BeginTime)</span>
+          
+                <span>~</span>
+                <span>@Html.DisplayFor(modelItem => Model.EndTime)</span>
+          
+            @if (!Model.Finish)
+            {
+                <span>剩余</span>
+                <span class="text-info lead">
+                    @(new TimeSpan(Model.EndTime.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))
+                </span>
+                <span>天</span>
+            }
+            else
+            {
+                <span>完成时间：</span>  
+                <span>@Model.FinishTime</span>
+            }
+            <span>发布人：@Html.Partial("SysUserDisplay", Model.SendUser)</span>
+            <span>负责人：@Html.Partial("SysUserDisplay", Model.SysUser)</span>
+
+        </small>
+    </blockquote>
+
+    <div id="ProjectTaskReply">
+        @Html.Action("Index", "ProjectTaskReply", new { projectTaskId = Model.Id })
+    </div>
+</div>
+

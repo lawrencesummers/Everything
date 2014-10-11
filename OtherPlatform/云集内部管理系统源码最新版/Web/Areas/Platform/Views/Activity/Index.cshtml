@@ -1,0 +1,116 @@
+﻿@using Common
+@using Models.UserModels
+@using Web.Helper
+@model PagedList<Activity>
+<div>
+    <blockquote class="col-lg-2 ">
+        <h3>活动管理 @Ajax.ActionLink("+", "Create", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn" })</h3>
+    </blockquote>
+
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+  
+</div>
+<div class="clearfix"></div>
+<div>
+
+    @{
+        var index = Model.TotalCount - (Model.PageIndex - 1) * Model.PageSize;
+    }
+
+    @foreach (var item in Model)
+    {
+        <div>
+            <div style="float: left;width: 110px;text-align: right;padding: 10px;">
+                <div style="float: left">
+                    @item.CreatedDate.ToString("yyyy/MM/dd")
+                    <br />
+                    <h3>@item.CreatedDate.ToShortTimeString()</h3>
+                </div>
+
+            </div>
+            <blockquote style="padding: 10px; margin-left: 110px;">
+
+
+
+
+                <span class="pull-right">
+                    @if (item.ActivityDeadline >= DateTime.Now)
+                    {
+
+                        if (item.ActivityUsers.Any(b => !b.Deleted && b.UserId == ViewBag.UserId))
+                        {
+                            <span>&nbsp;</span>
+                            @Ajax.ActionLink("取消报名", "Delete", "ActivityUser", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete" }, new { @class = "btn" })
+                        }
+                        else
+                        {
+                            <span>&nbsp;</span>
+                            @Ajax.ActionLink("报名", "Create", "ActivityUser", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+                        }
+
+
+                        if (item.UserId == ViewBag.UserId)
+                        {
+                            <span>&nbsp;</span>
+                            @Ajax.ActionLink(lang.Edit, "Edit", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+                            <span>&nbsp;</span>
+                            @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn" })
+                        }
+                    }
+                    else
+                    {
+                        <span>报名已结束</span>
+
+                    }
+
+
+                </span>
+                <p>
+                    @Html.DisplayFor(a => item.ActivityTitle)
+
+                </p>
+                <div>
+                    活动时间： @Html.DisplayFor(a => item.ActivityStartDateTime)
+
+                    活动地点： @Html.DisplayFor(a => item.ActivitySite)
+
+                    报名结束： @Html.DisplayFor(a => item.ActivityDeadline)
+
+                    发起人：@Html.Partial("SysUserDisplay", item.SysUser)
+
+                </div>
+                <div>@Html.DisplayFor(a => item.ActivityContent)</div>
+                <hr />
+                <div>
+                    @foreach (var item1 in item.ActivityUsers.Where(a => !a.Deleted).Select(b => b.SysUser).Distinct())
+                    {
+                        <div class="media pull-left" style="margin: 10px;">
+                            <a class="pull-left" href="javascript:;">
+                                @if (!string.IsNullOrEmpty(item1.Picture))
+                                {
+                                    <img src="@item1.Picture" class="img-rounded" style="width: 50px; height: 50px;" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/default_man_middle.jpg" class="img-rounded" style="width: 50px; height: 50px;" />
+                                }
+                            </a>
+                            <div class="media-body">
+                                <div class="media-heading">@Html.Partial("SysUserDisplay", item1)</div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="clearfix">
+
+                </div>
+            </blockquote>
+        </div>
+        <div class="clearfix"></div>
+    }
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

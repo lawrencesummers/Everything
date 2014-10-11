@@ -1,0 +1,27 @@
+﻿@model Models.UserModels.Message
+
+<div class="row-fluid">
+
+    <span class="pull-right">
+        @Ajax.ActionLink("返回", "Index", new { read = Request["read"] }, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn" })
+        <span>&nbsp;</span>
+
+        @Ajax.ActionLink(lang.Delete, "Delete", null, new { Model.Id, read = Request["read"] }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn btn-danger" })
+
+    </span>
+    <blockquote>
+        <h3>
+            @Html.DisplayFor(a => a.MessageTitle)
+        </h3>
+        <div>日期：@Model.CreatedDate</div>
+
+    </blockquote>
+
+    <hr />
+
+</div>
+<div>
+    <blockquote>
+        @Html.DisplayFor(a => a.MessageContent)
+    </blockquote>
+</div>

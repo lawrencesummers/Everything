@@ -1,0 +1,14 @@
+﻿<div class="row-fluid">
+    <span class="pull-right  form-search">
+        @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+        {
+            <div class="input-append">
+                @Html.TextBox("keyword", null, new { @class = "search-query ", placeholder = "关键词" })
+                <button type="submit" class="btn ">@lang.Search</button>
+            </div>
+        }
+    </span>
+    <h3>我的文件</h3>
+    <hr />
+
+</div>

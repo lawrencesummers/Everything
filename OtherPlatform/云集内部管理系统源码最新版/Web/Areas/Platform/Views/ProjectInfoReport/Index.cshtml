@@ -1,0 +1,49 @@
+﻿@using Common
+@using Web.Helper
+@model Common.PagedList<Models.UserModels.ProjectInfo>
+
+<div>
+
+    <blockquote class="col-lg-2 ">
+        <h3>项目报表</h3>
+    </blockquote><div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <blockquote style=" padding:10px; ">
+
+            <p style="padding: 0 0 10px 0;">
+                @Ajax.ActionLink(item.ProjectName, "Details", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" })
+            </p>
+            <div>@Html.DisplayFor(modelItem => item.ProjectObjective)</div>
+            <small>
+                @Html.DisplayFor(modelItem => item.StarTime)
+                @if (!item.Finish && item.EndTime.HasValue)
+                {
+                    <span>~</span>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+
+                    <span>
+                        剩余<span class="text-info lead">
+                            @(new TimeSpan(item.EndTime.Value.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))
+                        </span>
+                        天
+                    </span>
+                }
+                <span>计划</span>  <span class="text-info">@item.Plans.Count</span>
+                <span>任务</span>  <span class="text-info">@item.ProjectTasks.Count</span>
+                <span>成员</span> <span class="text-info">@item.ProjectUsers.Count</span>
+            </small>
+
+        </blockquote>
+
+    }
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

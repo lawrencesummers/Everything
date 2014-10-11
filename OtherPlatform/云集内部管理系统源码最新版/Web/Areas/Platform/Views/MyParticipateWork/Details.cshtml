@@ -1,0 +1,193 @@
+﻿@model Models.UserModels.ProjectInfo
+<div>
+    <span class="pull-right">
+        负责人
+        @foreach (var item in Model.ProjectUsers.Where(a => a.Leader).Select(a => a.SysUser))
+        {
+            @Html.Partial("SysUserDisplay", item)
+        }
+        <span>&nbsp;</span>
+        @Ajax.ActionLink(lang.Back, "Index", new { pageIndex = Request["pageIndex"] }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+        <span>&nbsp;</span>
+        @Ajax.ActionLink(lang.Refresh, "Details", new { id = Model.Id, pageIndex = Request["pageIndex"] }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn btn-primary" })
+    </span>
+
+    <blockquote>
+        <h3>
+            @if (Model.LastProjectInfo != null)
+            {
+                if (!Model.LastProjectInfo.Public)
+                {
+                    <i class="fa fa-lock"></i>
+                }
+                @Ajax.ActionLink(Model.LastProjectInfo.ProjectName, "Details", new { Model.LastProjectInfo.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { })
+
+                <span>@(Model.LastProjectInfo.Finish ? "(" + lang.Finish + ")" : "")</span>
+
+                <i class="icon-chevron-right"></i>
+            }
+
+            @if (!Model.Public)
+            {
+                <i class="fa fa-lock"></i>
+            }
+            @Html.DisplayFor(a => a.ProjectInfoState.ProjectInfoStateName)
+            @Html.DisplayFor(a => a.ProjectName)
+
+            <span>@(Model.Finish ? "(" + lang.Finish + ")" : "")</span>
+        </h3>
+        @if (!string.IsNullOrEmpty(Model.Tag))
+        {
+            <ul class="list-inline">
+                <li><i class="fa fa-tags"></i></li>
+                @foreach (var keyword in Model.Tag.Split(' '))
+                {
+                    <li>
+                        @Ajax.ActionLink(" " + keyword, "Index", new { keyword = keyword }, new AjaxOptions { UpdateTargetId = "Main" }, new { })
+                    </li>
+                }
+            </ul>
+        }
+
+        <hr />
+
+        @if (Model.ProjectInfos.Any())
+        {
+            <ul class="list-inline">
+                <li>子项目:</li>
+                @foreach (var item in Model.ProjectInfos)
+                {
+                    <li>
+                        @if (!item.Public)
+                        {
+                            <i class="fa fa-lock"></i>
+                        }
+                        @Ajax.ActionLink(item.ProjectName, "Details", new { item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { })
+                        <span>@(item.Finish ? "(" + lang.Finish + ")" : "")</span>
+                    </li>
+                }
+            </ul>
+            <hr />
+        }
+
+        <div>@Html.DisplayFor(modelItem => Model.ProjectObjective)</div>
+        <hr />
+        <div>
+            @Html.DisplayFor(modelItem => Model.Raty)
+            @Html.DisplayFor(modelItem => Model.StarTime)
+            @if (Model.EndTime.HasValue)
+            {
+                <span>~</span>
+                @Html.DisplayFor(modelItem => Model.EndTime)
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="lead">
+                    剩余<span class="text-info">
+                        @(new TimeSpan(Model.EndTime.Value.Date.AddDays(1).AddSeconds(-1).Ticks - DateTime.Now.Ticks).TotalDays.ToString("0.0"))
+                    </span>天
+                </span>
+
+            }
+            <span>耗时 @(Model.Plans.Where(a => !a.Deleted).Sum(a => (a.EndDate - a.StartDate).TotalDays).ToString("0.0")) 天</span>
+        </div>
+    </blockquote>
+    <hr />
+</div>
+
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab0" data-toggle="tab">计划 @Model.Plans.Count(a => !a.Deleted)</a></li>
+        <li><a href="#tab2" data-toggle="tab">任务 @Model.ProjectTasks.Count(a => !a.Deleted)</a></li>
+        <li><a href="#tab1" data-toggle="tab">回复 @Model.ProjectInfoReplys.Count(a => !a.Deleted)</a></li>
+        <li><a href="#tab4" data-toggle="tab">人员 @Model.ProjectUsers.Count(a => !a.Deleted)</a></li>
+        <li><a href="#tab5" data-toggle="tab">项目文档 @Model.ProjectFiles.Count(a => !a.Deleted)</a></li>
+        <li><a href="#tab6" data-toggle="tab">客户信息</a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab0">
+
+            @foreach (var item in Model.Plans.Where(a => !a.Deleted).OrderBy(a => a.Finish).ThenBy(a => a.CreatedDate))
+            {
+                <blockquote>
+                    @Html.Partial("PlanItem", item)
+                </blockquote>
+            }
+
+        </div>
+        <div class="tab-pane" id="tab2">
+
+            @foreach (var item in Model.ProjectTasks.Where(a => !a.Deleted).OrderBy(a => a.Finish).ThenBy(a => a.EndTime))
+            {
+                <blockquote>
+                    @Html.Partial("ProjectTaskItem", item)
+                </blockquote>
+            }
+
+        </div>
+        <div class="tab-pane" id="tab1">
+            <div id="ProjectInfoReply">
+                @Html.Action("Index", "ProjectInfoReply", new { projectInfoId = Model.Id })
+            </div>
+        </div>
+        <div class="tab-pane" id="tab4">
+            <fieldset>
+                <legend>项目成员 <small>（@Model.ProjectUsers.Count(a => !a.Follow) 人）</small></legend>
+
+                @foreach (var item in Model.ProjectUsers.Where(a => !a.Follow).OrderByDescending(a => a.Leader))
+                {
+                    <div class="media pull-left" style="margin: 10px;">
+                        <a class="pull-left" href="javascript:;">
+                            @if (!string.IsNullOrEmpty(item.SysUser.Picture))
+                            {
+                                <img src="@item.SysUser.Picture" class="img-rounded" style="width: 50px; height: 50px;" />
+                            }
+                            else
+                            {
+                                <img src="~/Content/default_man_middle.jpg" class="img-rounded" style="width: 50px; height: 50px;" />
+                            }
+                        </a>
+                        <div class="media-body">
+                            <div class="media-heading">@Html.Partial("SysUserDisplay", item.SysUser)</div>
+                            @if (item.Leader)
+                            {
+
+                                <small>（负责人）</small>
+                            }
+                        </div>
+                    </div>
+                }
+            </fieldset>
+            <hr />
+            <div class="clearfix"></div>
+            <fieldset>
+                <legend>项目关注者 <small>（@Model.ProjectUsers.Count(a => a.Follow) 人）</small></legend>
+                @foreach (var item in Model.ProjectUsers.Where(a => a.Follow))
+                {
+                    <div class="media pull-left" style="margin: 10px;">
+                        <a class="pull-left" href="javascript:;">
+                            @if (!string.IsNullOrEmpty(item.SysUser.Picture))
+                            {
+                                <img src="@item.SysUser.Picture" class="img-rounded" style="width: 50px; height: 50px;" />
+                            }
+                            else
+                            {
+                                <img src="~/Content/default_man_middle.jpg" class="img-rounded" style="width: 50px; height: 50px;" />
+                            }
+                        </a>
+                        <div class="media-body">
+                            <div class="media-heading">@Html.Partial("SysUserDisplay", item.SysUser)</div>
+                        </div>
+                    </div>
+                }
+            </fieldset>
+        </div>
+        <div class="tab-pane" id="tab5">
+            <div id="ProjectFile">
+                @Html.Action("Index", "ProjectFile", new { projectInfoId = Model.Id })
+            </div>
+        </div>
+        <div class="tab-pane" id="tab6">
+            @Html.DisplayFor(a => a.Customer)
+        </div>
+    </div>
+</div>

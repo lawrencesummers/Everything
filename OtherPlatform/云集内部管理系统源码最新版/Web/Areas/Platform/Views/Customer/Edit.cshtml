@@ -1,0 +1,178 @@
+﻿@model Customer
+@using Models.SysModels
+@using Models.UserModels
+<div>
+    @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+    {
+        <div class="pull-right">
+            @Html.Partial("Button_Back_List")
+            <input class="btn btn-primary" type="submit" value="@lang.Save" />
+        </div>
+        <div>
+            <blockquote>
+                <h3>
+                    @if (ViewContext.RouteData.Values["Id"] == null)
+                    {
+                        <span>新建</span>
+                    }
+                    else
+                    {
+                        <span>编辑</span>
+                    }
+                </h3>
+            </blockquote>
+        </div>
+
+        <div class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <div class="control-group">
+                @Html.Partial("_validationSummary")
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.CustomerName, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.CustomerName)
+                    @Html.ValidationMessageFor(model => model.CustomerName)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.CustomerTypeId, new { @class = "control-label" })
+
+                <div class="controls">
+
+                    @Html.DropDownListFor(model => model.CustomerTypeId, null, new { @class = "selectpicker show-tick" })
+                    @Html.ValidationMessageFor(model => model.CustomerTypeId)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.CustomerLevelId, new { @class = "control-label" })
+
+                <div class="controls">
+
+                    @Html.DropDownListFor(model => model.CustomerLevelId, null, new { @class = "selectpicker show-tick" })
+                    @Html.ValidationMessageFor(model => model.CustomerLevelId)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Address)
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.Postcode, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Postcode)
+                    @Html.ValidationMessageFor(model => model.Postcode)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.Telephony, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Telephony)
+                    @Html.ValidationMessageFor(model => model.Telephony)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.Fax, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Fax)
+                    @Html.ValidationMessageFor(model => model.Fax)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(model => model.Url, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Url)
+                    @Html.ValidationMessageFor(model => model.Url)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.LeaderId, new { @class = "control-label" })
+
+                <div class="controls">
+                    <select id="LeaderId" name="LeaderId" class="selectpicker show-tick" data-live-search="true" data-size="auto">
+                        @foreach (SysDepartment item in ViewBag.SysDepartment)
+                        {
+                            <optgroup label="@item.DepartmentName">
+                                @foreach (var item1 in item.SysDepartmentSysUsers.Select(a => a.SysUser).Where(a => !a.Deleted && a.Enabled))
+                                {
+                                    <option value="@item1.Id" @(item1.Id == Model.LeaderId ? "selected" : "")>@item1.DisplayName @item1.UserName</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+
+                    @Html.ValidationMessageFor(model => model.LeaderId)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.BusinessChancesId, new { @class = "control-label" })
+
+                <div class="controls">
+                    <select id="BusinessChancesId" name="BusinessChancesId" class="selectpicker show-tick" data-live-search="true" data-size="auto" multiple data-selected-text-format="count>3">
+                        @foreach (BusinessChance item in ViewBag.BusinessChances)
+                        {
+                            <option value="@item.Id" @( Model.CustomerBusinessChances.Any(a => a.BusinessChanceId == item.Id) ? "selected" : "")>
+                                @("".PadLeft(item.SystemId.Length - 3, '-'))   @item.BusinessChanceName
+                            </option>
+                        }
+                    </select>
+
+                    @Html.ValidationMessageFor(model => model.LeaderId)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.BusinessStateId, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.DropDownListFor(model => model.BusinessStateId, null, new { @class = "selectpicker show-tick" })
+                    @Html.ValidationMessageFor(model => model.BusinessStateId)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.Extension, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Extension)
+                    @Html.ValidationMessageFor(model => model.Extension)
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.Remark, new { @class = "control-label" })
+
+                <div class="controls">
+                    @Html.EditorFor(model => model.Remark)
+                    @Html.ValidationMessageFor(model => model.Remark)
+                </div>
+            </div>
+            @Html.Partial("Button_Submit")
+        </div>
+    }
+</div>

@@ -1,0 +1,92 @@
+﻿@model Models.SysModels.SysUser
+<div>
+
+    <blockquote>
+        <h3>@lang.UserCenter</h3>
+    
+    </blockquote>
+      <hr/>
+
+        @Html.Partial("_alerts")
+        @Html.Partial("_validationSummary")
+        <div class="form-horizontal">
+            @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+            {
+                <div class="control-group">
+                    @Html.LabelFor(a => a.UserName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.DisplayFor(a => a.UserName, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(a => a.DisplayName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.DisplayName, new { @class = "help-inline" })
+                        @Html.ValidationMessageFor(a => a.DisplayName, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(a => a.Password, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.Password, new { @class = "help-inline" })
+                        @Html.ValidationMessageFor(a => a.Password, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.Label("确认密码", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.Password("ConfirmPassword", Model.Password, new { @class = "help-inline" })
+                        @Html.ValidationMessage("ConfirmPassword", null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(a => a.MobilePhone, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.MobilePhone, new { @class = "help-inline" })
+                        @Html.ValidationMessageFor(a => a.MobilePhone, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(a => a.Email, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.Email, new { @class = "help-inline" })
+                        @Html.ValidationMessageFor(a => a.Email, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(a => a.Picture, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.Picture, new { @class = "help-inline" })
+                        @Html.ValidationMessageFor(a => a.Picture, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    @Html.LabelFor(a => a.GoogleUserName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.GoogleUserName, new { @class = "help-inline" })
+                        @Html.ValidationMessageFor(a => a.GoogleUserName, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(a => a.GooglePassword, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(a => a.GooglePassword, new { @class = "help-inline" })
+                        @Html.ValidationMessageFor(a => a.GooglePassword, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+                <div style="text-align: center; clear: both; padding: 10px;">
+                    <input class="btn btn-primary" type="submit" value="@lang.Save" />
+                </div>
+            }
+        </div>
+  
+</div>

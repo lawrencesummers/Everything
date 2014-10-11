@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Models.UserModels.KnowledgeReply>
+
+@using (Ajax.BeginForm("Create", "KnowledgeReply", new { KnowledgeId = ViewBag.KnowledgeId }, new AjaxOptions { UpdateTargetId = "KnowledgeReply" }, null))
+{
+    <blockquote>
+        <div class="input-group">
+            <input class="form-control" id="KnowledgeReplyObjective" name="KnowledgeReplyObjective" type="text" placeholder="请输入回复内容，限制1000字。">
+            <span class="input-group-btn">
+                <button class="btn" type="submit">@lang.Reply</button>
+            </span>
+        </div>
+    </blockquote>
+}
+
+@foreach (var item in Model)
+{
+    <blockquote>
+        <span class="pull-right">
+            @if (item.UserId == ViewBag.UserId)
+            {
+                @Ajax.ActionLink(lang.Delete, "Delete", null, new { item.Id, item.KnowledgeId }, new AjaxOptions { UpdateTargetId = "KnowledgeReply", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn btn-danger" })
+            }
+
+        </span>
+        <div>@item.KnowledgeReplyObjective</div>
+        <small>
+            @item.CreatedDate
+            @Html.Partial("SysUserDisplay", item.SysUser)
+        </small>
+    </blockquote>
+}

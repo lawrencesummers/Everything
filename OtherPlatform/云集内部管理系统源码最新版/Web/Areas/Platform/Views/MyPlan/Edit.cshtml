@@ -1,0 +1,93 @@
+﻿@model Models.UserModels.Plan
+
+<div>
+    <span class="pull-right">
+        @Ajax.ActionLink(lang.Back, "Index", new { ViewBag.PlanType, date = Model.StartDate }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+    </span>
+    <blockquote>
+        <h3>@lang.Plan</h3>
+    </blockquote>
+
+
+
+<div class="form-horizontal">
+    @using (Ajax.BeginForm("Edit", new { ViewBag.PlanType }, new AjaxOptions { UpdateTargetId = "Main" }))
+    {
+
+        <div class="control-group">
+            @Html.Partial("_alerts")
+            @Html.Partial("_validationSummary")
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.ProjectInfoId, new { @class = "control-label" })
+
+            <div class="controls">
+                @Html.DropDownList("ProjectInfoId", "项目")
+                @Html.ValidationMessageFor(model => model.ProjectInfoId, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.PlanTitle, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.PlanTitle)
+                @Html.ValidationMessageFor(model => model.PlanTitle, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.StartDate, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.StartDate)
+                @Html.ValidationMessageFor(model => model.StartDate, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.EndDate, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.EndDate)
+                @Html.ValidationMessageFor(model => model.EndDate, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Raty, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.Raty)
+                @Html.ValidationMessageFor(model => model.Raty, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.RemindTime, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.RemindTime)
+                @Html.ValidationMessageFor(model => model.RemindTime, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Milestone, new { @class = "control-label" })
+            <div class="controls">
+                @Html.CheckBoxFor(a => a.Milestone)
+                @Html.ValidationMessageFor(model => model.Milestone, null, new { @class = "help-inline" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Remark, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.Remark)
+                @Html.ValidationMessageFor(model => model.Remark, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div>
+            @Html.Partial("Button_Submit")
+        </div>
+    }
+</div>
+
+
+</div>

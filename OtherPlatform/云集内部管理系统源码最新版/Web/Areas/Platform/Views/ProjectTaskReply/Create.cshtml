@@ -1,0 +1,21 @@
+﻿@model Models.UserModels.ProjectTaskReply
+
+<blockquote class="block-area">
+
+
+
+    @using (Ajax.BeginForm("Create", "ProjectTaskReply", new { ProjectTaskId = ViewBag.ProjectTaskId }, new AjaxOptions { UpdateTargetId = "ProjectTaskReply" }, null))
+    {
+        <div>
+            
+                @Html.TextArea("ProjectTaskReplyObjective", new { rows = 3, @class = "form-control", placeholder = "请输入回复内容，限制1000字。" })
+           
+               @Html.EditorFor(a => a.FileUrl)
+              
+                    <button class="btn" type="submit">@lang.Reply</button>
+              
+           
+        </div>
+}
+
+</blockquote>

@@ -1,0 +1,43 @@
+﻿@using System.CodeDom.Compiler
+@using System.Resources
+@using Web.Areas.Platform.Controllers
+@model Models.UserModels.Plan
+
+<h4>
+    @if (Model.Finish)
+    {
+        <i class="fa fa-check-square-o"></i>
+    }
+    else
+    {
+        <i class="fa fa-square-o"></i>
+    }
+
+    @if (Model.ProjectInfo != null)
+    {
+        @Ajax.ActionLink(Model.ProjectInfo.ProjectName, "Details", "MyParticipateWork", new { id = Model.ProjectInfoId }, new AjaxOptions { UpdateTargetId = "Main" })
+        <span>-</span>
+    }
+
+    @Ajax.ActionLink(Model.PlanTitle, "Details", "MyPlan", new { ViewBag.UpdateTargetId, Model.Id, Model.StartDate, Model.EndDate }, new AjaxOptions { UpdateTargetId = "Main" })
+
+    @if (Model.Milestone)
+    {
+        <i class="fa fa-bookmark-o text-success"></i>
+    }
+</h4>
+@if (!string.IsNullOrEmpty(Model.Remark))
+{
+    <div style="padding: 0 20px;">
+        @Html.DisplayFor(a => Model.Remark)
+    </div>
+}
+<small style="padding: 0 22px;">@Html.DisplayNameFor(a => a.Raty)：@Html.DisplayFor(a => a.Raty)
+    创建时间：@Html.DisplayFor(a => Model.CreatedDate)
+    创建人：@Html.Partial("SysUserDisplay", Model.SysUser)
+    @if (Model.RemindTime.HasValue)
+    {
+        @("提醒：" + Html.DisplayFor(a => a.RemindTime))
+    }
+    @(Model.Finish ? "完成时间：" + Html.DisplayFor(a => Model.FinishTime) : "")
+</small>

@@ -1,0 +1,49 @@
+﻿@model Models.UserModels.Plan
+
+@using (Ajax.BeginForm("Create", new AjaxOptions { UpdateTargetId = "Main" }))
+{
+    <div class="form-inline input-group">
+        <span class="input-group-btn">
+            <select id="ProjectInfoId" name="ProjectInfoId" class="show-tick" data-live-search="true" data-container="body" data-size="auto">
+                <option value="">项目</option>
+                @foreach (SelectListItem item in ViewBag.ProjectInfoId)
+                {
+                    <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text </option>
+                }
+            </select>
+        </span>
+        <input class="form-control" id="PlanTitle" name="PlanTitle" type="text" placeholder="把计划写下来，你就已经成功了一半！">
+        <span class="input-group-btn">
+            <button class="btn" type="submit">添加</button>
+        </span>
+    </div>
+    <div style="margin-top: 5px;">
+        <ul class="list-inline sidenav">
+            <li style="vertical-align: top;">
+                @Html.EditorFor(a => a.Raty)
+            </li>
+            <li style="vertical-align: top;">
+                @Html.CheckBoxFor(a => a.Milestone, new { style = "margin-bottom:6px;" })
+                @Html.LabelFor(a => a.Milestone)
+            </li>
+            <li style="vertical-align: top;">
+                <a href="javascript:;" data-trigger="collapse" data-parent=".sidenav"><i class="fa fa-calendar"></i>&nbsp;时间</a>
+                <div class="collapsible block-title " style="position: absolute; display: none">
+                    @Html.EditorFor(a => a.StartDate, new { placeholder = "开始时间" })~@Html.EditorFor(a => a.EndDate, new { placeholder = "结束时间" })
+                </div>
+            </li>
+            <li style="vertical-align: top;">
+                <a href="javascript:;" data-trigger="collapse" data-parent=".sidenav"><i class="fa fa-bell"></i>&nbsp;提醒</a>
+                <div class="collapsible   block-title" style="position: absolute;display: none">
+                    @Html.EditorFor(a => a.RemindTime, new { placeholder = "提醒时间" })
+                </div>
+            </li>
+            <li style="vertical-align: top;">
+                <a href="javascript:;" data-trigger="collapse" data-parent=".sidenav"><i class="fa fa-edit"></i>&nbsp;备注</a>
+                <div class="collapsible   block-title" style="display: none;position: absolute; width: 30%">
+                    @Html.EditorFor(a => a.Remark)
+                </div>
+            </li>
+        </ul>
+    </div>
+}

@@ -1,0 +1,74 @@
+﻿@using Common
+@using Web.Helper
+@model PagedList<Models.UserModels.Message>
+
+<div>
+    <blockquote class="col-lg-2 ">
+        <h3>消息通知</h3>
+    </blockquote>
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+
+    <div class="col-lg-5 pull-right">
+        <ul class="nav nav-pills">
+            <li class="@(Request["read"] == null ? "active" : "")">
+                @Ajax.ActionLink("全部 " + (int)ViewBag.CountAll, "Index", new { }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+            <li class="@(Request["read"] == "False" ? "active" : "")">
+                @Ajax.ActionLink("未读 " + (int)ViewBag.unread, "Index", new { read = false }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+            <li class="@(Request["read"] == "True" ? "active" : "")">
+                @Ajax.ActionLink("已读 " + (int)ViewBag.read, "Index", new { read = true }, new AjaxOptions { UpdateTargetId = "Main" })
+            </li>
+            <li>
+            <li>
+                @if (ViewBag.unread > 0)
+                {
+                    @Ajax.ActionLink("将全部未读信息标记已读", "Edit", new { pageIndex = Request["pageIndex"] }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Post" })
+                }
+            </li>
+        </ul>
+    </div>
+  
+</div>
+<div class="clearfix"></div>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <blockquote>
+            <span class="pull-right">
+                @if (item.Read)
+                {
+                    @Ajax.ActionLink("已读", "Edit", new { item.Id, read = !item.Read, pageIndex = Request["pageIndex"] }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn btn-small" })
+                }
+                else
+                {
+                    @Ajax.ActionLink("未读", "Edit", new { item.Id, read = !item.Read, pageIndex = Request["pageIndex"] }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn btn-small btn-primary" })
+                }
+                @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item.Id, read = Request["read"] }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn btn-small btn-danger" })
+            </span>
+            <p>
+                @if (item.Read)
+                {
+                    <i class="fa fa-envelope-o"></i>
+                }
+                else
+                {
+                    <i class="fa fa-envelope"></i>
+                }
+
+                @Html.Raw(item.MessageTitle)
+            </p>
+            @if (!string.IsNullOrEmpty(item.MessageContent))
+            {
+                <small>
+                    @Html.DisplayFor(a => item.MessageContent)
+                </small>
+            }
+            <small>@Html.DisplayFor(a => item.CreatedDate)</small>
+        </blockquote>
+    }
+</div>
+@Html.Raw(Ajax.MikePager(Model))

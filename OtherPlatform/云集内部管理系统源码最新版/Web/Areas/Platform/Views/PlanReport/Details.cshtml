@@ -1,0 +1,202 @@
+﻿@using Models.UserModels
+@using Common
+@model IEnumerable<Models.UserModels.Plan>
+
+@{
+    DateTime startDate = ViewBag.startDate;
+    DateTime endDate = ViewBag.endDate;
+
+    IQueryable<ProjectTask> ProjectTasks = ViewBag.ProjectTask;
+}
+
+<ul class="nav nav-pills">
+    <li><a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Details" href="@Url.Action("Details", new { DepartmentId = Request["DepartmentId"], UserId = Request["UserId"], startDate = startDate.AddDays(1 - startDate.Day).AddMonths(-1), endDate = startDate.AddDays(1 - startDate.Day).AddSeconds(-1) })"><i class="fa fa-backward"></i></a></li>
+
+    <li class="@((startDate.AddDays(1 - startDate.Day)== startDate && startDate.AddDays(1 - startDate.Day).AddMonths(1).AddSeconds(-1)== endDate) ? "active" : "")"><a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Details" href="@Url.Action("Details", new { DepartmentId = Request["DepartmentId"], UserId = Request["UserId"], startDate = startDate.AddDays(1 - startDate.Day), endDate = startDate.AddDays(1 - startDate.Day).AddMonths(1).AddSeconds(-1) })">@startDate.ToString("yyyy年 MM月") </a></li>
+
+    <li><a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#Details" href="@Url.Action("Details", new { DepartmentId = Request["DepartmentId"], UserId = Request["UserId"], startDate = startDate.AddDays(1 - startDate.Day).AddMonths(1), endDate = startDate.AddDays(1 - startDate.Day).AddMonths(2).AddSeconds(-1) })"><i class="fa fa-forward"></i></a></li>
+
+    @{
+        for (var i = -4; i <= 4; i++)
+        {
+            if ((startDate.WeekOfYear() + i) > 0 && (startDate.WeekOfYear() + i) < DateTimeExtensions.GetYearWeekCount(startDate.Year))
+            {
+                DateTime thisdtWeekStart;
+                DateTime thisdtWeekeEnd;
+                DateTimeExtensions.GetWeek(startDate.Year, startDate.WeekOfYear() + i, out thisdtWeekStart, out thisdtWeekeEnd);
+
+                <li class="@((thisdtWeekStart == startDate && thisdtWeekeEnd == endDate) ? "active" : "")" title="@thisdtWeekStart.ToShortDateString() ~ @thisdtWeekeEnd.ToShortDateString()">
+                    @Ajax.ActionLink((startDate.WeekOfYear() + i).ToString("第0周"), "Details", new { DepartmentId = Request["DepartmentId"], UserId = Request["UserId"], startDate = thisdtWeekStart, endDate = thisdtWeekeEnd }, new AjaxOptions { UpdateTargetId = "Details" })
+                </li>
+            }
+        }
+    }
+</ul>
+
+<h4>未完成<small>（@Model.Count(a => !a.Finish)）</small> </h4>
+<hr />
+
+@foreach (var projectInfo in Model.Where(a => !a.Finish && a.ProjectInfo != null).Select(a => a.ProjectInfo).Distinct(a => new { a.Id, a.ProjectName }))
+{
+    <blockquote>
+        <p class="text-success">@projectInfo.ProjectName</p>
+
+        <ol>
+            @foreach (var item in Model.Where(a => !a.Finish && a.ProjectInfoId == projectInfo.Id))
+            {
+                <li>
+                    <div>
+                        @Html.DisplayFor(a => item.PlanTitle) <span class="muted" style="font-size: 50%;">
+                                                                  @item.StartDate.ToShortDateString()
+                                                                  @if ((item.EndDate - item.StartDate).TotalDays > 1)
+                                                                  {
+                                                                      <span>~</span>
+                                                                      @item.EndDate.ToShortDateString()
+                                                                  }
+                                                                  （@Html.Partial("SysUserDisplay", item.SysUser)）
+                                                              </span>
+                    </div>
+                    <div>@Html.DisplayFor(a => item.Remark)</div>
+                </li>
+            }
+     
+            @foreach (var item in ProjectTasks.Where(a => !a.Finish && a.ProjectInfoId == projectInfo.Id))
+            {
+                <li>
+                    @Html.DisplayFor(a => item.ProjectTaskName) <span class="muted" style="font-size: 50%;">
+                        @item.BeginTime.ToShortDateString()
+
+                        @if ((item.EndTime - item.BeginTime).TotalDays > 1)
+                        {
+                            <span>~</span>
+                            @item.EndTime.ToShortDateString()
+                        }
+                        （@Html.Partial("SysUserDisplay", item.SysUser)）
+                    </span>
+                </li>
+            }
+        </ol>
+    </blockquote>
+}
+
+<blockquote>
+    <p>其他</p>
+    <ol>
+        @foreach (var item in Model.Where(a => !a.Finish && a.ProjectInfo == null))
+        {
+            <li>
+                <div>
+                    @Html.DisplayFor(a => item.PlanTitle) <span class="muted" style="font-size: 50%;">
+                                                              @item.StartDate.ToShortDateString()
+
+                                                              @if ((item.EndDate - item.StartDate).TotalDays > 1)
+                                                              {
+                                                                  <span>~</span>
+                                                                  @item.EndDate.ToShortDateString()
+                                                              }
+                                                              （@Html.Partial("SysUserDisplay", item.SysUser)）
+                                                          </span>
+                </div>
+                <div>@Html.DisplayFor(a => item.Remark)</div>
+            </li>
+        }
+
+        @foreach (var item in ProjectTasks.Where(a => !a.Finish && a.ProjectInfo == null))
+        {
+            <li>
+                @Html.DisplayFor(a => item.ProjectTaskName) <span class="muted" style="font-size: 50%;">
+                    @item.BeginTime.ToShortDateString()
+                    @if ((item.EndTime - item.BeginTime).TotalDays > 1)
+                    {
+                        <span>~</span>
+                        @item.EndTime.ToShortDateString()
+                    }
+                    （@Html.Partial("SysUserDisplay", item.SysUser)）
+                </span>
+            </li>
+        }
+    </ol>
+</blockquote>
+
+<h4>已完成<small>（@Model.Count(a => a.Finish)）</small></h4>
+<hr />
+@foreach (var projectInfo in Model.Where(a => a.Finish && a.ProjectInfo != null).Select(a => a.ProjectInfo).Distinct(a => new { a.Id, a.ProjectName }))
+{
+    <blockquote>
+        <p class="text-success">@projectInfo.ProjectName</p>
+
+        <ol>
+            @foreach (var item in Model.Where(a => a.Finish && a.ProjectInfoId == projectInfo.Id))
+            {
+                <li>
+                    <div>
+                        @Html.DisplayFor(a => item.PlanTitle) <span class="muted" style="font-size: 50%;">
+                                                                  @item.StartDate.ToShortDateString()
+                                                                  @if ((item.EndDate - item.StartDate).TotalDays > 1)
+                                                                  {
+                                                                      <span>~</span>
+                                                                      @item.EndDate.ToShortDateString()
+                                                                  }
+                                                                  （@Html.Partial("SysUserDisplay", item.SysUser)）
+                                                              </span>
+                    </div>
+                    <div>@Html.DisplayFor(a => item.Remark)</div>
+                </li>
+            }
+      
+            @foreach (var item in ProjectTasks.Where(a => a.Finish && a.ProjectInfoId == projectInfo.Id))
+            {
+                <li>
+                    @Html.DisplayFor(a => item.ProjectTaskName) <span class="muted" style="font-size: 50%;">
+                        @item.BeginTime.ToShortDateString()
+                        @if ((item.EndTime - item.BeginTime).TotalDays > 1)
+                        {
+                            <span>~</span>
+                            @item.EndTime.ToShortDateString()
+                        }
+                        （@Html.Partial("SysUserDisplay", item.SysUser)）
+                    </span>
+                </li>
+            }
+
+        </ol>
+    </blockquote>
+}
+
+<blockquote>
+    <p>其他</p>
+    <ol>
+        @foreach (var item in Model.Where(a => a.Finish && a.ProjectInfo == null))
+        {
+            <li>
+                <div>
+                    @Html.DisplayFor(a => item.PlanTitle) <span class="muted" style="font-size: 50%;">
+                                                              @item.StartDate.ToShortDateString()
+                                                              @if ((item.EndDate - item.StartDate).TotalDays > 1)
+                                                              {
+                                                                  <span>~</span>
+                                                                  @item.EndDate.ToShortDateString()
+                                                              }
+                                                              （@Html.Partial("SysUserDisplay", item.SysUser)）
+                                                          </span>
+                </div>
+                <div>@Html.DisplayFor(a => item.Remark)</div>
+            </li>
+        }
+  
+        @foreach (var item in ProjectTasks.Where(a => a.Finish && a.ProjectInfo == null))
+        {
+            <li>
+                @Html.DisplayFor(a => item.ProjectTaskName) <span class="muted" style="font-size: 50%;">
+                    @item.BeginTime.ToShortDateString()
+                    @if ((item.EndTime - item.BeginTime).TotalDays > 1)
+                    {
+                        <span>~</span>
+                        @item.EndTime.ToShortDateString()
+                    }
+                    （@Html.Partial("SysUserDisplay", item.SysUser)）
+                </span>
+            </li>
+        }
+    </ol>
+</blockquote>

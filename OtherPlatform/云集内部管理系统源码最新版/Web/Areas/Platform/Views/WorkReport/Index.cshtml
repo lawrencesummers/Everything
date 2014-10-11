@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Models.SysModels.SysDepartment>
+<div>
+    <blockquote class="col-lg-2 ">
+        <h3>工作总结</h3>
+    </blockquote>
+ 
+</div><div class="clearfix"></div>
+<div class="WorkReport">
+    <blockquote>
+        <div class="col-lg-2">
+            @foreach (var item in Model)
+            {
+                <div style="margin: 0 0 5px 10px;  padding-left:@((item.SystemId.Length - 3) * 5)px;">
+                    <strong>
+                        @Html.DisplayFor(a => item.Ico)&nbsp;@Ajax.ActionLink(item.DepartmentName, "Details", new { DepartmentId = item.SystemId }, new AjaxOptions { UpdateTargetId = "Details" })
+                    </strong>
+
+                    <a href="javascript:;" data-trigger="collapse" data-parent=".WorkReport"><i class="fa fa-child"></i></a>
+                    <div class="collapsible " style="padding-left:22px;display: none">
+                        @foreach (var item1 in item.SysDepartmentSysUsers.Where(a => !a.SysUser.Deleted && a.SysUser.Enabled))
+                        {
+                            <span style="white-space: nowrap;"><i class="fa fa-user"></i>&nbsp;@Ajax.ActionLink(item1.SysUser.DisplayName, "Details", new { userId = item1.SysUserId }, new AjaxOptions { UpdateTargetId = "Details" })&nbsp;</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-10" id="Details">
+            @Html.Action("Details")
+        </div>
+        <div class="clearfix"></div>
+    </blockquote>
+</div>
+

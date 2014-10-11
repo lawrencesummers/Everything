@@ -1,0 +1,110 @@
+﻿@using Models
+@using Models.SysModels
+@model SysRole
+
+<div>
+    <div class="pull-right">
+        @Html.Partial("Button_Back_List")
+    </div>
+    <div>
+        <blockquote>
+            <h3>
+                @if (ViewContext.RouteData.Values["Id"] == null)
+                {
+                    <span>新建</span>
+                }
+                else
+                {
+                    <span>编辑</span>
+                }
+            </h3>
+        </blockquote>
+    </div>
+ 
+
+</div>
+<div class="clearfix"></div>
+<div>
+    <div class="form-horizontal">
+        @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "Main" }))
+        {<div style="float: left">
+
+            @Html.LabelFor(model => model.RoleName)
+
+            @Html.EditorFor(model => model.RoleName)
+            @Html.ValidationMessageFor(model => model.RoleName)
+
+        </div>
+
+            <div style="float: left">
+
+                @Html.LabelFor(model => model.SystemId)
+
+                @Html.EditorFor(model => model.SystemId)
+                @Html.ValidationMessageFor(model => model.SystemId)
+
+            </div>
+
+            <div style="float: left">
+
+                @Html.LabelFor(model => model.CreatedDate)
+
+                @Html.EditorFor(model => model.CreatedDate)
+                @Html.ValidationMessageFor(model => model.CreatedDate)
+
+            </div>
+
+            <div style="clear: both">
+
+                @Html.LabelFor(model => model.Remark)
+
+                @Html.EditorFor(model => model.Remark)
+                @Html.ValidationMessageFor(model => model.Remark)
+
+            </div>
+
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @lang.Area
+                        </th>
+                        <th>
+                            @lang.Module
+                        </th>
+                        <th>
+                            @lang.Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (SysController sysController in ViewBag.SysControllers)
+                    {
+                        <tr>
+                            <td>
+                                @sysController.SysArea.AreaDisplayName
+                            </td>
+                            <td>
+                                @(">".PadLeft(sysController.SystemId.Length - 3, '　'))
+
+                                @sysController.ControllerDisplayName
+                            </td>
+                            <td>
+                                @foreach (var sysControllerSysActions in sysController.SysControllerSysActions.Where(a => !a.Deleted).OrderBy(a => a.SysAction.SystemId))
+                                {
+                                    <input id="@sysControllerSysActions.Id" name="SysControllerSysActionsId" type="checkbox" value="@sysControllerSysActions.Id"
+                                           @if (Model.SysRoleSysControllerSysActions != null && Model.SysRoleSysControllerSysActions.Any(a => !a.Deleted && a.SysControllerSysActionId.Equals(sysControllerSysActions.Id))) { @("checked")   } />
+                                    <label for="@sysControllerSysActions.Id" style="display:inline">@sysControllerSysActions.SysAction.ActionDisplayName &nbsp;</label>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.Partial("Button_Submit")
+        }
+    </div>
+
+
+</div>

@@ -1,0 +1,40 @@
+﻿@using Common
+@using Models.UserModels
+@using Web.Helper
+@model PagedList<Flow>
+<div>
+    
+    <blockquote class="col-lg-2 ">
+        <h3>流程 @Ajax.ActionLink("+", "Create", null, new AjaxOptions() { UpdateTargetId = "Main" }, new { @class = "btn btn-primary" })</h3>
+    </blockquote>
+
+    <div class=" col-xs-3  pull-right">
+        @Html.Partial("Search_Input")
+    </div>
+   
+  
+</div>
+
+<div class="clearfix"></div>
+<div>
+    @foreach (var item in Model)
+    {
+        <blockquote style="padding: 10px;">
+            <span class="pull-right">
+             
+                @Ajax.ActionLink(lang.Edit, "Edit", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+              
+                @Ajax.ActionLink(lang.Delete, "Delete", null, new { id = item.Id }, new AjaxOptions { UpdateTargetId = "Main", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn" })
+            </span>
+            <p>
+                @if (item.Disable)
+                {
+                    <i class="fa fa-chain-broken"></i>
+                }
+                @Ajax.ActionLink(item.FlowName, "Details", new { item.Id }, new AjaxOptions { UpdateTargetId = "Main" })
+            </p>
+            <small>创建人：@Html.Partial("SysUserDisplay", item.SysUser) 日期：@item.CreatedDate </small>
+        </blockquote>
+    }
+    @Html.Raw(Ajax.MikePager(Model))
+</div>

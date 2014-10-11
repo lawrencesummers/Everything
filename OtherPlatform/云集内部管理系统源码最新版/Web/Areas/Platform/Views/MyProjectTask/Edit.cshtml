@@ -1,0 +1,131 @@
+﻿@using Models.SysModels
+@model Models.UserModels.ProjectTask
+
+<div>
+    <span class="pull-right">
+        @Ajax.ActionLink(lang.Back, "Index", null, new AjaxOptions { UpdateTargetId = "Main" }, new { @class = "btn" })
+    </span>
+    <blockquote>
+        <h3>@lang.ProjectTask</h3>
+    </blockquote>
+
+</div>
+
+<div class="clearfix"></div>
+
+<div class="block-area form-horizontal">
+
+
+    @using (Ajax.BeginForm("Edit", new AjaxOptions() { UpdateTargetId = "Main" }))
+    {
+     
+        <div class="control-group">
+            @Html.Partial("_alerts")
+            @Html.Partial("_validationSummary")
+        </div>
+
+        
+        
+        <div class="control-group">
+            @Html.LabelFor(model => model.ProjectTaskName, new { @class = "control-label" })
+
+            <div class="controls">
+                @Html.TextBoxFor(model => model.ProjectTaskName, new { @class = "form-control", placeholder = "要做什么事？" })
+                @Html.ValidationMessageFor(model => model.ProjectTaskName, null, new { @class = "help-inline" })
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(model => model.SysUserId, new { @class = "control-label" })
+            <div class="controls">
+                @*<select id="SysUserId" name="SysUserId">
+                    @foreach (SysDepartment item in ViewBag.SysDepartment)
+                    {
+                        <optgroup label="@item.DepartmentName">
+                            @foreach (var item1 in item.SysDepartmentSysUsers.Select(a => a.SysUser).Where(a => !a.Deleted && a.Enabled))
+                            {
+                                <option value="@item1.Id" @(item1.Id == Model.SysUserId ? "selected" : "")   >@item1.DisplayName @item1.UserName</option>
+                            }
+                        </optgroup>
+                    }
+                </select>*@
+      
+                <select id="SysUserId" name="SysUserId" class="show-tick" data-live-search="true" data-size="auto" @(ViewBag.Id == null ? "multiple" : "")  data-selected-text-format="count>3" title="用户">
+                    @foreach (SysDepartment item in ViewBag.SysDepartment)
+                    {
+                        <optgroup label="@item.DepartmentName">
+                            @foreach (var item1 in item.SysDepartmentSysUsers.Select(a => a.SysUser).Where(a => !a.Deleted && a.Enabled))
+                            {
+                                <option value="@item1.Id" title="@item1.DisplayName" data-subtext="@item1.UserName" @(item1.Id == Model.SysUserId ? "selected" : "")>@item1.DisplayName</option>
+                            }
+                        </optgroup>
+                    }
+                </select>
+
+                @Html.ValidationMessageFor(model => model.SysUserId, null, new { @class = "help-inline" })
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(model => model.ProjectInfoId, new { @class = "control-label" })
+            <div class="controls">
+                <select id="ProjectInfoId" name="ProjectInfoId" class="show-tick" data-live-search="true" data-size="auto">
+                    <option value="">项目</option>
+                    @foreach (SelectListItem item in ViewBag.ProjectInfoId)
+                    {
+                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text </option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.ProjectInfoId, null, new { @class = "help-inline" })
+            </div>
+        </div>
+     
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Milestone, new { @class = "control-label" })
+            <div class="controls">
+                @Html.CheckBoxFor(a => a.Milestone)
+                @Html.ValidationMessageFor(model => model.Milestone, null, new { @class = "help-inline" })
+            </div>
+        </div>
+      
+        
+        <div class="control-group">
+            @Html.LabelFor(model => model.BeginTime, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.BeginTime)
+                @Html.ValidationMessageFor(model => model.BeginTime, null, new { @class = "help-inline" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.EndTime, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.EndTime)
+                @Html.ValidationMessageFor(model => model.EndTime, null, new { @class = "help-inline" })
+            </div>
+        </div>
+          
+        <div class="control-group">
+            @Html.LabelFor(model => model.FileUrl, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.FileUrl)
+                @Html.ValidationMessageFor(model => model.FileUrl, null, new { @class = "help-inline" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.ProjectTaskObjective, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(a => a.ProjectTaskObjective)
+                @Html.ValidationMessageFor(model => model.ProjectTaskObjective, null, new { @class = "help-inline" })
+            </div>
+        </div>
+      
+
+        <div>
+            @Html.Partial("Button_Submit")
+        </div>
+        
+    }
+</div>
+
+

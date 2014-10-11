@@ -1,0 +1,31 @@
+﻿@using BootstrapSupport
+@using Models.UserModels
+@model IEnumerable<Models.UserModels.ProjectFile>
+<blockquote>
+    @Html.Partial("Create", new ProjectFile())
+</blockquote>
+<div class="clearfix"></div>
+@foreach (var item in Model)
+{
+    <blockquote>
+        <span class="pull-right">
+            @if (item.UserId == ViewBag.UserId)
+            {
+                @Ajax.ActionLink(lang.Delete, "Delete", null, new { item.Id, item.ProjectInfoId }, new AjaxOptions { UpdateTargetId = "ProjectFile", HttpMethod = "Delete", Confirm = "您确定要删除该记录吗？该操作不可恢复！" }, new { @class = "btn btn-danger" })
+            }
+
+        </span>
+        <p>@Html.DisplayFor(a => item.ProjectFileName)</p>
+
+        @if (!string.IsNullOrEmpty(item.FileUrl))
+        {
+            <div>
+                <span class="icon-file"></span>&nbsp;@Html.DisplayFor(a => item.FileUrl)
+            </div>
+        }
+        <small>
+            @item.CreatedDate
+            用户：@Html.Partial("SysUserDisplay", item.SysUser)
+        </small>
+    </blockquote>
+}
